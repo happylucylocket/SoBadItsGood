@@ -11,6 +11,12 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { AddReviewComponent } from './add-review/add-review.component';
 import { DisplayReviewComponent } from './display-review/display-review.component';
 
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +30,10 @@ import { DisplayReviewComponent } from './display-review/display-review.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
