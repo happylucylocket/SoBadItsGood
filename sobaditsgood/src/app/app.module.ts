@@ -17,7 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { StarComponent } from './star/star.component';
 import { HttpClientModule } from '@angular/common/http';
 
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
