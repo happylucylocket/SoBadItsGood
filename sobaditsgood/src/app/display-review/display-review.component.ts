@@ -32,8 +32,7 @@ export class DisplayReviewComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.position = {
-      'top': '0',
-      left: '0'
+      bottom: '0px'
   };
     this.dialogRef.open(AddReviewComponent, dialogConfig);
   }
