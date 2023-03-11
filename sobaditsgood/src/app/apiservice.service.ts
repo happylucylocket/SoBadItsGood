@@ -14,10 +14,8 @@ export class APIServiceService {
     return this.http.get(this.baseUrl+'/api', {responseType: 'text'});
   }
 
-  // Format movie name using '+' for spaces (ie: 'Mission+Impossible')
+  // Format movie name using '+' for spaces (ie: 'Mission+Impossible'). Returns movies that fit the search result for that movie name
   searchMovie(movieName: string) {
-    return this.http.get<Object>('https://api.themoviedb.org/3/search/movie?api_key=ecd28fb4488e17f072d95ad0278f2545&query='+ movieName).subscribe((data:any)=>{
-      console.log(data);
-    });
+    return this.http.get<Object>('https://api.themoviedb.org/3/search/movie?api_key=ecd28fb4488e17f072d95ad0278f2545&query='+ movieName);
   }
 }
