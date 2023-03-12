@@ -16,6 +16,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+
+// MAKE QUERIES 
 pool.query(`SELECT * FROM users;`, (error, results) => {
   if (error) {
     console.error(error) 
@@ -23,7 +25,7 @@ pool.query(`SELECT * FROM users;`, (error, results) => {
   }  
   console.log(results.rows) 
 })
-
+//////////////////////////////////
 
 app.get('/api', (req, res) => {
   res.send('Hello from Node.js backend!');
