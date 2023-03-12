@@ -31,9 +31,9 @@ export class DisplayReviewComponent {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.position = {
-      bottom: '0px'
-  };
-    this.dialogRef.open(AddReviewComponent, dialogConfig);
+    this.dialogRef.open(AddReviewComponent, {
+      width: '400px',
+      maxHeight: '200vh'
+    });
   }
 }

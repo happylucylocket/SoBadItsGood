@@ -1,44 +1,31 @@
-<div class = "container">
-<div class="card mb-4">
-    <div>
-        <div class = "row">
-            <div class = "col-lg-5">
-                <h1 mat-dialog-title  class="text-muted mb-4">Add Review</h1>
-            </div>
-            <div class = "col-sm-2"><a href="" class ="close-btn" (click)="close()"></a></div>
-        </div>
-        
-        <div class="flex-container">
-        <mat-dialog-content color ="white">
-            <label class="text-muted mb-4">Rating
-            <br>
-            <ng-container *ngFor="let star of stars">
-                <app-star [starId]="star" [rating]="hoverState || rating" (starEnter)="onEnterStar($event)" (starLeave)="onLeaveStar()"
-                    (starClick)="updateRating(star)">
-                </app-star>
-                </ng-container>
-            </label>
-            <label class="text-muted mb-4">Title
-                <br>
-        <input matInput
-            placeholder="Write title here"
-            formControlName="description"
-            type="text">
-        </label>
-            <br>
-            <label class="text-muted mb-4">Description
-            <br>
-            <input matInput
-            placeholder="Write Review here"
-            formControlName="description"
-            type="text"
-            class = "big-input">
-        </label>
-        <mat-dialog-actions>
-            <button class="mat-raised-button mat-primary"(click)="save()">Post</button>
-        </mat-dialog-actions>
-        </mat-dialog-content>
-       
-</div>
-</div>
-</div>
+<mat-dialog-content>
+    <button mat-icon-button style="float:right; margin: 5px;" (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <header style="margin: 5px;">
+        <h1 class="text-muted mb-4">Add Review</h1>
+    </header>
+    <label class="text-muted mb-4">Rating
+        <br>
+        <ng-container *ngFor="let star of stars">
+            <app-star [starId]="star" [rating]="hoverState || rating" (starEnter)="onEnterStar($event)" (starLeave)="onLeaveStar()"
+                (starClick)="updateRating(star)">
+            </app-star>
+            </ng-container>
+    </label>
+    <br>
+    <form>
+        <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </form>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" (click)="save()">Post</button>
+    </mat-dialog-actions>
+</mat-dialog-content>
