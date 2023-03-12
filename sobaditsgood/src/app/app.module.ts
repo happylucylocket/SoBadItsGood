@@ -18,10 +18,12 @@ import { StarComponent } from './star/star.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import {MatDialogModule} from '@angular/material/dialog';
-import { MatIcon } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import { DescriptionReviewComponent } from './description-review/description-review.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     CreateAccountComponent,
     AddReviewComponent,
     DisplayReviewComponent,
-    StarComponent
+    StarComponent,
+    DescriptionReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { FormsModule } from '@angular/forms';
     MatDialogModule, 
     FormsModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
