@@ -8,11 +8,9 @@ import { APIServiceService } from '../apiservice.service';
 })
 
 export class HomeComponent implements OnInit{
-  
-
-  title = 'So Bad Its Good';
-  test: any;
-  popularMovies: any[] = [];
+  title!: string;
+  posterPath!: string;
+  movies: number[] = [];
 
   constructor(private api: APIServiceService){}
 
@@ -21,10 +19,27 @@ export class HomeComponent implements OnInit{
     this.api.getData().subscribe(data =>{
       console.log(data);
     });
-    this.api.searchMovie(40016).subscribe(data => {
-      console.log(JSON.parse(data).title);
-      this.test = JSON.parse(data).title;
-    })
-    this.popularMovies = this.api.getMovies();
+    this.movies = this.api.getMovies();
+    for (var i = 0; i < this.movies.length; i++) {
+      this.api.searchMovie(this.movies[i]).subscribe(data => {
+        this.title = JSON.parse(data).title;
+      })
+    }
+
+    for (var i = 0; i < this.movies.length; i++) {
+      this.api.searchMovie(this.movies[i]).subscribe(data => {
+        this.posterPath = this.api.getPoster(JSON.parse(data).poster_path);
+      })
+    }
+    // this.api.searchMovie(40016).subscribe(data => {
+    //   console.log(JSON.parse(data).title);
+    //   this.test = JSON.parse(data).title;
+    // })
+    
+  }
+
+  goToMovie(test:any) {
+    console.log("Movie clicked");
+    console.log(test)
   }
 }

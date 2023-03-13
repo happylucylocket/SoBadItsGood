@@ -28,6 +28,8 @@ export class APIServiceService {
       "vote_average": 7.478,
     }
   ]
+  movieIds = [40016, 188489, 724585, 24528, 307124, 582913, 8966, 18239, 24021, 50619, 50620, 205321,
+              248504, 331446, 390989, 438970, 523849]
 
   constructor(private http: HttpClient) { }
 
@@ -46,7 +48,7 @@ export class APIServiceService {
   }
 
   getMovies() {
-    return this.movieList;
+    return this.movieIds;
   }
 
   getPoster(poster_path:string) {
