@@ -21,8 +21,8 @@ export class AppComponent implements OnInit {
       console.log(data);
     });
     this.api.searchMovie(40016).subscribe(data => {
-      console.log(data);
-      this.test = data;
+      console.log(JSON.parse(data).title);
+      this.test = JSON.parse(data).title;
     })
     this.popularMovies = this.api.getMovies();
   }

@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import { DescriptionReviewComponent } from './description-review/description-review.component';
 import { MovieComponent } from './movie/movie.component';
@@ -50,7 +50,8 @@ import { MovieComponent } from './movie/movie.component';
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

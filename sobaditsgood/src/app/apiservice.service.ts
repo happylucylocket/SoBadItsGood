@@ -38,7 +38,7 @@ export class APIServiceService {
 
   // Returns movie details corresponding to the id
   searchMovie(id: number) {
-    return this.http.get<Object>('https://api.themoviedb.org/3/movie/'+id.toString()+'?api_key=ecd28fb4488e17f072d95ad0278f2545');
+    return this.http.get('https://api.themoviedb.org/3/movie/'+id.toString()+'?api_key=ecd28fb4488e17f072d95ad0278f2545', {responseType: 'text'});
   }
 
   getPopularMovies() {
