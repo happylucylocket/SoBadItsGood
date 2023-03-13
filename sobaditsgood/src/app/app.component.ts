@@ -7,23 +7,9 @@ import { APIServiceService } from './apiservice.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   title = 'So Bad Its Good';
-  test: any;
-  popularMovies: any[] = [];
 
-  constructor(private api: APIServiceService){}
-
-  ngOnInit(): void {
-
-    this.api.getData().subscribe(data =>{
-      console.log(data);
-    });
-    this.api.searchMovie(40016).subscribe(data => {
-      console.log(JSON.parse(data).title);
-      this.test = JSON.parse(data).title;
-    })
-    this.popularMovies = this.api.getMovies();
-  }
+  constructor(){}
 }

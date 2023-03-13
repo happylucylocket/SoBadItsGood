@@ -24,6 +24,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import { DescriptionReviewComponent } from './description-review/description-review.component';
 import { MovieComponent } from './movie/movie.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MovieComponent } from './movie/movie.component';
     DisplayReviewComponent,
     StarComponent,
     DescriptionReviewComponent,
-    MovieComponent
+    MovieComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
