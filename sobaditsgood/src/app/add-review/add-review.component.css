@@ -1,38 +1,4 @@
-.close-btn {
-    position: absolute;
-    right: 40px;
-    top: 25px;
-    width: 20px;
-    height: 20px;
-  }
-  /*Changing color when close button is hovered*/
-  .close-btn:hover {
-    opacity: 0.8;
-  }
-  .close-btn:before, .close-btn:after {
-    position: absolute;
-    left: 15px;
-    content: ' ';
-    height: 20px;
-    width: 2px;
-    background-color: #333;
-  }
-  /*Rotating to create the X*/
-  .close-btn:before {
-    transform: rotate(45deg);
-  }
-  .close-btn:after {
-    transform: rotate(-45deg);
-  }
 
-  .big-input
-  {
-    height: 100px;
-    width: 400px;
-  }
- 
-  .container
-  {
-    width: 500px;
-    padding: 25px;
-  }
+.mat-dialog-content {
+  max-height: initial;
+}

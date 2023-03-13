@@ -46,4 +46,5 @@ export class AddReviewComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
+
 }

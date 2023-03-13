@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DisplayReviewComponent } from './display-review.component';
 
 describe('DisplayReviewComponent', () => {
