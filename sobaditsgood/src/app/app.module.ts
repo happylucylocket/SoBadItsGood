@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import { DescriptionReviewComponent } from './description-review/description-review.component';
+import { MovieComponent } from './movie/movie.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DescriptionReviewComponent } from './description-review/description-rev
     AddReviewComponent,
     DisplayReviewComponent,
     StarComponent,
-    DescriptionReviewComponent
+    DescriptionReviewComponent,
+    MovieComponent
   ],
   imports: [
     BrowserModule,
