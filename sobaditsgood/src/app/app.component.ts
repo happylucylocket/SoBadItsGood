@@ -11,18 +11,19 @@ export class AppComponent implements OnInit {
 
   title = 'So Bad Its Good';
   test: any;
+  popularMovies: any[] = [];
+
   constructor(private api: APIServiceService){}
 
   ngOnInit(): void {
 
-    
-
     this.api.getData().subscribe(data =>{
       console.log(data);
     });
-    this.api.searchMovie("The+Room").subscribe(data => {
+    this.api.searchMovie(40016).subscribe(data => {
       console.log(data);
       this.test = data;
     })
+    this.popularMovies = this.api.getMovies();
   }
 }
