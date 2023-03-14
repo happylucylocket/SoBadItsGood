@@ -8,6 +8,12 @@
               <div class="col">
                 <div class="card-body p-md-5 text-black">
                   <h3 class="mb-5 text-uppercase">User Settings</h3>
+                  <div class="form-outline mb-4">
+                    <div class="text-center">
+                        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" alt="ProfilePicture"><br>
+                        <button class="btn btn-primary rounded mt-4">Change Profile Picture</button>
+                      </div>
+                  </div>
   
                   <div class="row">
                     <div class="col-md-6 mb-4">
@@ -39,7 +45,7 @@
                       <input type="password" id="password" [(ngModel)]="password"  class="form-control form-control-lg shadow" [readonly]="readOnlyPswd"/>
                   </div>
   
-                  <div class="d-flex justify-content-end pt-3">
+                  <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary btn-lg ms-2" [disabled]="checkValue">Submit form</button>
                   </div>
   
