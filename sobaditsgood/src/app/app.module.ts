@@ -18,6 +18,8 @@ import { StarComponent } from './star/star.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import {MatDialogModule} from '@angular/material/dialog';
+import { SettingsComponent } from './settings/settings.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     CreateAccountComponent,
     AddReviewComponent,
     DisplayReviewComponent,
-    StarComponent
+    StarComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatDialogModule
   ],

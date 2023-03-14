@@ -1,3 +1,4 @@
+import { SettingsComponent } from './settings/settings.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -7,7 +8,8 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 const routes: Routes = [
   {path:'userprofile', component:UserProfileComponent},
   {path:'login', component:LoginComponent},
-  {path:'createaccount', component:CreateAccountComponent}
+  {path:'createaccount', component:CreateAccountComponent},
+  {path:'settings', component:SettingsComponent}
 ];
 
 @NgModule({
