@@ -20,11 +20,12 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import { DescriptionReviewComponent } from './description-review/description-review.component';
 import { MovieComponent } from './movie/movie.component';
 import { HomeComponent } from './home/home.component';
+import { SettingsComponent } from './settings/settings.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HomeComponent } from './home/home.component';
     StarComponent,
     DescriptionReviewComponent,
     MovieComponent,
-    HomeComponent
+    HomeComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +49,8 @@ import { HomeComponent } from './home/home.component';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatDialogModule, 
     FormsModule,
