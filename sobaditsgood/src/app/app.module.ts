@@ -18,6 +18,12 @@ import { StarComponent } from './star/star.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import { DescriptionReviewComponent } from './description-review/description-review.component';
+import { MovieComponent } from './movie/movie.component';
+import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
@@ -33,7 +39,11 @@ import { PasswordDialogComponent } from './password-dialog/password-dialog.compo
     DisplayReviewComponent,
     StarComponent,
     SettingsComponent,
-    PasswordDialogComponent
+    PasswordDialogComponent,
+    DescriptionReviewComponent,
+    MovieComponent,
+    HomeComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +55,12 @@ import { PasswordDialogComponent } from './password-dialog/password-dialog.compo
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule, 
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
