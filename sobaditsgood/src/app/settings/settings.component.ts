@@ -1,3 +1,5 @@
+import { PasswordDialogComponent } from './../password-dialog/password-dialog.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component } from '@angular/core';
 import * as md5 from 'md5';
 
@@ -7,6 +9,7 @@ import * as md5 from 'md5';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent {
+  constructor(private dialog:MatDialog){}
   userFirstName: String="Michaeel";
   userLastName:String="Jackson";
   userEmail:string = "mj@gmail.com";
@@ -38,6 +41,17 @@ export class SettingsComponent {
    this.checkValue=!this.checkValue
   }
   changePswd(){
+    const dialogConfig = new MatDialogConfig();
+   
+    this.dialog.open(PasswordDialogComponent,{
+      width:'500px',
+      height:'350px',
+      panelClass: 'bg-color' ,
+      disableClose:true,
+      autoFocus:true,
+      data:this.password
+      
+    })
 
   }
 

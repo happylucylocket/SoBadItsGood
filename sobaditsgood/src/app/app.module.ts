@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import { SettingsComponent } from './settings/settings.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AddReviewComponent,
     DisplayReviewComponent,
     StarComponent,
-    SettingsComponent
+    SettingsComponent,
+    PasswordDialogComponent
   ],
   imports: [
     BrowserModule,
