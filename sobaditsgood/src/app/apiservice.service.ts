@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class APIServiceService {
-  baseUrl:string = "http://34.123.216.237"
+  baseUrl:string = "http://34.123.216.237/sobaditsgood/api"
 
   // For retrieving images from the Movie Database
   base_urlMDB:string = "http://image.tmdb.org/t/p/"
@@ -35,7 +35,7 @@ export class APIServiceService {
 
   // for testing purposes
   getData(){
-    return this.http.get(this.baseUrl+'/api', {responseType: 'text'});
+    return this.http.get(this.baseUrl, {responseType: 'text'});
   }
 
   // Returns movie details corresponding to the id
