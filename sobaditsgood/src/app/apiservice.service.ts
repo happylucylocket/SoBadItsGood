@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class APIServiceService {
-  baseUrl:string = "http://localhost:3000"
+  baseUrl:string = "http://34.123.216.237"
 
   // For retrieving images from the Movie Database
   base_urlMDB:string = "http://image.tmdb.org/t/p/"
