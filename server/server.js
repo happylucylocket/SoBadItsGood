@@ -31,6 +31,6 @@ app.get('/api', (req, res) => {
   res.send('Hello from Node.js backend!');
 });
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
+app.listen(3000, "0.0.0.0", () => {
+  console.log('Server started on host "0.0.0.0" and  port 3000');
 });
