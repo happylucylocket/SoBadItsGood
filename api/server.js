@@ -27,8 +27,12 @@ pool.query(`SELECT * FROM users;`, (error, results) => {
 })
 //////////////////////////////////
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello from Node.js backend!');
+});
+
+app.get('/test', (req, res) => {
+  res.send('testing');
 });
 
 app.listen(3000, "0.0.0.0", () => {
