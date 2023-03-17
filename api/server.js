@@ -46,7 +46,7 @@ app.get('/test', (req, res) => {
   })
 });
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(builtProjectDir+"index.html")
 })
 
