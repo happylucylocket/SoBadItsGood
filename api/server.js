@@ -30,7 +30,7 @@ app.use(cors(corsOptions));
 app.use(express.static(builtProjectDir))
 
 
-app.get('/', (req, res) => {
+app.get('/sobaditsgood/api', (req, res) => {
   res.send('Hello from Node.js backend!');
 });
 
@@ -46,7 +46,7 @@ app.get('/test', (req, res) => {
   })
 });
 
-app.get("/sobaditsgood", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(builtProjectDir+"index.html")
 })
 
