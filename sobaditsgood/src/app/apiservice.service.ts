@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class APIServiceService {
   baseUrl:string = "http://34.123.216.237/sobaditsgood/api"
+  localBaseUrl:string = "http://localhost:3000/sobaditsgood/api" // for local testing purposes 
 
   // For retrieving images from the Movie Database
   base_urlMDB:string = "http://image.tmdb.org/t/p/"
@@ -38,8 +39,19 @@ export class APIServiceService {
     return this.http.get(this.baseUrl, {responseType: 'text'});
   }
 
+  //check if the user login is correct
   isUserValid(username:string, password:string){
     return this.http.get(this.baseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
+  }
+
+  //add user to the database
+  registerUser(user:any){
+    return this.http.post(this.baseUrl+`/registerUser/`, user, { responseType: 'text' })
+  }
+
+  //check if the username is in the database or not
+  userExists(username:string){
+    return this.http.get(this.baseUrl+`/userExists/${username}`, {responseType: 'json'})
   }
 
   // Returns movie details corresponding to the id
