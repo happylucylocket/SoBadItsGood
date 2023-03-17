@@ -24,6 +24,7 @@ export class LoginComponent {
         this.api.isUserValid(this.myForm.value.email, this.myForm.value.password).subscribe(data =>{
           if(JSON.parse(data).isValid == false){
             alert("user does not exist. create an account.")
+            return
           }
           console.log("welcome ", this.myForm.value.email)
         });

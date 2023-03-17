@@ -39,7 +39,7 @@ export class APIServiceService {
   }
 
   isUserValid(username:string, password:string){
-    return this.http.get(this.baseUrl+`isUserValid/${username}/${password}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
   }
 
   // Returns movie details corresponding to the id
