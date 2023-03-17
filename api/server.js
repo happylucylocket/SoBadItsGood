@@ -1,8 +1,9 @@
 const express = require('express');
-const axios = require('axios');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const path = require('path');
 const pg = require('pg');
+// const { async } = require('jshint/src/prod-params');
 
 const PORT = 3000
 const HOST = "0.0.0.0"
@@ -30,12 +31,15 @@ app.use(cors(corsOptions));
 // access to static files in the built angular project
 app.use(express.static(builtProjectDir))
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}) )
+
 
 app.get('/sobaditsgood/api', (req, res) => {
   res.send('Hello from Node.js backend!');
 })
 
-
+//Validating if the user login is correct
 app.get('/sobaditsgood/api/isUserValid/:email/:pass', async (req, res)=>{
   const username = req.params.email
   const password = req.params.pass
@@ -46,6 +50,29 @@ app.get('/sobaditsgood/api/isUserValid/:email/:pass', async (req, res)=>{
     return
   }
   res.send({"isValid": true})
+})
+
+// adding user to the database
+app.post('/sobaditsgood/api/registerUser/', async(req, res)=>{
+  const fname = req.body.fname
+  const lname = req.body.lname
+  const username = req.body.username
+  const password = req.body.password
+  sql = `INSERT INTO users (fname, lname, username, password) VALUES ($1, $2, $3, $4);`
+  await pool.query(sql,[fname, lname, username, password])
+  res.send("User ccreated")
+})
+
+//check if user exists
+app.get('/sobaditsgood/api/userExists/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = `SELECT COUNT(*) FROM users u WHERE u.username = $1;`
+  result = await pool.query(sql, [username])
+  if (parseInt(result.rows[0].count) >= 1){
+    res.send({userExists:true})
+    return
+  }
+  res.send({userExists:false})
 })
 
 app.get('/test', (req, res) => {
