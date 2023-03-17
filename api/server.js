@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const cors = require('cors');
 const path = require('path');
 const pg = require('pg');
@@ -32,7 +33,20 @@ app.use(express.static(builtProjectDir))
 
 app.get('/sobaditsgood/api', (req, res) => {
   res.send('Hello from Node.js backend!');
-});
+})
+
+
+app.get('/sobaditsgood/api/isUserValid/:email/:pass', async (req, res)=>{
+  const username = req.params.email
+  const password = req.params.pass
+  sql = `SELECT username FROM USERS u WHERE u.username = $1 AND u.password = $2`
+  var result = await pool.query(sql, [username, password])
+  if (result.rowCount == 0){
+    res.send({"isValid": false})
+    return
+  }
+  res.send({"isValid": true})
+})
 
 app.get('/test', (req, res) => {
   // MAKE QUERIES 
@@ -46,6 +60,7 @@ app.get('/test', (req, res) => {
   })
 });
 
+// Angular project
 app.get("*", (req, res) => {
   res.sendFile(builtProjectDir+"index.html")
 })
