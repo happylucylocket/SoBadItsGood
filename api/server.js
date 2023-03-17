@@ -40,8 +40,8 @@ app.get('/sobaditsgood/api', (req, res) => {
 })
 
 //Validating if the user login is correct
-app.get('/sobaditsgood/api/isUserValid/:email/:pass', async (req, res)=>{
-  const username = req.params.email
+app.get('/sobaditsgood/api/isUserValid/:username/:pass', async (req, res)=>{
+  const username = req.params.username
   const password = req.params.pass
   sql = `SELECT username FROM USERS u WHERE u.username = $1 AND u.password = $2`
   var result = await pool.query(sql, [username, password])
