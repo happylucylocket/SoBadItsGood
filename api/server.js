@@ -1,40 +1,39 @@
+const session = require('express-session');
+const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const path = require('path');
 const pg = require('pg');
-// const { async } = require('jshint/src/prod-params');
+require('dotenv').config();
 
-const PORT = 3000
-const HOST = "0.0.0.0"
+// Environmental values
+const PORT = process.env.PORT || 3000; // post number
+const HOST = process.env.HOST // host IP
+const DB_URL = process.env.DB_URL // connection string for postgrSQL
+const SECRET_KEY = process.env.SECRET_KEY // secret key for using sessions
 
-// express app
-const app = express();
-
-// Path to built angular project
-const builtProjectDir = path.join(__dirname, '../sobaditsgood/dist/sobaditsgood/');
-
-// connection string for postgreSQL
-const pool = new pg.Pool({
-  connectionString:'postgres://postgres:cmpt372@35.194.22.73/sobaditsgood-db'
-})
-
-// CORS settings
+const app = express(); // express app
+const builtProjectDir = path.join(__dirname, '../sobaditsgood/dist/sobaditsgood/'); // Path to built angular project
+const pool = new pg.Pool({connectionString:DB_URL}) // connection string for postgreSQL
 const corsOptions = {
     origin: 'http://localhost:4200', // Allow only this origin to access the API
     methods: ['GET', 'POST', 'DELETE', 'PUT'], // Allow only these HTTP methods
     allowedHeaders: ['Content-Type'] // Allow only these headers
-  };
+  }; // CORS settings
 
-app.use(cors(corsOptions));
-
-// access to static files in the built angular project
-app.use(express.static(builtProjectDir))
-
+// App settings
+app.use(cors(corsOptions)); // CORS setup
+app.use(express.static(builtProjectDir)) // access to static files in the built angular project
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}) )
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(session({   // Using session to keep the user logged in 
+  secret: SECRET_KEY,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // set to true if using HTTPS
+}));
 
-
+////////////////////////////////DIRECTORY PATHS//////////////////////////////////////////////
 app.get('/sobaditsgood/api', (req, res) => {
   res.send('Hello from Node.js backend!');
 })

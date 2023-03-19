@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class APIServiceService {
-  baseUrl:string = "http://34.123.216.237/sobaditsgood/api"
+  baseUrl:string = "http://34.123.216.237/sobaditsgood/api" // public api URL
   localBaseUrl:string = "http://localhost:3000/sobaditsgood/api" // for local testing purposes 
 
   // For retrieving images from the Movie Database
