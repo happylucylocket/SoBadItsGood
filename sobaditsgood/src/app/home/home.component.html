@@ -1,7 +1,7 @@
 
   <h1>Top Picks</h1>
   <div class="d-flex align-content-start flex-wrap">
-    <app-movie *ngFor="let m of movies; let i index" (click)="goToMovie($event)" [movieTitle]="title" [moviePoster]="posterPath" >
+    <app-movie *ngFor="let m of movies" (click)="goToMovie($event)" [movie] ="m">
     </app-movie>
   </div>
 
