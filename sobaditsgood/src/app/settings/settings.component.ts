@@ -42,7 +42,10 @@ export class SettingsComponent {
    this.checkValue=!this.checkValue
   }
   changePswd(){
-    const dialogConfig = new MatDialogConfig();
+    if(this.checkValue==true)
+    this.checkValue=!this.checkValue
+    const dialogConfig = new
+     MatDialogConfig();
    
     const dialogRef = this.dialog.open(PasswordDialogComponent,{
       width:'500px',
