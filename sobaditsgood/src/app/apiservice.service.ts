@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,31 +12,16 @@ export class APIServiceService {
   base_urlMDB:string = "http://image.tmdb.org/t/p/"
   file_size:string = "original"
   
-  // Test list of movies
-  movieList = [
-    {
-      "id": 40016,
-      "overview": "A platoon of eagles and vultures attacks the residents of a small town. Many people die. It's not known what caused the flying menace to attack. Two people manage to fight back, but will they survive Birdemic?",
-      "poster_path": "/gqmcAVNNUosB55RliecFYnkWT4M.jpg",
-      "title": "Birdemic: Shock and Terror",
-      "vote_average": 2.1
-    },
-    {
-      "id": 934433,
-      "title": "Scream VI",
-      "overview": "Following the latest Ghostface killings, the four survivors leave Woodsboro behind and start a fresh chapter.",
-      "poster_path": "/t2NEaFrNFRCrBIyAETlz5sqq15H.jpg",
-      "vote_average": 7.478,
-    }
-  ]
-  movieIds = [40016, 188489, 724585, 24528, 307124, 582913, 8966, 18239, 24021, 50619, 50620, 205321,
-              248504, 331446, 390989, 438970, 523849]
+  // Test list of movie IDs
+  topPicksIds = [40016, 188489, 724585, 24528, 307124, 17473, 8966, 18239, 24021, 50619, 50620, 55563]
+  popularIds = [205321, 248504, 331446, 390989, 438970, 523849]
+  watchLaterIds = [378236, 260928, 99847, 197599, 373841, 495507, 1062226, 45649]
 
   constructor(private http: HttpClient) { }
 
   // for testing purposes
   getData(){
-    return this.http.get(this.baseUrl, {responseType: 'text'});
+    return this.http.get(this.baseUrl+'/api', {responseType: 'text'});
   }
 
   //check if the user login is correct
@@ -59,12 +44,20 @@ export class APIServiceService {
     return this.http.get('https://api.themoviedb.org/3/movie/'+id.toString()+'?api_key=ecd28fb4488e17f072d95ad0278f2545', {responseType: 'text'});
   }
 
-  getPopularMovies() {
-    return this.http.get<Object>('https://api.themoviedb.org/3/trending/movie/day?api_key=ecd28fb4488e17f072d95ad0278f2545');
+  // getPopularMovies() {
+  //   return this.http.get<Object>('https://api.themoviedb.org/3/trending/movie/day?api_key=ecd28fb4488e17f072d95ad0278f2545');
+  // }
+
+  getTopPicks() {
+    return this.topPicksIds;
   }
 
-  getMovies() {
-    return this.movieIds;
+  getPopular() {
+    return this.popularIds;
+  }
+
+  getWatchLater() {
+    return this.watchLaterIds;
   }
 
   getPoster(poster_path:string) {

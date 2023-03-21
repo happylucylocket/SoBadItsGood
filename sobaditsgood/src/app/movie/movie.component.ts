@@ -9,7 +9,7 @@ import { APIServiceService } from '../apiservice.service';
 export class MovieComponent implements OnChanges, OnInit {
   movieTitle!: string;
   moviePoster!: string;
-  @Input() movie =0;
+  @Input() movie = 0;
 
   constructor(private api: APIServiceService){}
 

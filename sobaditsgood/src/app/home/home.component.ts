@@ -11,14 +11,18 @@ import { APIServiceService } from '../apiservice.service';
 export class HomeComponent implements OnInit{
   title!: string;
   posterPath!: string;
-  movies: number[] = [];
-  constructor(private api: APIServiceService){}
+  topPicks: number[] = [];
+  popularMovies: number[] = [];
+  watchLater: number[] = [];
 
+  constructor(private api: APIServiceService){}
   ngOnInit(): void {
     this.api.getData().subscribe(data =>{
       console.log(data);
     });
-    this.movies = this.api.getMovies();
+    this.topPicks = this.api.getTopPicks();
+    this.popularMovies = this.api.getPopular();
+    this.watchLater = this.api.getWatchLater();
   }
   
   getMovieTitle(movieNum:number):string
