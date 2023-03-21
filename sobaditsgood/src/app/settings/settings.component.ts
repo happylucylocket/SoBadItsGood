@@ -54,7 +54,7 @@ export class SettingsComponent {
       
     })
     dialogRef.afterClosed().subscribe(
-      data=> this.password=data,
+      (data)=>  this.password=data,
     )
 
   }
