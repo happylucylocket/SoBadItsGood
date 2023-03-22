@@ -1,6 +1,7 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,9 @@ export class HomeComponent implements OnInit{
   popularMovies: number[] = [];
   watchLater: number[] = [];
 
-  constructor(private api: APIServiceService){}
+  constructor(private api: APIServiceService, private router: Router){
+  }
+
   ngOnInit(): void {
     this.api.getData().subscribe(data =>{
       console.log(data);
@@ -33,9 +36,10 @@ export class HomeComponent implements OnInit{
     return "";
   }
 
-  goToMovie(test:any) {
+  goToMovie(id:number) {
+    this.api.setCurrentMovieId(id);
     console.log("Movie clicked");
-    console.log(test)
+    this.router.navigate(['/movieInfo']);
   }
 }
 

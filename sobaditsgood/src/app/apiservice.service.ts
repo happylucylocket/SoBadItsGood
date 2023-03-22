@@ -17,6 +17,8 @@ export class APIServiceService {
   popularIds = [205321, 248504, 331446, 390989, 438970, 523849]
   watchLaterIds = [378236, 260928, 99847, 197599, 373841, 495507, 1062226, 45649]
 
+  currentMovieId: number = -1;
+
   constructor(private http: HttpClient) { }
 
   // for testing purposes
@@ -44,6 +46,12 @@ export class APIServiceService {
     return this.http.get('https://api.themoviedb.org/3/movie/'+id.toString()+'?api_key=ecd28fb4488e17f072d95ad0278f2545', {responseType: 'text'});
   }
 
+  // Returns the movie's credits (cast + crew)
+  getCredits(id: number) {
+    return this.http.get('https://api.themoviedb.org/3/movie/'+id.toString()+"/credits"+'?api_key=ecd28fb4488e17f072d95ad0278f2545', {responseType: 'text'});
+
+  }
+
   // getPopularMovies() {
   //   return this.http.get<Object>('https://api.themoviedb.org/3/trending/movie/day?api_key=ecd28fb4488e17f072d95ad0278f2545');
   // }
@@ -62,5 +70,13 @@ export class APIServiceService {
 
   getPoster(poster_path:string) {
     return (this.base_urlMDB + this.file_size + poster_path)
+  }
+
+  setCurrentMovieId(id:number) {
+    this.currentMovieId = id;
+  }
+
+  getCurrentMovieId() {
+    return this.currentMovieId;
   }
 }

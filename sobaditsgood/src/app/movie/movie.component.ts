@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { APIServiceService } from '../apiservice.service';
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.css']
 })
-export class MovieComponent implements OnChanges, OnInit {
+export class MovieComponent implements OnInit {
   movieTitle!: string;
   moviePoster!: string;
   @Input() movie = 0;
@@ -26,9 +26,5 @@ export class MovieComponent implements OnChanges, OnInit {
     this.api.searchMovie(this.movie).subscribe(data => {
       this.moviePoster = this.api.getPoster(JSON.parse(data).poster_path);
     })
-    
-  }
-  ngOnChanges(changes: SimpleChanges) {
-    // console.log(changes);
   }
 }
