@@ -11,7 +11,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class SettingsComponent {
   constructor(private dialog:MatDialog){}
-  userFirstName: String="Michaeel";
+  userFirstName: String="Michael";
   userLastName:String="Jackson";
   userEmail:string = "mj@gmail.com";
   password:string="Password@9";

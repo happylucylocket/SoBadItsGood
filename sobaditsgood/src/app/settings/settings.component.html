@@ -42,11 +42,11 @@
                   </div>
                   <div class="form-outline mb-4">
                     <label class="form-label"><a (click)="changePswd()"class="bi" [class.bi-pencil-square]="readOnlyPswd"></a> Password </label>
-                      <input type="password" id="password" [(ngModel)]="password"  class="form-control form-control-lg shadow" [readonly]="readOnlyPswd"/>
+                      <input (click)="changePswd()" type="password" id="password" [(ngModel)]="password"  class="form-control form-control-lg shadow" [readonly]="readOnlyPswd"/>
                   </div>
   
                   <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary btn-lg ms-2" [disabled]="checkValue">Submit form</button>
+                    <button type="submit" class="btn btn-primary btn-lg ms-2" [disabled]="checkValue">Save Changes</button>
                   </div>
   
                 </div>
