@@ -1,5 +1,11 @@
 <div style="width: 10rem;" >
-    <img class="card-img-top" src={{moviePoster}} alt="poster">
+    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+        <img class="card-img-top img-fluid" src={{moviePoster}} alt="poster">
+        <a>
+            <div id="mask" class="mask" style="background-color: rgba(251, 251, 251, 0.25);"></div>
+        </a>
+    </div>
+    
     <div>
         <h3 class="card-title">{{movieTitle}}</h3>
     </div>

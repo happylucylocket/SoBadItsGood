@@ -5,6 +5,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { HomeComponent } from './home/home.component';
+import { MovieInfoComponent } from './movie-info/movie-info.component';
+import { CastCrewComponent } from './cast-crew/cast-crew.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -12,7 +14,9 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'createaccount', component:CreateAccountComponent},
   {path:'settings', component:SettingsComponent},
-  {path:'logout', component:LoginComponent}
+  {path:'logout', component:LoginComponent},
+  {path: 'movieinfo', component:MovieInfoComponent},
+  {path: 'castcrew', component:CastCrewComponent}
 ];
 
 @NgModule({

@@ -1,1 +1,24 @@
-<p>movie-info works!</p>
+<h1 class="ms-3">{{title}}</h1>
+<div class="card float-start ms-3" style="width: 14rem;">
+    <img class="card-img-top" src={{poster}} alt="Movie poster">
+</div>
+<div class="ms-3">
+    <h2>Description</h2>
+    <p>{{description}}</p>
+    <h2>Runtime: {{runtime}} minutes</h2>
+    <h2>Cast and Crew</h2>
+</div>
+
+
+
+<div class="d-flex align-content-start flex-wrap gap-3">
+    <div *ngFor = "let c of cast" class="card" style="max-width: 8rem;">
+        <img src={{path+c.profile_path}} class="card-img-top" alt="Cast headshot">
+        <div class="card-body">
+            <h4 class="card-title">{{c.name}}</h4>
+            <h5 id="card-text">{{c.character}}</h5>
+        </div>
+    </div>
+    <button type="button" [routerLink]="['/castcrew']" class="btn btn-info">See more</button>
+</div>
+<app-display-review></app-display-review>

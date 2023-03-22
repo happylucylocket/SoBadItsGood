@@ -6,18 +6,18 @@
           <div class="col-md">
             <form [formGroup]="myForm">
                 <img class="mb-4 login_form" src="assets/weblogo.png" alt="" width="100" height="80">
-                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+                <h1 class="h3 mb-3 fw-normal">Login</h1>
             
                 <div class="form-floating mb-4">
                   <input type="username" formControlName="username" name="username" class="form-control" id="floatingInput" placeholder="JohnDoe">
-                  <label for="floatingInput">username</label>
+                  <label for="floatingInput">Username</label>
                 </div>
                 <div class="form-floating mb-4">
                   <input type="password" formControlName="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                   <label for="floatingPassword">Password</label>
                 </div>
                 
-                <button class="w-100 btn btn-lg btn-primary mb-4" type="submit" (click)="onSubmit()">Sign in</button>
+                <button class="w-100 btn btn-lg btn-primary mb-4" type="submit" (click)="onSubmit()">Log in</button>
                 <a class="w-100 btn btn-lg btn-success" href="/createaccount" routerLink="/createaccount">Register</a>
 
               </form>

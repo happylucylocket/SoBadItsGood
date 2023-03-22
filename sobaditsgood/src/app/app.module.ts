@@ -27,6 +27,7 @@ import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
+import { CastCrewComponent } from './cast-crew/cast-crew.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { PasswordDialogComponent } from './password-dialog/password-dialog.compo
     DescriptionReviewComponent,
     MovieComponent,
     HomeComponent,
-    SettingsComponent
+    SettingsComponent,
+    CastCrewComponent
   ],
   imports: [
     BrowserModule,

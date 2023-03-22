@@ -2,6 +2,7 @@ import { PasswordDialogComponent } from './../password-dialog/password-dialog.co
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component } from '@angular/core';
 import * as md5 from 'md5';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'settings',
@@ -14,10 +15,10 @@ export class SettingsComponent {
   userLastName:String="Jackson";
   userEmail:string = "mj@gmail.com";
   password:string="Password@9";
-  Address:string = "110 12Ave Surrey, BC"
+  username:string = "michaeljackson09"
   readonlyFirstName:boolean = true
   readOnlyLastName:boolean=true
-  readOnlyAddress:boolean=true
+  readOnlyUsername:boolean=true
   readOnlyPswd:boolean=true
   isClass:boolean=true
   checkValue:boolean=true
@@ -35,15 +36,18 @@ export class SettingsComponent {
     if(this.checkValue==true)
    this.checkValue=!this.checkValue
   }
-  addressEdit(){
-    this.readOnlyAddress=!this.readOnlyAddress
+  usernameEdit(){
+    this.readOnlyUsername=!this.readOnlyUsername
     if(this.checkValue==true)
    this.checkValue=!this.checkValue
   }
   changePswd(){
-    const dialogConfig = new MatDialogConfig();
+    if(this.checkValue==true)
+    this.checkValue=!this.checkValue
+    const dialogConfig = new
+     MatDialogConfig();
    
-    this.dialog.open(PasswordDialogComponent,{
+    const dialogRef = this.dialog.open(PasswordDialogComponent,{
       width:'500px',
       height:'350px',
       panelClass: 'bg-color' ,
@@ -52,6 +56,9 @@ export class SettingsComponent {
       data:this.password
       
     })
+    dialogRef.afterClosed().subscribe(
+      (data)=>  this.password=data,
+    )
 
   }
 

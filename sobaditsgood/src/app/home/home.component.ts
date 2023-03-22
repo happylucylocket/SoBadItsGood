@@ -1,6 +1,7 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +12,20 @@ import { APIServiceService } from '../apiservice.service';
 export class HomeComponent implements OnInit{
   title!: string;
   posterPath!: string;
-  movies: number[] = [];
-  constructor(private api: APIServiceService){}
+  topPicks: number[] = [];
+  popularMovies: number[] = [];
+  watchLater: number[] = [];
+
+  constructor(private api: APIServiceService, private router: Router){
+  }
 
   ngOnInit(): void {
     this.api.getData().subscribe(data =>{
       console.log(data);
     });
-    this.movies = this.api.getMovies();
+    this.topPicks = this.api.getTopPicks();
+    this.popularMovies = this.api.getPopular();
+    this.watchLater = this.api.getWatchLater();
   }
   
   getMovieTitle(movieNum:number):string
@@ -29,9 +36,10 @@ export class HomeComponent implements OnInit{
     return "";
   }
 
-  goToMovie(test:any) {
+  goToMovie(id:number) {
+    this.api.setCurrentMovieId(id);
     console.log("Movie clicked");
-    console.log(test)
+    this.router.navigate(['/movieinfo']);
   }
 }
 
