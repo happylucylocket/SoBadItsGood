@@ -28,7 +28,7 @@ export class APIServiceService {
 
   //check if the user login is correct
   isUserValid(username:string, password:string){
-    return this.http.get(this.localBaseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
   }
 
   //add user to the database
