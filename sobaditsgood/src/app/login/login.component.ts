@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { APIServiceService } from '../apiservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { APIServiceService } from '../apiservice.service';
 export class LoginComponent {
   myForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private api: APIServiceService) {
+  constructor(private formBuilder: FormBuilder, private api: APIServiceService, private router: Router) {
     this.myForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -27,6 +28,11 @@ export class LoginComponent {
             return
           }
           console.log("welcome ", this.myForm.value.username)
+          this.api.login(this.myForm.value).subscribe()
+          this.api.inInSession().subscribe(data=>{
+            console.log(data)
+          })
+          this.router.navigate(['/userprofile'])
         });
       } else {
         // Form is invalid, show error messages]

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIServiceService } from './apiservice.service';
+import { Router } from 'express';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,11 @@ import { APIServiceService } from './apiservice.service';
 export class AppComponent {
 
   title = 'So Bad Its Good';
+  session:boolean = false
 
-  constructor(){}
+  constructor(api:APIServiceService){
+    api.inInSession().subscribe(data=>{
+      console.log(data)
+    })
+  }
 }
