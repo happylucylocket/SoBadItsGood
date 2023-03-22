@@ -9,3 +9,7 @@ img:hover {
 h3:hover {
     cursor: pointer;
 }
+
+#mask:hover {
+    cursor: pointer;
+}

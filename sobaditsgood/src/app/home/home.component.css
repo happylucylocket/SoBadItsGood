@@ -4,7 +4,6 @@ h1 {
     margin-left: 1em;
   }
 
-app-movie {
-    padding-right: 1em;
-    padding-left: 1em;
-}
+  app-movie {
+    margin-left: 1em;
+  }

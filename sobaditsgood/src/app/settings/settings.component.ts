@@ -15,10 +15,10 @@ export class SettingsComponent {
   userLastName:String="Jackson";
   userEmail:string = "mj@gmail.com";
   password:string="Password@9";
-  Address:string = "110 12Ave Surrey, BC"
+  username:string = "michaeljackson09"
   readonlyFirstName:boolean = true
   readOnlyLastName:boolean=true
-  readOnlyAddress:boolean=true
+  readOnlyUsername:boolean=true
   readOnlyPswd:boolean=true
   isClass:boolean=true
   checkValue:boolean=true
@@ -36,8 +36,8 @@ export class SettingsComponent {
     if(this.checkValue==true)
    this.checkValue=!this.checkValue
   }
-  addressEdit(){
-    this.readOnlyAddress=!this.readOnlyAddress
+  usernameEdit(){
+    this.readOnlyUsername=!this.readOnlyUsername
     if(this.checkValue==true)
    this.checkValue=!this.checkValue
   }

@@ -13,9 +13,9 @@ export class APIServiceService {
   file_size:string = "original"
   
   // Test list of movie IDs
-  topPicksIds = [40016, 188489, 724585, 24528, 307124, 17473, 8966, 18239, 24021, 50619, 50620, 55563]
+  topPicksIds = [314, 71880, 536869, 20196, 17473, 347626, 55563, 378236, 40016, 24528, 307124, 8966]
   popularIds = [205321, 248504, 331446, 390989, 438970, 523849]
-  watchLaterIds = [378236, 260928, 99847, 197599, 373841, 495507, 1062226, 45649]
+  watchLaterIds = [260928, 99847, 197599, 373841, 495507, 45649]
 
   currentMovieId: number = -1;
 
