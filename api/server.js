@@ -1,6 +1,6 @@
-const session = require('express-session');
+// const session = require('express-session');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser')
+// const cookieParser = require('cookie-parser')
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -28,25 +28,25 @@ app.use(cors(corsOptions)); // CORS setup
 app.use(express.static(ANGULAR_PROJECT_DIR)) // access to static files in the built angular project
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(cookieParser())
-app.use(session({   // Using session to keep the user logged in 
-  secret: SECRET_KEY,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false },
-  maxAge:  30*60*1000 // set to true if using HTTPS
-}));
+// app.use(cookieParser())
+// app.use(session({   // Using session to keep the user logged in 
+//   secret: SECRET_KEY,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: false },
+//   maxAge:  30*60*1000 // set to true if using HTTPS
+// }));
 
-const requireLogin = (req, res, next) => {
-  if (req.session.user) {
-    next();
-  } else {
-    res.redirect('/test');
-  }
-};
+// const requireLogin = (req, res, next) => {
+//   if (req.session.user) {
+//     next();
+//   } else {
+//     res.redirect('/test');
+//   }
+// };
 
 ////////////////////////////////DIRECTORY PATHS//////////////////////////////////////////////
-app.get('/sobaditsgood/api', requireLogin, (req, res) => {
+app.get('/sobaditsgood/api', (req, res) => {
   res.send('Hello from Node.js backend!');
 })
 
@@ -87,27 +87,27 @@ app.get('/sobaditsgood/api/userExists/:username', async(req, res)=>{
   res.send({userExists:false})
 })
 
-app.post('/sobaditsgood/api/login/', (req, res)=>{
-  console.log("logging in")
-  req.session.loggedIn = true;
-  req.session.user = {username:req.body.username}
-  console.log(req.sessionID)
-})
+// app.post('/sobaditsgood/api/login/', (req, res)=>{
+//   console.log("logging in")
+//   req.session.loggedIn = true;
+//   req.session.user = {username:req.body.username}
+//   console.log(req.sessionID)
+// })
 
-app.get('/logout', (req, res) => {
-  // destroy current session object
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Error destroying session:', err);
-    } else {
-      // create a new session object
-      req.session = null;
-    }
+// app.get('/logout', (req, res) => {
+//   // destroy current session object
+//   req.session.destroy((err) => {
+//     if (err) {
+//       console.error('Error destroying session:', err);
+//     } else {
+//       // create a new session object
+//       req.session = null;
+//     }
 
-    // redirect to the login page
-    res.send("loggedout");
-  });
-});
+//     // redirect to the login page
+//     res.send("loggedout");
+//   });
+// });
 
 
 app.get('/test', (req, res) => {
@@ -122,14 +122,14 @@ app.get('/test', (req, res) => {
   })
 });
 
-app.get('/sobaditsgood/api/isInSession', (req, res)=>{
-  if(req.session.user){
-    res.send({isInSession:true})
-  }else{
-    console.log(req.session)
-    res.send({isInSession:false})
-  }
-})
+// app.get('/sobaditsgood/api/isInSession', (req, res)=>{
+//   if(req.session.user){
+//     res.send({isInSession:true})
+//   }else{
+//     console.log(req.session)
+//     res.send({isInSession:false})
+//   }
+// })
 
 // Angular project
 app.get("*", (req, res) => {
