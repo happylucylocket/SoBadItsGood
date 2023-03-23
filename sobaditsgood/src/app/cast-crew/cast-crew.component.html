@@ -1,7 +1,7 @@
 <button [routerLink]="['/movieinfo']" class="btn btn-info ms-3">Back to movie info</button>
 
 <h1 class="ms-3">Cast</h1>
-<div class="d-flex align-content-start flex-wrap gap-3">
+<div class="d-flex align-content-start flex-wrap gap-3 ms-3">
     <div *ngFor = "let c of cast" class="card" style="max-width: 8rem;">
         <img src={{path+c.profile_path}} class="card-img-top" alt="Cast headshot">
         <div class="card-body">
@@ -11,7 +11,7 @@
     </div>
 </div>
 <h1 class="ms-3">Crew</h1>
-<div class="d-flex align-content-start flex-wrap gap-3">
+<div class="d-flex align-content-start flex-wrap gap-3 ms-3">
     <div *ngFor = "let c of crew" class="card" style="max-width: 8rem;">
         <img src={{path+c.profile_path}} class="card-img-top" alt="Crew headshot">
         <div class="card-body">
