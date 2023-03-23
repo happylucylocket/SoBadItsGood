@@ -14,8 +14,8 @@ export class AppComponent {
   session:boolean = false
 
   constructor(api:APIServiceService){
-    api.inInSession().subscribe(data=>{
-      console.log(data)
-    })
+    // api.inInSession().subscribe(data=>{
+    //   console.log(data)
+    // })
   }
 }
