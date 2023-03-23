@@ -1,5 +1,5 @@
 <h1 class="ms-3">{{title}}</h1>
-<div class="card float-start ms-3" style="width: 14rem;">
+<div class="card float-start ms-3 me-3" style="width: 14rem;">
     <img class="card-img-top" src={{poster}} alt="Movie poster">
 </div>
 <div class="ms-3">
@@ -8,8 +8,6 @@
     <h2>Runtime: {{runtime}} minutes</h2>
     <h2>Cast and Crew</h2>
 </div>
-
-
 
 <div class="d-flex align-content-start flex-wrap gap-3">
     <div *ngFor = "let c of cast" class="card" style="max-width: 8rem;">
