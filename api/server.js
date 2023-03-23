@@ -10,12 +10,12 @@ require('dotenv').config();
 // Environmental values
 const PORT = process.env.PORT || 3000; // post number
 const HOST = process.env.HOST // host IP
-const DB_URL = process.env.DB_URL // connection string for postgrSQL
+// const DB_URL = process.env.DB_URL // connection string for postgrSQL'
 const SECRET_KEY = process.env.SECRET_KEY // secret key for using sessions
 const ANGULAR_PROJECT_DIR = path.join(__dirname, '../sobaditsgood/dist/sobaditsgood/'); // Path to built angular project
 
 const app = express(); // express app
-const pool = new pg.Pool({connectionString:DB_URL}) // connection string for postgreSQL
+const pool = new pg.Pool({connectionString:"postgres://postgres:cmpt372@35.194.22.73/sobaditsgood-db"}) // connection string for postgreSQL
 const corsOptions = {
     origin: 'http://localhost:4200', // Allow only this origin to access the API
     methods: ['GET', 'POST', 'DELETE', 'PUT'], // Allow only these HTTP methods
