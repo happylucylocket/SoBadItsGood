@@ -20,7 +20,7 @@ const corsOptions = {
     origin: 'http://localhost:4200', // Allow only this origin to access the API
     methods: ['GET', 'POST', 'DELETE', 'PUT'], // Allow only these HTTP methods
     allowedHeaders: ['Content-Type'], // Allow only these headers
-    credentials: true
+    // credentials: true
   }; // CORS settings
 
 // App settings
@@ -48,14 +48,6 @@ app.use(bodyParser.urlencoded({extended: true}))
 ////////////////////////////////DIRECTORY PATHS//////////////////////////////////////////////
 app.get('/sobaditsgood/api', (req, res) => {
   res.send('Hello from Node.js backend!');
-  pool.query(`SELECT * FROM users;`, (error, results) => {
-    if (error) {
-      console.error(error) 
-      return
-    }  
-    console.log(results.rows) 
-    res.send(results.rows)
-    })
 })
 
 //Validating if the user login is correct
