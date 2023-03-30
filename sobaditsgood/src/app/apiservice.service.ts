@@ -28,7 +28,7 @@ export class APIServiceService {
 
   //check if the user login is correct
   isUserValid(username:string, password:string){
-    return this.http.get(this.localBaseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
   }
 
   //add user to the database
@@ -38,16 +38,16 @@ export class APIServiceService {
 
   //check if the username is in the database or not
   userExists(username:string){
-    return this.http.get(this.localBaseUrl+`/userExists/${username}`, {responseType: 'json'})
+    return this.http.get(this.baseUrl+`/userExists/${username}`, {responseType: 'json'})
   }
 
   inInSession(){
-    return this.http.get(this.localBaseUrl+'/isInSession', {responseType:'json', withCredentials: true})
+    return this.http.get(this.baseUrl+'/isInSession', {responseType:'json', withCredentials: true})
   }
 
   login(data:any){
     sessionStorage.setItem('username', data.username);
-    return this.http.post(this.localBaseUrl+'/login', data , {responseType: 'text', withCredentials: true})
+    return this.http.post(this.baseUrl+'/login', data , {responseType: 'text', withCredentials: true})
   }
 
   // Returns movie details corresponding to the id
