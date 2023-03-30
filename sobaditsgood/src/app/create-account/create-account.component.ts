@@ -14,7 +14,8 @@ export class CreateAccountComponent {
       fname: ['', Validators.required],
       lname: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      email: ['', Validators.required]
     })
   }
 
