@@ -1,6 +1,5 @@
-// const session = require('express-session');
+const session = require('express-session');
 const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser')
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -28,22 +27,26 @@ app.use(cors(corsOptions)); // CORS setup
 app.use(express.static(ANGULAR_PROJECT_DIR)) // access to static files in the built angular project
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
-// app.use(cookieParser())
-// app.use(session({   // Using session to keep the user logged in 
-//   secret: SECRET_KEY,
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: { secure: false },
-//   maxAge:  30*60*1000 // set to true if using HTTPS
-// }));
 
-// const requireLogin = (req, res, next) => {
-//   if (req.session.user) {
-//     next();
-//   } else {
-//     res.redirect('/test');
-//   }
-// };
+app.use(
+  session({
+      name: 'session',
+      secret: 'zordon',
+      resave:false,
+      maxAge: 30*60*1000,
+      saveUninitialized: true
+  })
+)
+
+
+function isLoggedIn(req,res,next){
+  if (req.session.user){
+      return next()
+  } else {
+      res.redirect('/login')
+  }
+}
+
 
 ////////////////////////////////DIRECTORY PATHS//////////////////////////////////////////////
 app.get('/sobaditsgood/api', (req, res) => {
@@ -87,27 +90,13 @@ app.get('/sobaditsgood/api/userExists/:username', async(req, res)=>{
   res.send({userExists:false})
 })
 
-// app.post('/sobaditsgood/api/login/', (req, res)=>{
-//   console.log("logging in")
-//   req.session.loggedIn = true;
-//   req.session.user = {username:req.body.username}
-//   console.log(req.sessionID)
-// })
-
-// app.get('/logout', (req, res) => {
-//   // destroy current session object
-//   req.session.destroy((err) => {
-//     if (err) {
-//       console.error('Error destroying session:', err);
-//     } else {
-//       // create a new session object
-//       req.session = null;
-//     }
-
-//     // redirect to the login page
-//     res.send("loggedout");
-//   });
-// });
+app.post('/sobaditsgood/api/login/', (req, res)=>{
+  console.log("logging in")
+  req.session.user = {username:req.body.username}
+  // req.session.regenerate()
+  console.log(req.sessionID)
+  res.send('*')
+})
 
 
 app.get('/test', (req, res) => {
@@ -122,17 +111,29 @@ app.get('/test', (req, res) => {
   })
 });
 
-// app.get('/sobaditsgood/api/isInSession', (req, res)=>{
-//   if(req.session.user){
-//     res.send({isInSession:true})
-//   }else{
-//     console.log(req.session)
-//     res.send({isInSession:false})
-//   }
-// })
+app.get('/sobaditsgood/api/isInSession', (req, res)=>{
+  if(req.session.user){
+    res.send({isInSession:true})
+  }else{
+    console.log(req.session)
+    res.send({isInSession:false})
+  }
+})
 
 // Angular project
-app.get("*", (req, res) => {
+app.get("/" ,(req, res) => {
+  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+})
+
+app.get('/login', (req, res)=>{
+  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+})
+
+app.get('/userprofile', isLoggedIn, (req, res)=>{
+  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+})
+
+app.get('/settings', isLoggedIn, (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 
