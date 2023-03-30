@@ -11,21 +11,24 @@ import { DisplayReviewComponent } from '../display-review/display-review.compone
 })
 export class AddReviewComponent implements OnInit {
   form: any;
-  description:string | undefined;
-
-  title: string | undefined;
+  myForm!: FormGroup;
+  public description:string | undefined;
+  public title: string | undefined;
   stars = [1, 2, 3, 4, 5];
   rating = 0;
   hoverState = 0;
 
 
-  constructor(private fb: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<DisplayReviewComponent>,
     @Inject(MAT_DIALOG_DATA) data: {}) {
-    
+      this.myForm = this.formBuilder.group({
+        title: [''],
+        description: [''],
+      }) 
   }
   ngOnInit() {
-    this.form = this.fb;
+    //this.form = this.fb;
   }
   onEnterStar(starId:number) {
     this.hoverState = starId;
@@ -40,7 +43,10 @@ export class AddReviewComponent implements OnInit {
   }
 
   save() {
-    this.dialogRef.close(this.form.value);
+    console.log("rating" + this.rating);
+    console.log(this.myForm.value.description);
+    console.log(this.myForm.value.title);
+    this.dialogRef.close(this.myForm.value);
   }
 
   close() {

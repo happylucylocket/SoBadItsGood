@@ -3,9 +3,16 @@
     <img class="card-img-top" src={{poster}} alt="Movie poster">
 </div>
 <div class="ms-3">
+    <h2>Genre:</h2>
+    <table>
+        <tr *ngFor = "let g of genres"><td>{{g}}</td></tr>
+    </table> 
+        
+    
     <h2>Description</h2>
     <p>{{description}}</p>
-    <h2>Runtime: {{runtime}} minutes</h2>
+    <h2>Runtime: <span>{{runtime}} minutes</span></h2>
+    <h2 *ngFor = "let d of directors">Director: <span>{{d}}</span></h2>
     <h2>Cast and Crew</h2>
 </div>
 

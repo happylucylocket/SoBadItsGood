@@ -45,4 +45,8 @@ export class DisplayReviewComponent {
       maxHeight: '200vh'
     });
   }
+  rateMovie()
+  {
+    console.log(this.rating);
+  }
 }
