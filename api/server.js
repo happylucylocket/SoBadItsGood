@@ -87,6 +87,25 @@ app.get('/sobaditsgood/api/userExists/:username', async(req, res)=>{
   res.send({userExists:false})
 })
 
+// // Create reviews table in the database
+// app.get('/sobaditsgood/api/createReviewTable/', async(req, res)=>{
+//   sql = `CREATE TABLE IF NOT EXISTS reviews (username VARCHAR(255) PRIMARY KEY, movieID INTEGER, title VARCHAR(255), description TEXT, rating INTEGER NOT NULL, likes INTEGER, time DATE);`
+//   await pool.query(sql)
+//   res.send("Review table created")
+// })
+
+// app.get('/sobaditsgood/api/alterTable/', async(req, res)=>{
+//   sql = `ALTER TABLE users ADD Email varchar(255);`
+//   await pool.query(sql)
+//   res.send("Email column created")
+// })
+
+// // Create user table in the database
+// app.get('/sobaditsgood/api/addMovie/', async(req, res)=>{
+//   sql = `INSERT INTO movies(movieID, title, rating) VALUES (14123 , 'Bratz: The Movie', NULL) RETURNING *;`
+//   await pool.query(sql)
+//   res.send("Movie added rat")
+// })
 // app.post('/sobaditsgood/api/login/', (req, res)=>{
 //   console.log("logging in")
 //   req.session.loggedIn = true;
