@@ -15,10 +15,6 @@ export class MovieComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.api.getData().subscribe(data =>{
-      console.log(data);
-    });
-
     this.api.searchMovie(this.movie).subscribe(data => {
       this.movieTitle= JSON.parse(data).title;
     })
