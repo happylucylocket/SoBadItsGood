@@ -57,8 +57,20 @@ export class MovieInfoComponent implements OnInit {
     })
 
     
-
   }
 
+  favoriteClicked()
+  {
+    console.log('Favourite Btn clicked');
+  }
 
+  watchedClicked()
+  {
+    console.log('Watched Btn clicked');
+  }
+
+  bookmarkClicked()
+  {
+    console.log('Bookmark Btn clicked');
+  }
 }
