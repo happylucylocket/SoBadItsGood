@@ -23,7 +23,7 @@ export class APIServiceService {
 
   // for testing purposes
   getData(){
-    return this.http.get(this.baseUrl, {responseType: 'text'});
+    return this.http.get(this.baseUrl+'/api', {responseType: 'text'});
   }
 
   //check if the user login is correct
@@ -41,14 +41,14 @@ export class APIServiceService {
     return this.http.get(this.baseUrl+`/userExists/${username}`, {responseType: 'json'})
   }
 
-  inInSession(){
-    return this.http.get(this.baseUrl+'/isInSession', {responseType:'json', withCredentials: true})
-  }
+  // inInSession(){
+  //   return this.http.get(this.localBaseUrl+'/isInSession', {responseType:'json', withCredentials: true})
+  // }
 
-  login(data:any){
-    sessionStorage.setItem('username', data.username);
-    return this.http.post(this.baseUrl+'/login', data , {responseType: 'text', withCredentials: true})
-  }
+  // login(data:any){
+  //   sessionStorage.setItem('username', data.username);
+  //   return this.http.post(this.localBaseUrl+'/login', data , {responseType: 'text', withCredentials: true})
+  // }
 
   // Returns movie details corresponding to the id
   searchMovie(id: number) {

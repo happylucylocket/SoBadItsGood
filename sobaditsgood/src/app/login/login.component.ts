@@ -28,11 +28,11 @@ export class LoginComponent {
             return
           }
           console.log("welcome ", this.myForm.value.username)
-          this.api.login(this.myForm.value).subscribe()
-          this.api.inInSession().subscribe(data=>{
-            console.log(data)
-          })
-          this.router.navigate(['/userprofile'])
+          // this.api.login(this.myForm.value).subscribe()
+          // this.api.inInSession().subscribe(data=>{
+          //   console.log(data)
+          // })
+          // this.router.navigate(['/userprofile'])
         });
       } else {
         // Form is invalid, show error messages]
