@@ -1,14 +1,5 @@
 <h1 class="ms-3">{{title}}</h1>
-<button mat-icon-button color="primary" title="Favorite" (click)="favoriteClicked()">
-    <mat-icon>favorite</mat-icon>
-</button>
-<button mat-icon-button color="primary" title="Watched" (click)="watchedClicked()">
-    <mat-icon>check</mat-icon>
-</button>
-<button mat-icon-button color="primary" title="Bookmark" (click)="bookmarkClicked()">
-    <mat-icon>bookmark</mat-icon>
-</button>
-
+<app-movie-info-option></app-movie-info-option>
 <div class="card float-start ms-3 me-3" style="width: 14rem;">
     <img class="card-img-top" src={{poster}} alt="Movie poster">
 </div>

@@ -28,6 +28,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
 import { CastCrewComponent } from './cast-crew/cast-crew.component';
+import { MovieInfoOptionComponent } from './movie-info-option/movie-info-option.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { CastCrewComponent } from './cast-crew/cast-crew.component';
     MovieComponent,
     HomeComponent,
     SettingsComponent,
-    CastCrewComponent
+    CastCrewComponent,
+    MovieInfoOptionComponent
   ],
   imports: [
     BrowserModule,
