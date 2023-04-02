@@ -26,6 +26,10 @@ export class APIServiceService {
     return this.http.get(this.baseUrl, {responseType: 'text'});
   }
 
+  getUserInfo(){
+    return this.http.get(this.baseUrl+`/getUserInfo`, {responseType:'json'})
+  }
+
   //check if the user login is correct
   isUserValid(username:string, password:string){
     return this.http.get(this.baseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
@@ -46,7 +50,6 @@ export class APIServiceService {
   }
 
   login(data:any){
-    sessionStorage.setItem('username', data.username);
     return this.http.post(this.baseUrl+'/login', data , {responseType: 'text', withCredentials: true})
   }
 

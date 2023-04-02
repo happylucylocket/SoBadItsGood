@@ -6,12 +6,20 @@ import { APIServiceService } from '../apiservice.service';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent {
+export class UserProfileComponent{
+  session:boolean | undefined;
+  username:string | undefined;
 
   constructor(private api:APIServiceService){
     api.inInSession().subscribe(data=>{
-      console.log(data)
+      this.session = JSON.parse(JSON.stringify(data)).isInSession
+      if(this.session == true){
+        this.api.getUserInfo().subscribe(data=>{
+          var a = JSON.parse(JSON.stringify(data))[0]
+          this.username = a.username
+          console.log(a)
+        })
+      }
     })
   }
-
 }

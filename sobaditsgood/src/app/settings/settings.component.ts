@@ -2,7 +2,7 @@ import { PasswordDialogComponent } from './../password-dialog/password-dialog.co
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component } from '@angular/core';
 import * as md5 from 'md5';
-import { DialogRef } from '@angular/cdk/dialog';
+import { APIServiceService } from '../apiservice.service';
 
 @Component({
   selector: 'settings',
@@ -10,7 +10,6 @@ import { DialogRef } from '@angular/cdk/dialog';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent {
-  constructor(private dialog:MatDialog){}
   userFirstName: String="Michael";
   userLastName:String="Jackson";
   userEmail:string = "mj@gmail.com";
@@ -22,6 +21,18 @@ export class SettingsComponent {
   readOnlyPswd:boolean=true
   isClass:boolean=true
   checkValue:boolean=true
+
+  constructor(private dialog:MatDialog, private api:APIServiceService){
+    api.getUserInfo().subscribe(data=>{
+      var a = JSON.parse(JSON.stringify(data))[0]
+          this.username = a.username
+          this.userFirstName = a.fname
+          this.userLastName = a.lname
+          this.userEmail = a.email
+          this.password = a.password
+          console.log(a)
+    })
+  }
 
   getPswd():String {
     return md5(this.password);
@@ -41,6 +52,7 @@ export class SettingsComponent {
     if(this.checkValue==true)
    this.checkValue=!this.checkValue
   }
+
   changePswd(){
     if(this.checkValue==true)
     this.checkValue=!this.checkValue

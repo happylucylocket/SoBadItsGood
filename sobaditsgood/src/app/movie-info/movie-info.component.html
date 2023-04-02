@@ -14,11 +14,14 @@
 </div>
 <div class="ms-3">
     <h2>Genre:</h2>
-    <table>
-        <tr *ngFor = "let g of genres"><td>{{g}}</td></tr>
-    </table> 
-        
-    
+    <div class="container">
+        <div class="row">
+          <div *ngFor = "let g of genres" class="col-1">
+            <p>{{g}}</p>
+          </div>
+        </div>
+      </div>
+
     <h2>Description</h2>
     <p>{{description}}</p>
     <h2>Runtime: <span>{{runtime}} minutes</span></h2>
@@ -26,7 +29,7 @@
     <h2>Cast and Crew</h2>
 </div>
 
-<div class="d-flex align-content-start flex-wrap gap-3">
+<div class="d-flex align-content-start flex-wrap gap-3 container-fluid">
     <div *ngFor = "let c of cast" class="card" style="max-width: 8rem;">
         <img src={{path+c.profile_path}} class="card-img-top" alt="Cast headshot">
         <div class="card-body">
