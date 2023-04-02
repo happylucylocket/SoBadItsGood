@@ -23,31 +23,38 @@ export class APIServiceService {
 
   // for testing purposes
   getData(){
-    return this.http.get(this.baseUrl, {responseType: 'text'});
+    return this.http.get(this.localBaseUrl, {responseType: 'text'});
+  }
+
+  getUserInfo(){
+    return this.http.get(this.localBaseUrl+`/getUserInfo`, {responseType:'json'})
   }
 
   //check if the user login is correct
   isUserValid(username:string, password:string){
-    return this.http.get(this.baseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
+    return this.http.get(this.localBaseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
   }
 
   //add user to the database
   registerUser(user:any){
-    return this.http.post(this.baseUrl+`/registerUser/`, user, { responseType: 'text' })
+    return this.http.post(this.localBaseUrl+`/registerUser/`, user, { responseType: 'text' })
   }
 
   //check if the username is in the database or not
   userExists(username:string){
-    return this.http.get(this.baseUrl+`/userExists/${username}`, {responseType: 'json'})
+    return this.http.get(this.localBaseUrl+`/userExists/${username}`, {responseType: 'json'})
   }
 
   inInSession(){
-    return this.http.get(this.baseUrl+'/isInSession', {responseType:'json', withCredentials: true})
+    return this.http.get(this.localBaseUrl+'/isInSession', {responseType:'json', withCredentials: true})
   }
 
   login(data:any){
-    sessionStorage.setItem('username', data.username);
-    return this.http.post(this.baseUrl+'/login', data , {responseType: 'text', withCredentials: true})
+    return this.http.post(this.localBaseUrl+'/login', data , {responseType: 'text', withCredentials: true})
+  }
+
+  logout(){
+    return this.http.get(this.localBaseUrl+'/logout', {responseType: 'text', withCredentials: true})
   }
 
   // Returns movie details corresponding to the id

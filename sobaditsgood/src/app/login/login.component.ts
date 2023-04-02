@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { APIServiceService } from '../apiservice.service';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +18,8 @@ export class LoginComponent {
     })
   }
 
+  
+
     onSubmit() {
       if (this.myForm.valid) {
         // Form is valid, submit the data
@@ -32,6 +34,7 @@ export class LoginComponent {
           this.api.inInSession().subscribe(data=>{
             console.log(data)
           })
+
           this.router.navigate(['/userprofile'])
         });
       } else {
