@@ -19,13 +19,13 @@
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
                         <label class="form-label" > <a (click)="fnameEdit()"class="bi" [class.bi-pencil-square]="readonlyFirstName"></a> First name</label>
-                        <input type="text"  [(ngModel)]="userFirstName"  class="form-control form-control-lg shadow" [readonly]="readonlyFirstName" />
+                        <input type="text"  [(ngModel)]="userFirstName"  class="form-control form-control-lg shadow" />
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
                         <label class="form-label"><a (click)="lnameEdit()"class="bi" [class.bi-pencil-square]="readOnlyLastName"></a> Last name</label>
-                        <input [(ngModel)]="userLastName" type="text"  class="form-control form-control-lg shadow" [readonly]="readOnlyLastName"/>
+                        <input [(ngModel)]="userLastName" type="text"  class="form-control form-control-lg shadow"/>
                       </div>
                     </div>
                   </div>
@@ -33,12 +33,12 @@
   
                   <div class="form-outline mb-4">
                     <label class="form-label"><a (click)="usernameEdit()"class="bi" [class.bi-pencil-square]="readOnlyUsername"></a> Username</label>
-                    <input type="text" [(ngModel)]="username" class="form-control form-control-lg shadow" [readonly]=" readOnlyUsername" />
+                    <input type="text" [(ngModel)]="username" class="form-control form-control-lg shadow" />
                   </div>
   
                   <div class="form-outline mb-4">
                     <label class="form-label"> Email </label>
-                      <input type="email" id="email" [(ngModel)]="userEmail"  class="form-control-plaintext form-control-plaintext-lg " readonly />
+                      <input type="email" id="email" [(ngModel)]="userEmail"  class="form-control form-control-lg shadow"/>
                   </div>
                   <div class="form-outline mb-4">
                     <label class="form-label"><a (click)="changePswd()"class="bi" [class.bi-pencil-square]="readOnlyPswd"></a> Password </label>
