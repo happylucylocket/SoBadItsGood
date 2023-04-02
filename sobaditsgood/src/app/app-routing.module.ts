@@ -15,7 +15,7 @@ const routes: Routes = [
   {path:'createaccount', component:CreateAccountComponent},
   {path:'settings', component:SettingsComponent},
   {path:'logout', component:LoginComponent},
-  {path: 'movieinfo', component:MovieInfoComponent},
+  {path: 'movieinfo/:movieid', component:MovieInfoComponent},
   {path: 'castcrew', component:CastCrewComponent}
 ];
 

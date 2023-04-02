@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie-info',
@@ -20,12 +21,15 @@ export class MovieInfoComponent implements OnInit {
   genresObj:any[] = [];
   genres:string[] = [];
   path: string = "http://image.tmdb.org/t/p/original"
+  id!:string
+  constructor(private api: APIServiceService, private route: ActivatedRoute) {
 
-  constructor(private api: APIServiceService) {
+    this.route.params.subscribe(params => {
+      this.movieId = parseInt(params['movieid']);
+    });
   }
 
   ngOnInit(): void {
-    this.movieId = this.api.getCurrentMovieId()
     this.api.searchMovie(this.movieId).subscribe(data => {
       // Get title and concatenate with sliced date to show release year
       this.releaseDate = JSON.parse(data).release_date.slice(0,4);

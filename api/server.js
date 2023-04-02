@@ -154,6 +154,10 @@ app.get('/settings', isLoggedIn, (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 
+app.get('/movieinfo/:movieid', (req, res)=>{
+  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+})
+
 // Connect to server
 app.listen(PORT, HOST, () => {
   console.log(`Server started on host ${HOST} and  port ${PORT}`);
