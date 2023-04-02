@@ -63,7 +63,7 @@ app.get('/sobaditsgood/api/isUserValid/:username/:pass', async (req, res)=>{
     res.send({"isValid": false})
     return
   }
-  
+
   res.send({"isValid": true})
 })
 
@@ -75,8 +75,32 @@ app.post('/sobaditsgood/api/registerUser/', async(req, res)=>{
   const password = req.body.password
   sql = `INSERT INTO users (fname, lname, username, password) VALUES ($1, $2, $3, $4);`
   await pool.query(sql,[fname, lname, username, password])
-  res.send("User ccreated")
+  res.send("User created")
 })
+
+app.get('/sobaditsgood/api/getReviews/:movieid', async(req, res)=>{
+  const movieid = req.body.movieid
+  sql = `SELECT movieid FROM REVIEWS m WHERE m.movieid = $1`
+  var result = await pool.query(sql, [movieid])
+  if (result.rowCount == 0){
+    res.send({"hasReview": false})
+    return
+  }
+  res.send({"hasReview": true, result})
+})
+
+app.post('/sobaditsgood/api/addReview/', async(req, res)=>{
+  const username = req.body.username
+  const movieid = req.body.movieid
+  const title = req.body.title
+  const description = req.body.description
+  const rating = req.body.rating
+  const postedOn = new Date();
+  sql = `INSERT INTO reviews (username, movieid, title, description, rating, postedOn) VALUES ($1, $2, $3, $4, $5, $6);`
+  await pool.query(sql,[username, movieid, title, description, rating, postedOn])
+  res.send("Review created")
+})
+
  
 //check if user exists
 app.get('/sobaditsgood/api/userExists/:username', async(req, res)=>{

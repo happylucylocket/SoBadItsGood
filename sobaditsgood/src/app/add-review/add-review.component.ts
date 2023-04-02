@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { MatInputModule} from '@angular/material/input';
 import { DisplayReviewComponent } from '../display-review/display-review.component';
-
+import { APIServiceService } from '../apiservice.service';
 @Component({
   selector: 'app-add-review',
   templateUrl: './add-review.component.html',
@@ -17,18 +17,19 @@ export class AddReviewComponent implements OnInit {
   stars = [1, 2, 3, 4, 5];
   rating = 0;
   hoverState = 0;
-
+  movieId!: number;
 
   constructor(private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<DisplayReviewComponent>,
-    @Inject(MAT_DIALOG_DATA) data: {}) {
+    @Inject(MAT_DIALOG_DATA) data: {}, private api: APIServiceService) {
       this.myForm = this.formBuilder.group({
         title: [''],
         description: [''],
       }) 
   }
   ngOnInit() {
-    //this.form = this.fb;
+    this.movieId = this.api.getCurrentMovieId()
+    console.log(this.movieId);
   }
   onEnterStar(starId:number) {
     this.hoverState = starId;
@@ -43,9 +44,16 @@ export class AddReviewComponent implements OnInit {
   }
 
   save() {
-    console.log("rating" + this.rating);
-    console.log(this.myForm.value.description);
-    console.log(this.myForm.value.title);
+    console.log("Rating " + this.rating);
+    console.log("Description " + this.myForm.value.description);
+    console.log("Title " + this.myForm.value.title);
+    console.log("Movie Id " + this.movieId);
+    console.log(this.myForm.value);
+    //username, movieid, title, description, rating, postedOn
+    this.api.addReview(this.myForm.value).subscribe((res)=>{
+      console.log(res)
+      return
+    })
     this.dialogRef.close(this.myForm.value);
   }
 
