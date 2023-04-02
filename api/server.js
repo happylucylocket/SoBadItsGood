@@ -7,8 +7,8 @@ const pg = require('pg');
 require('dotenv').config();
 
 // Environmental values
-const PORT = process.env.PORT || 3000; // post number
-const HOST = process.env.HOST // host IP
+const PORT = 3000; // post number
+const HOST = '0.0.0.0' // host IP
 // const DB_URL = process.env.DB_URL // connection string for postgrSQL'
 const SECRET_KEY = process.env.SECRET_KEY // secret key for using sessions
 const ANGULAR_PROJECT_DIR = path.join(__dirname, '../sobaditsgood/dist/sobaditsgood/'); // Path to built angular project
@@ -93,7 +93,6 @@ app.get('/sobaditsgood/api/userExists/:username', async(req, res)=>{
 app.post('/sobaditsgood/api/login/', (req, res)=>{
   console.log("logging in")
   req.session.user = {username:req.body.username}
-  // req.session.regenerate()
   console.log(req.sessionID)
   res.send('*')
 })
@@ -120,6 +119,14 @@ app.get('/sobaditsgood/api/isInSession', (req, res)=>{
   }
 })
 
+app.get('/sobaditsgood/api/getUserInfo', async(req, res)=>{
+  const username = req.session.user.username
+  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic FROM users u where u.username=$1;`
+  result = await pool.query(sql, [username])
+  console.log(req.session.user.username)
+  res.send(result.rows)
+})
+
 // Angular project
 app.get("/" ,(req, res) => {
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
@@ -129,6 +136,16 @@ app.get('/login', (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 
+app.get('/sobaditsgood/api/logout', (req, res) => {
+  req.session.destroy((err) => { 
+    if (err) {
+      console.log(err);
+    } else {
+      res.send('Logged out'); // Redirect to the login page after successful logout
+    }
+  });
+});
+
 app.get('/userprofile', isLoggedIn, (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
@@ -136,6 +153,22 @@ app.get('/userprofile', isLoggedIn, (req, res)=>{
 app.get('/settings', isLoggedIn, (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
+
+app.get('/movieinfo/:movieid', (req, res)=>{
+  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+})
+
+app.get('/sobaditsgood/api/getPopular', async(req, res) => {
+  result = await pool.query(`SELECT movieID FROM movies ORDER BY popularity DESC limit 12`); 
+  res.send(result.rows)
+})
+
+// // Add movie to database (if we need to add more)
+// app.get('/sobaditsgood/api/addMovie/', async(req, res)=>{
+//   sql = `INSERT INTO movies(movieID, title, rating) VALUES (10802, 'Showgirls', NULL) RETURNING *;`
+//   await pool.query(sql)
+//   res.send("Movie added")
+// })
 
 // Connect to server
 app.listen(PORT, HOST, () => {
