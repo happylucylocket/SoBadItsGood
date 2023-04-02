@@ -158,6 +158,18 @@ app.get('/movieinfo/:movieid', (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 
+app.get('/sobaditsgood/api/getPopular', async(req, res) => {
+  result = await pool.query(`SELECT movieID FROM movies ORDER BY popularity DESC limit 12`); 
+  res.send(result.rows)
+})
+
+// // Add movie to database (if we need to add more)
+// app.get('/sobaditsgood/api/addMovie/', async(req, res)=>{
+//   sql = `INSERT INTO movies(movieID, title, rating) VALUES (10802, 'Showgirls', NULL) RETURNING *;`
+//   await pool.query(sql)
+//   res.send("Movie added")
+// })
+
 // Connect to server
 app.listen(PORT, HOST, () => {
   console.log(`Server started on host ${HOST} and  port ${PORT}`);

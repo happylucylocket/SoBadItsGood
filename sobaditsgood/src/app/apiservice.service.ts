@@ -14,7 +14,7 @@ export class APIServiceService {
   
   // Test list of movie IDs
   topPicksIds = [314, 71880, 536869, 20196, 17473, 347626, 55563, 378236, 40016, 24528, 8966, 22345]
-  popularIds = [535437, 462919, 625450, 8046, 24432, 26914, 205321, 248504, 331446, 390989, 438970, 523849]
+  popularIds:any[] = []
   watchLaterIds = [260928, 99847, 197599, 373841, 495507, 45649, 10196, 10696, 22293, 31246, 457712, 70821]
 
   currentMovieId: number = -1;
@@ -65,18 +65,21 @@ export class APIServiceService {
   // Returns the movie's credits (cast + crew)
   getCredits(id: number) {
     return this.http.get('https://api.themoviedb.org/3/movie/'+id.toString()+"/credits"+'?api_key=ecd28fb4488e17f072d95ad0278f2545', {responseType: 'text'});
-
   }
-
-  // getPopularMovies() {
-  //   return this.http.get<Object>('https://api.themoviedb.org/3/trending/movie/day?api_key=ecd28fb4488e17f072d95ad0278f2545');
-  // }
 
   getTopPicks() {
     return this.topPicksIds;
   }
 
   getPopular() {
+    this.popularIds = [];
+    this.http.get(this.baseUrl+'/getPopular', {responseType: 'text'}).subscribe(data => {
+      var movies = JSON.parse(data)
+      for (var i = 0; i < movies.length; i++) {
+        console.log(movies[i].movieid)
+        this.popularIds.push(movies[i].movieid);
+      }
+    })
     return this.popularIds;
   }
 
