@@ -37,9 +37,7 @@ export class HomeComponent implements OnInit{
   }
 
   goToMovie(id:number) {
-    this.api.setCurrentMovieId(id);
-    console.log("Movie clicked");
-    this.router.navigate(['/movieinfo']);
+    this.router.navigate([`/movieinfo/${id}`]);
   }
 }
 
