@@ -15,14 +15,12 @@ export class AppComponent {
 
   constructor(private api:APIServiceService, private router:Router){
     api.inInSession().subscribe(data=>{
-      console.log(data)
       this.session = JSON.parse(JSON.stringify(data)).isInSession
     })
   }
 
   Logout(){
     this.api.logout().subscribe(data=>{
-      console.log(data)
       this.router.navigate(['/login'])
     })
     window.location.reload()
