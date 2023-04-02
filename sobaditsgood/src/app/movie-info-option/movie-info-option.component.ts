@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { APIServiceService } from '../apiservice.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-movie-info-option',
@@ -6,8 +9,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./movie-info-option.component.css']
 })
 export class MovieInfoOptionComponent {
-  favoriteClicked()
-  {
+
+  constructor(private api:APIServiceService, private router:Router){}
+
+  session:Boolean = false
+
+  favoriteClicked(){
+    // this.router.navigate(['/movieinfo/options/:movieid'])
     console.log('Favourite Btn clicked');
   }
 
