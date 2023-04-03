@@ -86,7 +86,14 @@ export class APIServiceService {
     })
     return this.popularIds;
   }
-
+  //check if the reviews is in the database or not
+  getReviews(movieId:number){
+    return this.http.get(this.localBaseUrl+`/getReviews/${movieId}`, {responseType: 'json'})
+  }
+  //check if the username is in the database or not
+  addReview(review:any){
+    return this.http.post(this.localBaseUrl+`/addReview/`, review, { responseType: 'text' })
+  }
   getWatchLater() {
     return this.watchLaterIds;
   }
