@@ -1,6 +1,17 @@
-<button mat-icon-button color="primary" title="Favorite" (click)="favoriteClicked()">
-    <mat-icon>favorite_border</mat-icon>
-</button>
+<div *ngIf="favourited; then favouritedBlock; else favouriteBlock"></div>
+<ng-template #favouritedBlock>
+    <button mat-icon-button color="primary" title="Favorite" (click)="unfavourite()">
+        <mat-icon class="favourited">favorite</mat-icon>
+    </button>
+</ng-template>
+
+<ng-template #favouriteBlock>
+    <button mat-icon-button color="primary" title="Favorite" (click)="favoriteClicked()">
+        <mat-icon>favorite_border</mat-icon>
+    </button>
+</ng-template>
+
+
 <button mat-icon-button color="primary" title="Watched" (click)="watchedClicked()">
     <mat-icon>check_circle_outline</mat-icon>
 </button>

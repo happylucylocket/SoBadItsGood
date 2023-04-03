@@ -158,6 +158,31 @@ app.get('/sobaditsgood/api/addfavourite/:movieID', isLoggedIn, async(req, res)=>
   res.send("Movie added to Favourites")
 })
 
+app.get('/sobaditsgood/api/removefavourite/:movieid', isLoggedIn, async(req, res)=>{
+  const movieid = req.params.movieid
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1;'
+  Qresult = await pool.query(sql, [username])
+  sql2 = `DELETE FROM favoritemovies WHERE movieid=$1 AND userid=$2;`
+  result = await pool.query(sql2, [movieid, Qresult.rows[0].userid])
+  res.send("Movie Unfavourited")
+})
+
+//Check if a movie has been favourited or not
+app.get('/sobaditsgood/api/isFav/:movieid', isLoggedIn, async(req, res)=>{
+  const username = req.session.user.username
+  const movieid = req.params.movieid
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT count(*) FROM favoritemovies WHERE movieid=$1 AND userid=$2'
+  result = await pool.query(sql, [movieid, Qresult.rows[0].userid])
+  if (parseInt(result.rows[0].count) == 1){
+    res.send({isFave: true})
+    return
+  }
+  res.send({isFave: false})
+})
+
 app.get('/sobaditsgood/api/getPopular', async(req, res) => {
   result = await pool.query(`SELECT movieID FROM movies ORDER BY popularity DESC limit 12`); 
   res.send(result.rows)
