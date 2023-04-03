@@ -28,6 +28,6 @@
             <h5 id="card-text">{{c.character}}</h5>
         </div>
     </div>
-    <button type="button" [routerLink]="['/castcrew']" class="btn btn-info">See more</button>
+    <button type="button" (click)="castCrew()" class="btn btn-info">See more</button>
 </div>
 <app-display-review></app-display-review>

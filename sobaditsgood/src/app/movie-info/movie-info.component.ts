@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-info',
@@ -22,7 +22,7 @@ export class MovieInfoComponent implements OnInit {
   genres:string[] = [];
   path: string = "http://image.tmdb.org/t/p/original"
   id!:string
-  constructor(private api: APIServiceService, private route: ActivatedRoute) {
+  constructor(private api: APIServiceService, private route: ActivatedRoute, private routerURL:Router) {
 
     this.route.params.subscribe(params => {
       this.movieId = parseInt(params['movieid']);
@@ -58,8 +58,10 @@ export class MovieInfoComponent implements OnInit {
           this.directors.push(this.crew[i].name);
         }
       }
-    })
+    })    
+  }
 
-    
+  castCrew(){
+    this.routerURL.navigate([`/castcrew/${this.movieId}`])
   }
 }

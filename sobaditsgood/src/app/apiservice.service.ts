@@ -57,6 +57,10 @@ export class APIServiceService {
     return this.http.get(this.localBaseUrl+'/logout', {responseType: 'text', withCredentials: true})
   }
 
+  addFavMovie(movieId:string){
+    return this.http.get(this.localBaseUrl+`/addfavourite/${movieId}`, {responseType:'text'})
+  }
+
   // Returns movie details corresponding to the id
   searchMovie(id: number) {
     return this.http.get('https://api.themoviedb.org/3/movie/'+id.toString()+'?api_key=ecd28fb4488e17f072d95ad0278f2545', {responseType: 'text'});
@@ -73,7 +77,7 @@ export class APIServiceService {
 
   getPopular() {
     this.popularIds = [];
-    this.http.get(this.baseUrl+'/getPopular', {responseType: 'text'}).subscribe(data => {
+    this.http.get(this.localBaseUrl+'/getPopular', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
         console.log(movies[i].movieid)

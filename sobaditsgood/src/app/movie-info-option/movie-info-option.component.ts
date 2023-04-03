@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -10,12 +10,16 @@ import { Router } from '@angular/router';
 })
 export class MovieInfoOptionComponent {
 
-  constructor(private api:APIServiceService, private router:Router){}
+  constructor(private api:APIServiceService, private route: ActivatedRoute){}
 
   session:Boolean = false
 
   favoriteClicked(){
-    // this.router.navigate(['/movieinfo/options/:movieid'])
+    this.route.params.subscribe(params => {
+      this.api.addFavMovie(params['movieid']).subscribe(data=>{
+        console.log(data)
+      })
+    });
     console.log('Favourite Btn clicked');
   }
 
