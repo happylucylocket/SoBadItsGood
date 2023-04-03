@@ -7,7 +7,7 @@
     <h2>Genre:</h2>
     <div class="container">
         <div class="row">
-          <div *ngFor = "let g of genres" class="col-1">
+          <div *ngFor = "let g of genres" class="col-sm-1">
             <p>{{g}}</p>
           </div>
         </div>
@@ -28,6 +28,6 @@
             <h5 id="card-text">{{c.character}}</h5>
         </div>
     </div>
-    <button type="button" [routerLink]="['/castcrew']" class="btn btn-info">See more</button>
+    <button type="button" (click)="castCrew()" class="btn btn-info">See more</button>
 </div>
 <app-display-review></app-display-review>
