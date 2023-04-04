@@ -27,7 +27,6 @@ app.use(cors(corsOptions)); // CORS setup
 app.use(express.static(ANGULAR_PROJECT_DIR)) // access to static files in the built angular project
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
-
 app.use(
   session({
       name: 'session',
@@ -50,7 +49,7 @@ function isLoggedIn(req,res,next){
 
 ////////////////////////////////API CALLS//////////////////////////////////////////////
 app.get('/sobaditsgood/api', (req, res) => {
-  res.send('Hello from Node.js backend!');
+  res.send("Hello from So Bad It's Good backend!");
 })
 
 //Validating if the user login is correct
