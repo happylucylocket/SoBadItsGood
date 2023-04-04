@@ -24,8 +24,15 @@
     </button>
 </ng-template>
 
-<!-- Bookmark Movies -->
-
-<button mat-icon-button color="primary" title="Bookmark" (click)="bookmarkClicked()">
-    <mat-icon>bookmark_border</mat-icon>
-</button>
+<!-- Watchlist Movies -->
+<div *ngIf="watchlisted;then watchlistedMovie; else notWatchlisted"></div>
+<ng-template #watchlistedMovie>
+    <button mat-icon-button color="primary" title="Bookmark" (click)="removeFromWatchlist()">
+        <mat-icon class="checked">bookmark</mat-icon>
+    </button>
+</ng-template>
+<ng-template #notWatchlisted>
+    <button mat-icon-button color="primary" title="Bookmark" (click)="addToWatchlist()">
+        <mat-icon>bookmark_border</mat-icon>
+    </button>
+</ng-template>

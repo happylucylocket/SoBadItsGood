@@ -57,6 +57,7 @@ export class APIServiceService {
     return this.http.get(this.localBaseUrl+'/logout', {responseType: 'text', withCredentials: true})
   }
 
+  //add to favourite
   addFavMovie(movieId:string){
     return this.http.get(this.localBaseUrl+`/addfavourite/${movieId}`, {responseType:'text'})
   }
@@ -66,20 +67,38 @@ export class APIServiceService {
     return this.http.get(this.localBaseUrl+`/isFav/${movieid}`, {responseType:'json'})
   }
 
+  //remove from favourite
   unFavMovie(movieid:string){
     return this.http.get(this.localBaseUrl+`/removefavourite/${movieid}`, {responseType:'text'})
   }
 
+  //if user watched the movie
   iswatched(movieid:string){
     return this.http.get(this.localBaseUrl+`/watched/${movieid}`, {responseType:'json'})
   }
 
+  //add to watched movies
   addwatched(movieid:string){
     return this.http.get(this.localBaseUrl+`/addwatched/${movieid}`, {responseType:'text'})
   }
 
+  //remove from watched movies
   removeWatched(movieid:string){
     return this.http.get(this.localBaseUrl+`/removewatched/${movieid}`, {responseType:'text'})
+  }
+
+  //if user watch listed the movie
+  isWatchlisted(movieid:string){
+    return this.http.get(this.localBaseUrl+`/watchlisted/${movieid}`, {responseType:'json'})
+  }
+
+  //add movie to watchlist
+  addToWatchlist(movieid:string){
+    return this.http.get(this.localBaseUrl+`/addtowatchlist/${movieid}`, {responseType:'text'})
+  }
+
+  removeFromWatchlist(movieid:string){
+    return this.http.get(this.localBaseUrl+`/removedwatchlist/${movieid}`, {responseType:'text'})
   }
 
   // Returns movie details corresponding to the id

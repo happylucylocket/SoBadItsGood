@@ -13,7 +13,7 @@ export class MovieInfoOptionComponent {
   session:Boolean = false
   favourited:boolean = false
   watched:boolean = false
-  bookmarked:boolean = false
+  watchlisted:boolean = false
 
   constructor(private api:APIServiceService, private route: ActivatedRoute){
     this.route.params.subscribe(params => {
@@ -23,7 +23,10 @@ export class MovieInfoOptionComponent {
 
       this.api.iswatched(params['movieid']).subscribe(data=>{
         this.watched = JSON.parse(JSON.stringify(data)).watched
-        console.log(data)
+      })
+
+      this.api.isWatchlisted(params['movieid']).subscribe((data)=>{
+        this.watchlisted = JSON.parse(JSON.stringify(data)).watchlisted
       })
       
     });
@@ -50,7 +53,6 @@ export class MovieInfoOptionComponent {
     this.route.params.subscribe(params => {
       this.api.addwatched(params['movieid']).subscribe(data=>{
         this.watched = true
-        console.log(data)
       })
     });
   }
@@ -59,17 +61,24 @@ export class MovieInfoOptionComponent {
     this.route.params.subscribe(params=>{
       this.api.removeWatched(params['movieid']).subscribe(data=>{
         this.watched = false
-        console.log(data)
       })
     })
   }
 
-  bookmarkClicked()
-  {
-    console.log('Bookmark Btn clicked');
+  addToWatchlist(){
+    this.route.params.subscribe(params => {
+      this.api.addToWatchlist(params['movieid']).subscribe(data=>{
+        this.watchlisted = true
+        console.log(data)
+      })
+    });
   }
 
-  removeBookmark(){
-
+  removeFromWatchlist(){
+    this.route.params.subscribe(params=>{
+      this.api.removeFromWatchlist(params['movieid']).subscribe(data=>{
+        this.watchlisted = false
+      })
+    })
   }
 }
