@@ -1,24 +1,18 @@
 <h1 class="ms-3">{{title}}</h1>
-<button mat-icon-button color="primary" title="Favorite" (click)="favoriteClicked()">
-    <mat-icon>favorite</mat-icon>
-</button>
-<button mat-icon-button color="primary" title="Watched" (click)="watchedClicked()">
-    <mat-icon>check</mat-icon>
-</button>
-<button mat-icon-button color="primary" title="Bookmark" (click)="bookmarkClicked()">
-    <mat-icon>bookmark</mat-icon>
-</button>
-
+<app-movie-info-option></app-movie-info-option>
 <div class="card float-start ms-3 me-3" style="width: 14rem;">
     <img class="card-img-top" src={{poster}} alt="Movie poster">
 </div>
 <div class="ms-3">
     <h2>Genre:</h2>
-    <table>
-        <tr *ngFor = "let g of genres"><td>{{g}}</td></tr>
-    </table> 
-        
-    
+    <div class="container">
+        <div class="row">
+          <div *ngFor = "let g of genres" class="col-sm-1">
+            <p>{{g}}</p>
+          </div>
+        </div>
+      </div>
+
     <h2>Description</h2>
     <p>{{description}}</p>
     <h2>Runtime: <span>{{runtime}} minutes</span></h2>
@@ -26,7 +20,7 @@
     <h2>Cast and Crew</h2>
 </div>
 
-<div class="d-flex align-content-start flex-wrap gap-3">
+<div class="d-flex align-content-start flex-wrap gap-3 container-fluid">
     <div *ngFor = "let c of cast" class="card" style="max-width: 8rem;">
         <img src={{path+c.profile_path}} class="card-img-top" alt="Cast headshot">
         <div class="card-body">
@@ -34,6 +28,6 @@
             <h5 id="card-text">{{c.character}}</h5>
         </div>
     </div>
-    <button type="button" [routerLink]="['/castcrew']" class="btn btn-info">See more</button>
+    <button type="button" (click)="castCrew()" class="btn btn-info">See more</button>
 </div>
 <app-display-review></app-display-review>

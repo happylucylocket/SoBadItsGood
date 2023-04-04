@@ -48,7 +48,7 @@ function isLoggedIn(req,res,next){
 }
 
 
-////////////////////////////////DIRECTORY PATHS//////////////////////////////////////////////
+////////////////////////////////API CALLS//////////////////////////////////////////////
 app.get('/sobaditsgood/api', (req, res) => {
   res.send('Hello from Node.js backend!');
 })
@@ -119,21 +119,141 @@ app.get('/sobaditsgood/api/isInSession', (req, res)=>{
   }
 })
 
+app.get('/sobaditsgood/api/getReviews/:movieid', async(req, res)=>{
+  const movieid = req.body.movieid
+  sql = `SELECT movieid FROM REVIEWS m WHERE m.movieid = $1`
+  var result = await pool.query(sql, [movieid])
+  if (result.rowCount == 0){
+    res.send({"hasReview": false})
+    return
+  }
+  res.send({"hasReview": true, result})
+})
+
+app.post('/sobaditsgood/api/addReview/', async(req, res)=>{
+  const username = req.body.username
+  const movieid = req.body.movieId
+  const title = req.body.title
+  const description = req.body.description
+  const rating = req.body.rating
+  const postedOn = new Date();
+  sql = `INSERT INTO reviews (username, movieid, title, description, rating, postedOn) VALUES ($1, $2, $3, $4, $5, $6);`
+  await pool.query(sql,[username, movieid, title, description, rating, postedOn])
+  res.send("Review created")
+})
 app.get('/sobaditsgood/api/getUserInfo', async(req, res)=>{
   const username = req.session.user.username
   sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic FROM users u where u.username=$1;`
   result = await pool.query(sql, [username])
-  console.log(req.session.user.username)
   res.send(result.rows)
 })
 
-// Angular project
-app.get("/" ,(req, res) => {
-  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+app.get('/sobaditsgood/api/addfavourite/:movieID', isLoggedIn, async(req, res)=>{
+  const movieid = req.params.movieID
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'INSERT INTO favoritemovies (userid, movieid) VALUES ($1, $2);'
+  result = await pool.query(sql, [Qresult.rows[0].userid, movieid])
+  res.send("Movie added to Favourites")
 })
 
-app.get('/login', (req, res)=>{
-  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+app.get('/sobaditsgood/api/removefavourite/:movieid', isLoggedIn, async(req, res)=>{
+  const movieid = req.params.movieid
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1;'
+  Qresult = await pool.query(sql, [username])
+  sql2 = `DELETE FROM favoritemovies WHERE movieid=$1 AND userid=$2;`
+  result = await pool.query(sql2, [movieid, Qresult.rows[0].userid])
+  res.send("Movie Unfavourited")
+})
+
+//Check if a movie has been favourited or not
+app.get('/sobaditsgood/api/isFav/:movieid', isLoggedIn, async(req, res)=>{
+  const username = req.session.user.username
+  const movieid = req.params.movieid
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT count(*) FROM favoritemovies WHERE movieid=$1 AND userid=$2'
+  result = await pool.query(sql, [movieid, Qresult.rows[0].userid])
+  if (parseInt(result.rows[0].count) == 1){
+    res.send({isFave: true})
+    return
+  }
+  res.send({isFave: false})
+})
+
+app.get('/sobaditsgood/api/watched/:movieid', isLoggedIn, async(req, res)=>{
+  const username = req.session.user.username
+  const movieid = req.params.movieid
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT count(*) FROM watchedmovies WHERE movieid=$1 AND userid=$2'
+  result = await pool.query(sql, [movieid, Qresult.rows[0].userid])
+  if (parseInt(result.rows[0].count) == 1){
+    res.send({watched: true})
+    return
+  }
+  res.send({watched: false})
+})
+
+app.get('/sobaditsgood/api/removewatched/:movieid', isLoggedIn, async(req, res)=>{
+  const movieid = req.params.movieid
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1;'
+  Qresult = await pool.query(sql, [username])
+  sql2 = `DELETE FROM watchedmovies WHERE movieid=$1 AND userid=$2;`
+  result = await pool.query(sql2, [movieid, Qresult.rows[0].userid])
+  res.send("removed from watched")
+})
+
+app.get('/sobaditsgood/api/addwatched/:movieID', isLoggedIn, async(req, res)=>{
+  const movieid = req.params.movieID
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'INSERT INTO watchedmovies (userid, movieid) VALUES ($1, $2);'
+  result = await pool.query(sql, [Qresult.rows[0].userid, movieid])
+  res.send("Movie added to watched")
+})
+
+app.get('/sobaditsgood/api/watchlisted/:movieid', isLoggedIn, async(req, res)=>{
+  const username = req.session.user.username
+  const movieid = req.params.movieid
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT count(*) FROM watchlist WHERE movieid=$1 AND userid=$2'
+  result = await pool.query(sql, [movieid, Qresult.rows[0].userid])
+  if (parseInt(result.rows[0].count) == 1){
+    res.send({watchlisted: true})
+    return
+  }
+  res.send({watchlisted: false})
+})
+
+app.get('/sobaditsgood/api/removedwatchlist/:movieid', isLoggedIn, async(req, res)=>{
+  const movieid = req.params.movieid
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1;'
+  Qresult = await pool.query(sql, [username])
+  sql2 = `DELETE FROM watchlist WHERE movieid=$1 AND userid=$2;`
+  result = await pool.query(sql2, [movieid, Qresult.rows[0].userid])
+  res.send("removed from watchlist")
+})
+
+app.get('/sobaditsgood/api/addtowatchlist/:movieID', isLoggedIn, async(req, res)=>{
+  const movieid = req.params.movieID
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'INSERT INTO watchlist (userid, movieid) VALUES ($1, $2);'
+  result = await pool.query(sql, [Qresult.rows[0].userid, movieid])
+  res.send("added to watchlist")
+})
+
+app.get('/sobaditsgood/api/getPopular', async(req, res) => {
+  result = await pool.query(`SELECT movieID FROM movies ORDER BY popularity DESC limit 12`); 
+  res.send(result.rows)
 })
 
 app.get('/sobaditsgood/api/logout', (req, res) => {
@@ -146,11 +266,30 @@ app.get('/sobaditsgood/api/logout', (req, res) => {
   });
 });
 
+
+/////////////////////////////////////////////////// WEBSITE PATHS////////////////////////////////////////////
+// Angular project
+app.get("/" ,(req, res) => {
+  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+})
+
+app.get('/login', (req, res)=>{
+  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+})
+
 app.get('/userprofile', isLoggedIn, (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 
 app.get('/settings', isLoggedIn, (req, res)=>{
+  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+})
+
+app.get('/movieinfo/:movieid', (req, res)=>{
+  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+})
+
+app.get('/castcrew/:movieid', (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 

@@ -20,26 +20,13 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.api.getData().subscribe(data =>{
-      console.log(data);
-    });
     this.topPicks = this.api.getTopPicks();
     this.popularMovies = this.api.getPopular();
     this.watchLater = this.api.getWatchLater();
   }
-  
-  getMovieTitle(movieNum:number):string
-  {
-    this.api.searchMovie(movieNum).subscribe(data => {
-      return JSON.parse(data).title;
-    })
-    return "";
-  }
 
   goToMovie(id:number) {
-    this.api.setCurrentMovieId(id);
-    console.log("Movie clicked");
-    this.router.navigate(['/movieinfo']);
+    this.router.navigate([`/movieinfo/${id}`]);
   }
 }
 

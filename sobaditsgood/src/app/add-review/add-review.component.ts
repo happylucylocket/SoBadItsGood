@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { MatInputModule} from '@angular/material/input';
 import { DisplayReviewComponent } from '../display-review/display-review.component';
+import { APIServiceService } from '../apiservice.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-review',
@@ -17,16 +18,23 @@ export class AddReviewComponent implements OnInit {
   stars = [1, 2, 3, 4, 5];
   rating = 0;
   hoverState = 0;
-
-
-  constructor(private formBuilder: FormBuilder,
+  movieId!: number;
+  session: boolean = false;
+  username: string = '123';
+  constructor(private router: Router,private api: APIServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<DisplayReviewComponent>,
-    @Inject(MAT_DIALOG_DATA) data: {}) {
+    @Inject(MAT_DIALOG_DATA) data: any) {
+      this.movieId = data.movieId;
+      console.log(this.movieId);
+      console.log(this.username);
       this.myForm = this.formBuilder.group({
+        username: this.username,
         title: [''],
         description: [''],
+        rating: 0,
+        movieId: this.movieId
       }) 
-  }
+    }
   ngOnInit() {
     //this.form = this.fb;
   }
@@ -43,10 +51,42 @@ export class AddReviewComponent implements OnInit {
   }
 
   save() {
-    console.log("rating" + this.rating);
-    console.log(this.myForm.value.description);
-    console.log(this.myForm.value.title);
+    console.log("Rating " + this.rating);
+    console.log("Description " + this.myForm.value.description);
+    console.log("Title " + this.myForm.value.title);
+    console.log("Movie Id " + this.movieId);
+    this.myForm.value.rating = this.rating;
+    console.log(this.myForm.value);
+    this.api.addReview(this.myForm.value).subscribe((res)=>{
+      console.log(res)
+      return
+    })
+    //username, movieid, title, description, rating, postedOn
+    /*this.api.inInSession().subscribe((data) =>{
+        this.session = JSON.parse(JSON.stringify(data));
+        this.api.getUserInfo().subscribe((data) =>{
+          this.username= JSON.parse(JSON.stringify(data));
+      }
+      );
+    }
+    );*/
+    /*this.api.addReview(this.myForm.value).subscribe((res)=>{
+      console.log(res)
+      return
+    })*/
     this.dialogRef.close(this.myForm.value);
+    /*if(this.session == true)
+    {
+      this.api.addReview(this.myForm.value).subscribe((res)=>{
+        console.log(res)
+        return
+      })
+      this.dialogRef.close(this.myForm.value);
+    } else 
+    {
+      this.dialogRef.close(this.myForm.value);
+      this.router.navigate(['/login'])
+    }*/
   }
 
   close() {

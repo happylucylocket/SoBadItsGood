@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { APIServiceService } from '../apiservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-account',
@@ -9,7 +10,7 @@ import { APIServiceService } from '../apiservice.service';
 })
 export class CreateAccountComponent {
   myForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder, private api: APIServiceService){
+  constructor(private formBuilder: FormBuilder, private api: APIServiceService, private router: Router){
     this.myForm = this.formBuilder.group({
       fname: ['', Validators.required],
       lname: ['', Validators.required],
@@ -30,6 +31,7 @@ export class CreateAccountComponent {
           console.log('user does not exist')
           this.api.registerUser(this.myForm.value).subscribe((res)=>{
             console.log(res)
+            this.router.navigate([`/login`]);
             return
           })
         }
