@@ -188,7 +188,7 @@ app.get('/sobaditsgood/api/getFavourites', isLoggedIn, async(req, res)=>{
   Qresult = await pool.query(sql, [username])
   sql = 'SELECT movieid FROM favoritemovies WHERE userid=$1;'
   result = await pool.query(sql, [Qresult.rows[0].userid])
-  res.send("Retreived favourites")
+  res.send(result.rows)
 })
 
 app.get('/sobaditsgood/api/watched/:movieid', isLoggedIn, async(req, res)=>{

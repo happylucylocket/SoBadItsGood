@@ -14,9 +14,9 @@ export class APIServiceService {
   
   // Test list of movie IDs
   topPicksIds = [314, 71880, 536869, 20196, 17473, 347626, 55563, 378236, 40016, 24528, 8966, 22345]
-  popularIds:any[] = []
-  // watchLaterIds = [260928, 99847, 197599, 373841, 495507, 45649, 10196, 10696, 22293, 31246, 457712, 70821]
-  watchLaterIds:any[] = [];
+  popularIds:number[] = [];
+  watchLaterIds:number[] = [];
+  favoriteIds:number[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -136,6 +136,18 @@ export class APIServiceService {
       }
     })
     return this.watchLaterIds;
+  }
+
+  getFavorites() {
+    this.favoriteIds = [];
+    this.http.get(this.baseUrl+'/getFavourites', {responseType: 'text'}).subscribe(data => {
+      var movies = JSON.parse(data)
+      for (var i = 0; i < movies.length; i++) {
+        console.log(movies[i].movieid)
+        this.favoriteIds.push(movies[i].movieid);
+      }
+    })
+    return this.favoriteIds;
   }
 
   getPoster(poster_path:string) {

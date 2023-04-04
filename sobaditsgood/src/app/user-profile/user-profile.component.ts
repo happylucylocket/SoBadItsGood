@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,8 +10,9 @@ import { APIServiceService } from '../apiservice.service';
 export class UserProfileComponent{
   session:boolean | undefined;
   username:string | undefined;
+  favorites:number[] = [];
 
-  constructor(private api:APIServiceService){
+  constructor(private api: APIServiceService, private router: Router){
     api.inInSession().subscribe(data=>{
       this.session = JSON.parse(JSON.stringify(data)).isInSession
       if(this.session == true){
@@ -21,5 +23,12 @@ export class UserProfileComponent{
         })
       }
     })
+  }
+  ngOnInit(): void {
+    this.favorites = this.api.getFavorites()
+  }
+
+  goToMovie(id:number) {
+    this.router.navigate([`/movieinfo/${id}`]);
   }
 }

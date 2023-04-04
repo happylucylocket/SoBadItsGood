@@ -7,3 +7,11 @@
     text-align: center;
     padding: 10px;
 }
+
+#favorites {
+    background-color: rgb(19, 19, 22);
+}
+
+#favoritesTitle {
+    color: white;
+}
