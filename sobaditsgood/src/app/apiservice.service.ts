@@ -70,6 +70,18 @@ export class APIServiceService {
     return this.http.get(this.localBaseUrl+`/removefavourite/${movieid}`, {responseType:'text'})
   }
 
+  iswatched(movieid:string){
+    return this.http.get(this.localBaseUrl+`/watched/${movieid}`, {responseType:'json'})
+  }
+
+  addwatched(movieid:string){
+    return this.http.get(this.localBaseUrl+`/addwatched/${movieid}`, {responseType:'text'})
+  }
+
+  removeWatched(movieid:string){
+    return this.http.get(this.localBaseUrl+`/removewatched/${movieid}`, {responseType:'text'})
+  }
+
   // Returns movie details corresponding to the id
   searchMovie(id: number) {
     return this.http.get('https://api.themoviedb.org/3/movie/'+id.toString()+'?api_key=ecd28fb4488e17f072d95ad0278f2545', {responseType: 'text'});

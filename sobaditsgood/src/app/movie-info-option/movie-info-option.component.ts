@@ -12,12 +12,18 @@ export class MovieInfoOptionComponent {
   
   session:Boolean = false
   favourited:boolean = false
+  watched:boolean = false
+  bookmarked:boolean = false
 
   constructor(private api:APIServiceService, private route: ActivatedRoute){
     this.route.params.subscribe(params => {
       this.api.isFave(params['movieid']).subscribe((data)=>{
         this.favourited = JSON.parse(JSON.stringify(data)).isFave
-        console.log(this.favourited)
+      })
+
+      this.api.iswatched(params['movieid']).subscribe(data=>{
+        this.watched = JSON.parse(JSON.stringify(data)).watched
+        console.log(data)
       })
       
     });
@@ -40,13 +46,30 @@ export class MovieInfoOptionComponent {
     })
   }
 
-  watchedClicked()
-  {
-    console.log('Watched Btn clicked');
+  addWatched(){
+    this.route.params.subscribe(params => {
+      this.api.addwatched(params['movieid']).subscribe(data=>{
+        this.watched = true
+        console.log(data)
+      })
+    });
+  }
+
+  removeWatched(){
+    this.route.params.subscribe(params=>{
+      this.api.removeWatched(params['movieid']).subscribe(data=>{
+        this.watched = false
+        console.log(data)
+      })
+    })
   }
 
   bookmarkClicked()
   {
     console.log('Bookmark Btn clicked');
+  }
+
+  removeBookmark(){
+
   }
 }

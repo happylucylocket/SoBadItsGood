@@ -1,20 +1,31 @@
+<!-- Favourite Movies -->
 <div *ngIf="favourited; then favouritedBlock; else favouriteBlock"></div>
 <ng-template #favouritedBlock>
     <button mat-icon-button color="primary" title="Favorite" (click)="unfavourite()">
-        <mat-icon class="favourited">favorite</mat-icon>
+        <mat-icon class="checked">favorite</mat-icon>
     </button>
 </ng-template>
-
 <ng-template #favouriteBlock>
     <button mat-icon-button color="primary" title="Favorite" (click)="favoriteClicked()">
         <mat-icon>favorite_border</mat-icon>
     </button>
 </ng-template>
 
+<!-- Watched Movies -->
+<div *ngIf="watched;then watchedBlock; else notwatchedBlock"></div>
+<ng-template #watchedBlock>
+    <button mat-icon-button color="primary" title="Watched" (click)="removeWatched()">
+        <mat-icon class="checked">check_circle</mat-icon>
+    </button>
+</ng-template>
+<ng-template #notwatchedBlock>
+    <button mat-icon-button color="primary" title="Watched" (click)="addWatched()">
+        <mat-icon>check_circle_outline</mat-icon>
+    </button>
+</ng-template>
 
-<button mat-icon-button color="primary" title="Watched" (click)="watchedClicked()">
-    <mat-icon>check_circle_outline</mat-icon>
-</button>
+<!-- Bookmark Movies -->
+
 <button mat-icon-button color="primary" title="Bookmark" (click)="bookmarkClicked()">
     <mat-icon>bookmark_border</mat-icon>
 </button>
