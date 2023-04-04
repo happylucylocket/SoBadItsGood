@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class MovieInfoOptionComponent {
   watched:boolean = false
   watchlisted:boolean = false
 
-  constructor(private api:APIServiceService, private route: ActivatedRoute){
+  constructor(private api:APIServiceService, private route: ActivatedRoute, private routerURL:Router){
     this.route.params.subscribe(params => {
       this.api.isFave(params['movieid']).subscribe((data)=>{
         this.favourited = JSON.parse(JSON.stringify(data)).isFave
@@ -34,11 +34,15 @@ export class MovieInfoOptionComponent {
 
 
   favoriteClicked(){
-    this.route.params.subscribe(params => {
-      this.api.addFavMovie(params['movieid']).subscribe(data=>{
-        this.favourited = true
-      })
-    });
+    if(this.session){
+      this.route.params.subscribe(params => {
+        this.api.addFavMovie(params['movieid']).subscribe(data=>{
+          this.favourited = true
+        })
+      });
+    }else{
+      this.routerURL.navigate(['/login'])
+    }
   }
 
   unfavourite(){
@@ -50,11 +54,15 @@ export class MovieInfoOptionComponent {
   }
 
   addWatched(){
-    this.route.params.subscribe(params => {
-      this.api.addwatched(params['movieid']).subscribe(data=>{
-        this.watched = true
-      })
-    });
+    if(this.session){
+      this.route.params.subscribe(params => {
+        this.api.addwatched(params['movieid']).subscribe(data=>{
+          this.watched = true
+        })
+      });
+    }else{
+      this.routerURL.navigate(['/login'])
+    }
   }
 
   removeWatched(){
@@ -66,12 +74,16 @@ export class MovieInfoOptionComponent {
   }
 
   addToWatchlist(){
-    this.route.params.subscribe(params => {
-      this.api.addToWatchlist(params['movieid']).subscribe(data=>{
-        this.watchlisted = true
-        console.log(data)
-      })
-    });
+    if(this.session){
+      this.route.params.subscribe(params => {
+        this.api.addToWatchlist(params['movieid']).subscribe(data=>{
+          this.watchlisted = true
+          console.log(data)
+        })
+      });
+    }else{
+      this.routerURL.navigate(['/login'])
+    }
   }
 
   removeFromWatchlist(){
