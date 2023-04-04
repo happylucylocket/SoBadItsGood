@@ -16,6 +16,9 @@ export class MovieInfoOptionComponent {
   watchlisted:boolean = false
 
   constructor(private api:APIServiceService, private route: ActivatedRoute, private routerURL:Router){
+    this.api.inInSession().subscribe(data=>{
+      this.session = JSON.parse(JSON.stringify(data)).isInSession
+    })
     this.route.params.subscribe(params => {
       this.api.isFave(params['movieid']).subscribe((data)=>{
         this.favourited = JSON.parse(JSON.stringify(data)).isFave
@@ -34,7 +37,7 @@ export class MovieInfoOptionComponent {
 
 
   favoriteClicked(){
-    if(this.session){
+    if(this.session == true){
       this.route.params.subscribe(params => {
         this.api.addFavMovie(params['movieid']).subscribe(data=>{
           this.favourited = true
@@ -54,7 +57,8 @@ export class MovieInfoOptionComponent {
   }
 
   addWatched(){
-    if(this.session){
+    console.log(this.session)
+    if(this.session == true){
       this.route.params.subscribe(params => {
         this.api.addwatched(params['movieid']).subscribe(data=>{
           this.watched = true
@@ -74,7 +78,7 @@ export class MovieInfoOptionComponent {
   }
 
   addToWatchlist(){
-    if(this.session){
+    if(this.session == true){
       this.route.params.subscribe(params => {
         this.api.addToWatchlist(params['movieid']).subscribe(data=>{
           this.watchlisted = true
