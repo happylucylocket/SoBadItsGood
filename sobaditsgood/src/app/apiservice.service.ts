@@ -15,9 +15,8 @@ export class APIServiceService {
   // Test list of movie IDs
   topPicksIds = [314, 71880, 536869, 20196, 17473, 347626, 55563, 378236, 40016, 24528, 8966, 22345]
   popularIds:any[] = []
-  watchLaterIds = [260928, 99847, 197599, 373841, 495507, 45649, 10196, 10696, 22293, 31246, 457712, 70821]
-
-  currentMovieId: number = -1;
+  // watchLaterIds = [260928, 99847, 197599, 373841, 495507, 45649, 10196, 10696, 22293, 31246, 457712, 70821]
+  watchLaterIds:any[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -126,15 +125,16 @@ export class APIServiceService {
     })
     return this.popularIds;
   }
-  //check if the reviews is in the database or not
-  getReviews(movieId:number){
-    return this.http.get(this.baseUrl+`/getReviews/${movieId}`, {responseType: 'json'})
-  }
-  //check if the username is in the database or not
-  addReview(review:any){
-    return this.http.post(this.baseUrl+`/addReview/`, review, { responseType: 'text' })
-  }
+
   getWatchLater() {
+    this.watchLaterIds = [];
+    this.http.get(this.baseUrl+'/getWatchlist', {responseType: 'text'}).subscribe(data => {
+      var movies = JSON.parse(data)
+      for (var i = 0; i < movies.length; i++) {
+        console.log(movies[i].movieid)
+        this.watchLaterIds.push(movies[i].movieid);
+      }
+    })
     return this.watchLaterIds;
   }
 
@@ -142,11 +142,12 @@ export class APIServiceService {
     return (this.base_urlMDB + this.file_size + poster_path)
   }
 
-  setCurrentMovieId(id:number) {
-    this.currentMovieId = id;
+  //check if the reviews is in the database or not
+  getReviews(movieId:number){
+    return this.http.get(this.baseUrl+`/getReviews/${movieId}`, {responseType: 'json'})
   }
-
-  getCurrentMovieId() {
-    return this.currentMovieId;
+  //check if the username is in the database or not
+  addReview(review:any){
+    return this.http.post(this.baseUrl+`/addReview/`, review, { responseType: 'text' })
   }
 }

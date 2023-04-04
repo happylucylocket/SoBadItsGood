@@ -99,7 +99,7 @@ app.post('/sobaditsgood/api/login/', (req, res)=>{
 
 app.get('/test', (req, res) => {
   // MAKE QUERIES 
-  pool.query(`SELECT * FROM users;`, (error, results) => {
+  pool.query(`SELECT * FROM watchlist;`, (error, results) => {
   if (error) {
     console.error(error) 
     return
@@ -182,6 +182,15 @@ app.get('/sobaditsgood/api/isFav/:movieid', isLoggedIn, async(req, res)=>{
   res.send({isFave: false})
 })
 
+app.get('/sobaditsgood/api/getFavourites', isLoggedIn, async(req, res)=>{
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT movieid FROM favoritemovies WHERE userid=$1;'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send("Retreived favourites")
+})
+
 app.get('/sobaditsgood/api/watched/:movieid', isLoggedIn, async(req, res)=>{
   const username = req.session.user.username
   const movieid = req.params.movieid
@@ -248,6 +257,15 @@ app.get('/sobaditsgood/api/addtowatchlist/:movieID', isLoggedIn, async(req, res)
   sql = 'INSERT INTO watchlist (userid, movieid) VALUES ($1, $2);'
   result = await pool.query(sql, [Qresult.rows[0].userid, movieid])
   res.send("added to watchlist")
+})
+
+app.get('/sobaditsgood/api/getWatchlist', isLoggedIn, async(req, res)=>{
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT movieid FROM watchlist WHERE userid=$1;'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send(result.rows)
 })
 
 app.get('/sobaditsgood/api/getPopular', async(req, res) => {

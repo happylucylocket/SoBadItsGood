@@ -11,10 +11,13 @@
     </app-movie>
   </div>
 
-  <h1>My Watch Later</h1>
-  <div class="d-flex align-content-start flex-wrap gap-3">
-    <app-movie *ngFor="let m of watchLater" (click)="goToMovie(m)" [movie] ="m">
-    </app-movie>
+  <div *ngIf="session">
+    <h1>My Watch Later</h1>
+    <div class="d-flex align-content-start flex-wrap gap-3">
+      <app-movie *ngFor="let m of watchLater" (click)="goToMovie(m)" [movie] ="m">
+      </app-movie>
+    </div>
   </div>
+  
 
   
