@@ -92,7 +92,6 @@ app.get('/sobaditsgood/api/userExists/:username', async(req, res)=>{
 app.post('/sobaditsgood/api/login/', (req, res)=>{
   console.log("logging in")
   req.session.user = {username:req.body.username}
-  console.log(req.sessionID)
   res.send('*')
 })
 
@@ -140,11 +139,19 @@ app.post('/sobaditsgood/api/addReview/', async(req, res)=>{
   await pool.query(sql,[username, movieid, title, description, rating, postedOn])
   res.send("Review created")
 })
-app.get('/sobaditsgood/api/getUserInfo', async(req, res)=>{
+
+app.get('/sobaditsgood/api/getCurrentUserInfo', async(req, res)=>{
   const username = req.session.user.username
   sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic FROM users u where u.username=$1;`
   result = await pool.query(sql, [username])
   res.send(result.rows)
+})
+
+app.get('/sobaditsgood/api/getUserInfo/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.fname, u.lname, u.username FROM users u WHERE u.username=$1'
+  result = await pool.query(sql, [username])
+  res.send(result.rows[0])
 })
 
 app.get('/sobaditsgood/api/addfavourite/:movieID', isLoggedIn, async(req, res)=>{
@@ -294,7 +301,7 @@ app.get('/login', (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 
-app.get('/userprofile', isLoggedIn, (req, res)=>{
+app.get('/userprofile/:username', isLoggedIn, (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 

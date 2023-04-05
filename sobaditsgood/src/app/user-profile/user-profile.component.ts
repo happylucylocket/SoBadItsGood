@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,7 +12,15 @@ export class UserProfileComponent{
   username:string | undefined;
   favorites:number[] = [];
 
-  constructor(private api:APIServiceService){
+  constructor(private api:APIServiceService, private route: ActivatedRoute){
+
+    this.route.params.subscribe(params=>{
+      api.getUserInfo(params['username']).subscribe(data=>{
+        var userInfo = JSON.parse(JSON.stringify(data))
+        console.log(userInfo.username)
+        this.username = userInfo.username
+      })
+    })
 
     this.api.getFav().subscribe(data=>{
       console.log(data)
@@ -29,13 +37,6 @@ export class UserProfileComponent{
 
     api.inInSession().subscribe(data=>{
       this.session = JSON.parse(JSON.stringify(data)).isInSession
-      if(this.session == true){
-        this.api.getUserInfo().subscribe(data=>{
-          var a = JSON.parse(JSON.stringify(data))[0]
-          this.username = a.username
-          console.log(a)
-        })
-      }
     })
   }
 

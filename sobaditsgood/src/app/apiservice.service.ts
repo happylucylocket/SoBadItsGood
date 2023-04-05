@@ -25,8 +25,12 @@ export class APIServiceService {
     return this.http.get(this.localBaseUrl, {responseType: 'text'});
   }
 
-  getUserInfo(){
-    return this.http.get(this.localBaseUrl+`/getUserInfo`, {responseType:'json'})
+  getCurrentUserInfo(){
+    return this.http.get(this.localBaseUrl+`/getCurrentUserInfo`, {responseType:'json'})
+  }
+
+  getUserInfo(username:string){
+    return this.http.get(this.localBaseUrl+`/getUserInfo/${username}`, {responseType:'json'})
   }
 
   //check if the user login is correct

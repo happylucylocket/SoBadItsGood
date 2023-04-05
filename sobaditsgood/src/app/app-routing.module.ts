@@ -10,7 +10,7 @@ import { CastCrewComponent } from './cast-crew/cast-crew.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
-  {path:'userprofile', component:UserProfileComponent},
+  {path:'userprofile/:username', component:UserProfileComponent},
   {path:'login', component:LoginComponent},
   {path:'createaccount', component:CreateAccountComponent},
   {path:'settings', component:SettingsComponent},

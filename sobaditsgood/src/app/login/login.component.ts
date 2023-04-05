@@ -35,7 +35,7 @@ export class LoginComponent {
             console.log(data)
           })
 
-          this.router.navigate(['/userprofile'])
+          this.router.navigate([`/userprofile/${this.myForm.value.username}`])
         });
       } else {
         // Form is invalid, show error messages]

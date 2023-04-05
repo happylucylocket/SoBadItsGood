@@ -23,7 +23,7 @@ export class SettingsComponent {
   checkValue:boolean=true
 
   constructor(private dialog:MatDialog, private api:APIServiceService){
-    api.getUserInfo().subscribe(data=>{
+    api.getCurrentUserInfo().subscribe(data=>{
       var a = JSON.parse(JSON.stringify(data))[0]
           this.username = a.username
           this.userFirstName = a.fname
