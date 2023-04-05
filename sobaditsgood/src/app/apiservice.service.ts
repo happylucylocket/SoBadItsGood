@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { response } from 'express';
+import { user } from './user';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { response } from 'express';
 export class APIServiceService {
   baseUrl:string = "http://34.72.53.185/sobaditsgood/api" // public api URL
   localBaseUrl:string = "http://localhost:3000/sobaditsgood/api" // for local testing purposes 
+  users?:user[]=[]
 
   // For retrieving images from the Movie Database
   base_urlMDB:string = "http://image.tmdb.org/t/p/"
@@ -21,6 +23,14 @@ export class APIServiceService {
 
   constructor(private http: HttpClient) { }
 
+  getAll(){
+     this.http.get(this.localBaseUrl+`/getAll`).subscribe((data:any)=>{
+       for(var i=0;i<data.length;i++){
+         this.users?.push(new user(data[i].userid,data[i].fname,data[i].lname,data[i].username,data[i].email,data[i].password))
+       }
+     });
+     return  this.users
+  }
   // for testing purposes
   getData(){
     return this.http.get(this.localBaseUrl, {responseType: 'text'});
@@ -33,7 +43,9 @@ export class APIServiceService {
   getUserInfo(username:string){
     return this.http.get(this.localBaseUrl+`/getUserInfo/${username}`, {responseType:'json'})
   }
-
+  updateUserInfo(user:user){
+    return this.http.post(this.localBaseUrl+`/updateInfo/`, user, { responseType: 'text' })
+  }
   //check if the user login is correct
   isUserValid(username:string, password:string){
     return this.http.get(this.localBaseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})

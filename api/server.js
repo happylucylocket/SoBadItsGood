@@ -72,9 +72,25 @@ app.post('/sobaditsgood/api/registerUser/', async(req, res)=>{
   const lname = req.body.lname
   const username = req.body.username
   const password = req.body.password
-  sql = `INSERT INTO users (fname, lname, username, password) VALUES ($1, $2, $3, $4);`
-  await pool.query(sql,[fname, lname, username, password])
+  const email = req.body.email
+  sql = `INSERT INTO users (fname, lname, username, password, email) VALUES ($1, $2, $3, $4, $5);`
+  await pool.query(sql,[fname, lname, username, password,email])
   res.send("User ccreated")
+})
+app.post('/sobaditsgood/api/updateInfo/', async(req, res)=>{
+  const fname = req.body.fname
+  const lname = req.body.lname
+  const username = req.body.username
+  const password = req.body.password
+  const email = req.body.email
+  const id = req.body.userid
+  // console.log(fname,lname,username,password,email,password,id)
+  sql = `UPDATE "users"
+         SET "fname"= $1, "lname"= $2, "username"= $3, "password"= $4, "email"= $5
+         WHERE "userid"= $6 ;`
+         await pool.connect();
+  await pool.query(sql,[fname, lname, username, password,email, id])
+  res.send("User Edited")
 })
  
 //check if user exists
@@ -98,7 +114,7 @@ app.post('/sobaditsgood/api/login/', (req, res)=>{
 
 app.get('/test', (req, res) => {
   // MAKE QUERIES 
-  pool.query(`SELECT * FROM watchlist;`, (error, results) => {
+  pool.query(`SELECT * FROM users;`, (error, results) => {
   if (error) {
     console.error(error) 
     return
@@ -107,7 +123,16 @@ app.get('/test', (req, res) => {
   res.send(results.rows)
   })
 });
-
+ app.get('/sobaditsgood/api/getAll',  (req, res) => {
+  // MAKE QUERIES 
+  pool.query(`SELECT * FROM users;`, async (error, results) => {
+  if (error) {
+    console.error(error) 
+    return
+  }  
+  await res.send(results.rows)
+  })
+});
 app.get('/sobaditsgood/api/isInSession', (req, res)=>{
   if(req.session.user){
     res.send({isInSession:true})
@@ -142,7 +167,7 @@ app.post('/sobaditsgood/api/addReview/', async(req, res)=>{
 
 app.get('/sobaditsgood/api/getCurrentUserInfo', async(req, res)=>{
   const username = req.session.user.username
-  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic, u.password FROM users u where u.username=$1;`
+  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic, u.password, u.userid FROM users u where u.username=$1;`
   result = await pool.query(sql, [username])
   res.send(result.rows)
 })
