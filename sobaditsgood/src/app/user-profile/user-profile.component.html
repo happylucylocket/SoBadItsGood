@@ -37,46 +37,39 @@
         </div>
         <div class="col-lg-8">
           <div class="card mb-4">
-            <h2 class="fav_mov_title">Favourite Movies</h2>
-            <div class="card-group">
-                <div class="card">
-                  <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" class="card-img-top" alt="Hollywood Sign on The Hill"/>
-                  <div class="card-body">
-                    <h3 class="card-title"><strong>Movie Name</strong></h3>
-                    <p class="card-text">
-                      This is a wider card with supporting text below as a natural lead-in to
-                      additional content. This content is a little bit longer.
-                    </p>
-                    <p class="card-text">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                    </p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp" class="card-img-top" alt="Palm Springs Road"/>
-                  <div class="card-body">
-                    <h3 class="card-title"><strong>Movie Name</strong></h3>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                    </p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" class="card-img-top" alt="Los Angeles Skyscrapers"/>
-                  <div class="card-body">
-                    <h3 class="card-title"><strong>Movie Name</strong></h3>
-                    <p class="card-text">
-                      This is a wider card with supporting text below as a natural lead-in to
-                      additional content. This card has even longer content than the first to show
-                      that equal height action.
-                    </p>
-                    <p class="card-text">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                    </p>
-                  </div>
-                </div>
+            <h2 class="fav_mov_title"></h2>
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Favourites</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Watched</button>
+                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Watchlist</button>
+                
               </div>
+            </nav>
+            <div class="tab-content fav_mov_tab" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                  <div class="col">
+                    <div class="card h-100">
+                      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" class="card-img-top" alt="Los Angeles Skyscrapers"/>
+                      <div class="card-body">
+                        <h3 class="card-title">Card title</h3>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                      </div>
+                      <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
+              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+              <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div>
+            </div>
           </div>
           
           <!-- Carousel wrapper -->

@@ -1,6 +1,11 @@
 .fav_mov_title{
     text-align: center;
-    padding: 10px;
+    padding: 1px;
+}
+
+.fav_mov_tab{
+    text-align: center;
+    padding: 5px;
 }
 
 .feat_title{

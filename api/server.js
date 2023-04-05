@@ -182,6 +182,15 @@ app.get('/sobaditsgood/api/isFav/:movieid', isLoggedIn, async(req, res)=>{
   res.send({isFave: false})
 })
 
+app.get('/sobaditsgood/api/getfavMovies', isLoggedIn, async(req, res)=>{
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT f.movieid FROM favoritemovies f WHERE f.userid=$1'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send(result.rows)
+})
+
 app.get('/sobaditsgood/api/watched/:movieid', isLoggedIn, async(req, res)=>{
   const username = req.session.user.username
   const movieid = req.params.movieid

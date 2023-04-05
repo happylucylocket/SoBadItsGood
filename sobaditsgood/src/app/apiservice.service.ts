@@ -23,82 +23,86 @@ export class APIServiceService {
 
   // for testing purposes
   getData(){
-    return this.http.get(this.baseUrl, {responseType: 'text'});
+    return this.http.get(this.localBaseUrl, {responseType: 'text'});
   }
 
   getUserInfo(){
-    return this.http.get(this.baseUrl+`/getUserInfo`, {responseType:'json'})
+    return this.http.get(this.localBaseUrl+`/getUserInfo`, {responseType:'json'})
   }
 
   //check if the user login is correct
   isUserValid(username:string, password:string){
-    return this.http.get(this.baseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
+    return this.http.get(this.localBaseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
   }
 
   //add user to the database
   registerUser(user:any){
-    return this.http.post(this.baseUrl+`/registerUser/`, user, { responseType: 'text' })
+    return this.http.post(this.localBaseUrl+`/registerUser/`, user, { responseType: 'text' })
   }
 
   //check if the username is in the database or not
   userExists(username:string){
-    return this.http.get(this.baseUrl+`/userExists/${username}`, {responseType: 'json'})
+    return this.http.get(this.localBaseUrl+`/userExists/${username}`, {responseType: 'json'})
   }
 
   inInSession(){
-    return this.http.get(this.baseUrl+'/isInSession', {responseType:'json', withCredentials: true})
+    return this.http.get(this.localBaseUrl+'/isInSession', {responseType:'json', withCredentials: true})
   }
 
   login(data:any){
-    return this.http.post(this.baseUrl+'/login', data , {responseType: 'text', withCredentials: true})
+    return this.http.post(this.localBaseUrl+'/login', data , {responseType: 'text', withCredentials: true})
   }
 
   logout(){
-    return this.http.get(this.baseUrl+'/logout', {responseType: 'text', withCredentials: true})
+    return this.http.get(this.localBaseUrl+'/logout', {responseType: 'text', withCredentials: true})
   }
 
   //add to favourite
   addFavMovie(movieId:string){
-    return this.http.get(this.baseUrl+`/addfavourite/${movieId}`, {responseType:'text'})
+    return this.http.get(this.localBaseUrl+`/addfavourite/${movieId}`, {responseType:'text'})
   }
 
   //Check if movie has been favourited
   isFave(movieid:string){
-    return this.http.get(this.baseUrl+`/isFav/${movieid}`, {responseType:'json'})
+    return this.http.get(this.localBaseUrl+`/isFav/${movieid}`, {responseType:'json'})
   }
 
   //remove from favourite
   unFavMovie(movieid:string){
-    return this.http.get(this.baseUrl+`/removefavourite/${movieid}`, {responseType:'text'})
+    return this.http.get(this.localBaseUrl+`/removefavourite/${movieid}`, {responseType:'text'})
+  }
+
+  getFav(){
+    return this.http.get(this.localBaseUrl+'/getfavMovies', {responseType:'json'})
   }
 
   //if user watched the movie
   iswatched(movieid:string){
-    return this.http.get(this.baseUrl+`/watched/${movieid}`, {responseType:'json'})
+    return this.http.get(this.localBaseUrl+`/watched/${movieid}`, {responseType:'json'})
   }
 
   //add to watched movies
   addwatched(movieid:string){
-    return this.http.get(this.baseUrl+`/addwatched/${movieid}`, {responseType:'text'})
+    return this.http.get(this.localBaseUrl+`/addwatched/${movieid}`, {responseType:'text'})
   }
 
   //remove from watched movies
   removeWatched(movieid:string){
-    return this.http.get(this.baseUrl+`/removewatched/${movieid}`, {responseType:'text'})
+    return this.http.get(this.localBaseUrl+`/removewatched/${movieid}`, {responseType:'text'})
   }
 
   //if user watch listed the movie
   isWatchlisted(movieid:string){
-    return this.http.get(this.baseUrl+`/watchlisted/${movieid}`, {responseType:'json'})
+    return this.http.get(this.localBaseUrl+`/watchlisted/${movieid}`, {responseType:'json'})
   }
 
   //add movie to watchlist
   addToWatchlist(movieid:string){
-    return this.http.get(this.baseUrl+`/addtowatchlist/${movieid}`, {responseType:'text'})
+    return this.http.get(this.localBaseUrl+`/addtowatchlist/${movieid}`, {responseType:'text'})
   }
 
   removeFromWatchlist(movieid:string){
-    return this.http.get(this.baseUrl+`/removedwatchlist/${movieid}`, {responseType:'text'})
+    return this.http.get(this.localBaseUrl+`/removedwatchlist/${movieid}`, {responseType:'text'})
   }
 
   // Returns movie details corresponding to the id
@@ -117,7 +121,7 @@ export class APIServiceService {
 
   getPopular() {
     this.popularIds = [];
-    this.http.get(this.baseUrl+'/getPopular', {responseType: 'text'}).subscribe(data => {
+    this.http.get(this.localBaseUrl+'/getPopular', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
         console.log(movies[i].movieid)
@@ -128,11 +132,11 @@ export class APIServiceService {
   }
   //check if the reviews is in the database or not
   getReviews(movieId:number){
-    return this.http.get(this.baseUrl+`/getReviews/${movieId}`, {responseType: 'json'})
+    return this.http.get(this.localBaseUrl+`/getReviews/${movieId}`, {responseType: 'json'})
   }
   //check if the username is in the database or not
   addReview(review:any){
-    return this.http.post(this.baseUrl+`/addReview/`, review, { responseType: 'text' })
+    return this.http.post(this.localBaseUrl+`/addReview/`, review, { responseType: 'text' })
   }
   getWatchLater() {
     return this.watchLaterIds;
