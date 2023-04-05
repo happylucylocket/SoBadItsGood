@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,6 +10,7 @@ import { APIServiceService } from '../apiservice.service';
 export class UserProfileComponent{
   session:boolean | undefined;
   username:string | undefined;
+  favorites:number[] = [];
 
   constructor(private api:APIServiceService){
 

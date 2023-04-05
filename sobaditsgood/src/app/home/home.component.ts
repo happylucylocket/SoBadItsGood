@@ -15,8 +15,12 @@ export class HomeComponent implements OnInit{
   topPicks: number[] = [];
   popularMovies: number[] = [];
   watchLater: number[] = [];
+  session: Boolean = false;
 
   constructor(private api: APIServiceService, private router: Router){
+    this.api.inInSession().subscribe(data=>{
+      this.session = JSON.parse(JSON.stringify(data)).isInSession
+    })
   }
 
   ngOnInit(): void {

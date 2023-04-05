@@ -14,10 +14,9 @@ export class APIServiceService {
   
   // Test list of movie IDs
   topPicksIds = [314, 71880, 536869, 20196, 17473, 347626, 55563, 378236, 40016, 24528, 8966, 22345]
-  popularIds:any[] = []
-  watchLaterIds = [260928, 99847, 197599, 373841, 495507, 45649, 10196, 10696, 22293, 31246, 457712, 70821]
-
-  currentMovieId: number = -1;
+  popularIds:number[] = [];
+  watchLaterIds:number[] = [];
+  favoriteIds:number[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -130,6 +129,35 @@ export class APIServiceService {
     })
     return this.popularIds;
   }
+
+  getWatchLater() {
+    this.watchLaterIds = [];
+    this.http.get(this.baseUrl+'/getWatchlist', {responseType: 'text'}).subscribe(data => {
+      var movies = JSON.parse(data)
+      for (var i = 0; i < movies.length; i++) {
+        console.log(movies[i].movieid)
+        this.watchLaterIds.push(movies[i].movieid);
+      }
+    })
+    return this.watchLaterIds;
+  }
+
+  getFavorites() {
+    this.favoriteIds = [];
+    this.http.get(this.baseUrl+'/getFavourites', {responseType: 'text'}).subscribe(data => {
+      var movies = JSON.parse(data)
+      for (var i = 0; i < movies.length; i++) {
+        console.log(movies[i].movieid)
+        this.favoriteIds.push(movies[i].movieid);
+      }
+    })
+    return this.favoriteIds;
+  }
+
+  getPoster(poster_path:string) {
+    return (this.base_urlMDB + this.file_size + poster_path)
+  }
+
   //check if the reviews is in the database or not
   getReviews(movieId:number){
     return this.http.get(this.localBaseUrl+`/getReviews/${movieId}`, {responseType: 'json'})
@@ -137,20 +165,5 @@ export class APIServiceService {
   //check if the username is in the database or not
   addReview(review:any){
     return this.http.post(this.localBaseUrl+`/addReview/`, review, { responseType: 'text' })
-  }
-  getWatchLater() {
-    return this.watchLaterIds;
-  }
-
-  getPoster(poster_path:string) {
-    return (this.base_urlMDB + this.file_size + poster_path)
-  }
-
-  setCurrentMovieId(id:number) {
-    this.currentMovieId = id;
-  }
-
-  getCurrentMovieId() {
-    return this.currentMovieId;
   }
 }
