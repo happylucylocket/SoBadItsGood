@@ -142,7 +142,7 @@ app.post('/sobaditsgood/api/addReview/', async(req, res)=>{
 
 app.get('/sobaditsgood/api/getCurrentUserInfo', async(req, res)=>{
   const username = req.session.user.username
-  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic FROM users u where u.username=$1;`
+  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic, u.password FROM users u where u.username=$1;`
   result = await pool.query(sql, [username])
   res.send(result.rows)
 })
