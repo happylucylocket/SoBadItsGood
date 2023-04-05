@@ -29,6 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
 import { CastCrewComponent } from './cast-crew/cast-crew.component';
 import { MovieInfoOptionComponent } from './movie-info-option/movie-info-option.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MovieInfoOptionComponent } from './movie-info-option/movie-info-option.
     HomeComponent,
     SettingsComponent,
     CastCrewComponent,
-    MovieInfoOptionComponent
+    MovieInfoOptionComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

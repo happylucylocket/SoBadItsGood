@@ -1,0 +1,7 @@
+<div class="d-flex align-content-start flex-wrap gap-3">
+    <app-movie *ngFor="let m of movieResults" (click)="goToMovie(m.id)" [movie] ="m.id">
+    </app-movie>
+</div>
+
+<br>
+<div *ngIf = "movieResults.length == 0"><h1 class="ms-3">Sorry no movies have that name.</h1></div>

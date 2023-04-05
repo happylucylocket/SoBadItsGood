@@ -154,6 +154,14 @@ app.get('/sobaditsgood/api/getUserInfo/:username', async(req, res)=>{
   res.send(result.rows[0])
 })
 
+app.get('/sobaditsgood/api/getMovies/:search', async(req, res)=>{
+  const search = req.session.search
+  //select * from movies where moviename like 'twilight'
+  sql = `SELECT * FROM movies where moviename LIKE $1;`
+  result = await pool.query(sql, [search])
+  res.send(result.rows)
+})
+
 app.get('/sobaditsgood/api/getfavMovies/:username', async(req, res)=>{
   const username = req.params.username
   sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
