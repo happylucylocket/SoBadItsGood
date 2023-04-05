@@ -46,63 +46,39 @@
             </nav>
             <div class="tab-content fav_mov_tab" id="nav-tabContent">
               <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-
-                <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="scrolling-wrapper-flexbox gap-3">        
                   <!-- Getting Favourited Movies -->
                   <div *ngFor="let fav of favorites; index as i">
-
-                      <div class="col">
-                        <div class="card h-100">
-                          <a href="/movieinfo/{{fav.id}}">
-                            <img src={{fav.poster_path}} class="card-img-top" alt="Los Angeles Skyscrapers"/>
-                          </a>
-                          <div class="card-body">
+                      <div style="width: 10rem;">
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                          <div class="card h-100">
                             <a href="/movieinfo/{{fav.id}}">
-                              <h3 class="card-title">{{fav.title}}</h3>
+                              <img src={{fav.poster_path}} class="card-img-top" alt="poster"/>
+                              <div id="mask" class="mask" style="background-color: rgba(251, 251, 251, 0.25);"></div>
                             </a>
-                            <!-- <p class="card-text">{{fav.overview}}</p> -->
+                            <div class="card-body">
+                              <a href="/movieinfo/{{fav.id}}">
+                                <h3 class="card-title">{{fav.title}}</h3>
+                              </a>
+                              <!-- <p class="card-text">{{w.overview}}</p> -->
+                            </div>
                           </div>
-                          
                         </div>
                       </div>
                     </div>
-                    
                   </div>
               </div>
 
               <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="scrolling-wrapper-flexbox gap-3">  
                   <!-- Getting Watched Movies -->
                   <div *ngFor="let w of watched; index as i">
-
-                      <div class="col">
-                        <div class="card h-100">
-                          <a href="/movieinfo/{{w.id}}">
-                            <img src={{w.poster_path}} class="card-img-top" alt="Los Angeles Skyscrapers"/>
-                          </a>
-                          <div class="card-body">
-                            <a href="/movieinfo/{{w.id}}">
-                              <h3 class="card-title">{{w.title}}</h3>
-                            </a>
-                            <!-- <p class="card-text">{{w.overview}}</p> -->
-                          </div>
-                          
-                        </div>
-                      </div>
-                    </div>
-                    
-                  </div>
-              </div>
-              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                  <!-- Getting watchlisted Movies -->
-                  <div *ngFor="let w of watchlist; index as i">
-
-                      <div class="col">
+                    <div style="width: 10rem;">
+                      <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                         <div class="card h-100">
                           <a href="/movieinfo/{{w.id}}">
                             <img src={{w.poster_path}} class="card-img-top" alt="poster"/>
+                            <div id="mask" class="mask" style="background-color: rgba(251, 251, 251, 0.25);"></div>
                           </a>
                           <div class="card-body">
                             <a href="/movieinfo/{{w.id}}">
@@ -110,13 +86,34 @@
                             </a>
                             <!-- <p class="card-text">{{w.overview}}</p> -->
                           </div>
-                          
                         </div>
                       </div>
                     </div>
-                    
                   </div>
-
+                </div>
+              </div>
+              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                <div class="scrolling-wrapper-flexbox gap-3"> 
+                  <!-- Getting watch later movies -->
+                  <div *ngFor="let w of watchlist; index as i">
+                    <div style="width: 10rem;">
+                      <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <div class="card h-100">
+                          <a href="/movieinfo/{{w.id}}">
+                            <img src={{w.poster_path}} class="card-img-top" alt="poster"/>
+                            <div id="mask" class="mask" style="background-color: rgba(251, 251, 251, 0.25);"></div>
+                          </a>
+                          <div class="card-body">
+                            <a href="/movieinfo/{{w.id}}">
+                              <h3 class="card-title">{{w.title}}</h3>
+                            </a>
+                            <!-- <p class="card-text">{{w.overview}}</p> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <!-- <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div> -->
             </div>
