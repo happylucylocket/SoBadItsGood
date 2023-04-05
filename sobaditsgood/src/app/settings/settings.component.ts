@@ -43,6 +43,7 @@ export class SettingsComponent {
     api.getCurrentUserInfo().subscribe( data=>{
       var a = JSON.parse(JSON.stringify(data))[0]
           this.username = a.username
+          this.usernameCheck=a.username
           this.userFirstName = a.fname
           this.userLastName = a.lname
           this.userEmail = a.email
