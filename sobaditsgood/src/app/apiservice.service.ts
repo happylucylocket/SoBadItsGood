@@ -136,7 +136,7 @@ export class APIServiceService {
 
   getWatchLater() {
     this.watchLaterIds = [];
-    this.http.get(this.baseUrl+'/getWatchlist', {responseType: 'text'}).subscribe(data => {
+    this.http.get(this.localBaseUrl+'/getWatchlist', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
         console.log(movies[i].movieid)
@@ -148,7 +148,7 @@ export class APIServiceService {
 
   getFavorites() {
     this.favoriteIds = [];
-    this.http.get(this.baseUrl+'/getFavourites', {responseType: 'text'}).subscribe(data => {
+    this.http.get(this.localBaseUrl+'/getFavourites', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
         console.log(movies[i].movieid)

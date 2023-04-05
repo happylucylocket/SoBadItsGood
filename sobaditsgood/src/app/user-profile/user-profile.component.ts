@@ -15,6 +15,7 @@ export class UserProfileComponent{
 
   constructor(private api:APIServiceService, private route: ActivatedRoute){
 
+    //Getting Favourites
     this.route.params.subscribe(params=>{
       api.getUserInfo(params['username']).subscribe(data=>{
         var userInfo = JSON.parse(JSON.stringify(data))
@@ -44,15 +45,6 @@ export class UserProfileComponent{
         console.log(this.favorites)
       })
     })
-
-    //Getting Favourites
-    
-
-
-    // this.api.searchMovie(this.movie).subscribe(data => {
-    //   this.moviePoster = this.api.getPoster(JSON.parse(data).poster_path);
-    // })
-
 
     api.inInSession().subscribe(data=>{
       this.session = JSON.parse(JSON.stringify(data)).isInSession

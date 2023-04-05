@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { APIServiceService } from '../apiservice.service';
 import { Router, NavigationExtras } from '@angular/router';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { Router, NavigationExtras } from '@angular/router';
 export class LoginComponent {
   myForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private api: APIServiceService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private api: APIServiceService, private router: Router, private appComponent: AppComponent) {
     this.myForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -36,6 +37,7 @@ export class LoginComponent {
           })
 
           this.router.navigate([`/userprofile/${this.myForm.value.username}`])
+          this.appComponent.session = true
         });
       } else {
         // Form is invalid, show error messages]

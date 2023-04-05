@@ -17,9 +17,11 @@ export class AppComponent {
   constructor(private api:APIServiceService, private router:Router){
     api.inInSession().subscribe(data=>{
       this.session = JSON.parse(JSON.stringify(data)).isInSession
-      this.api.getCurrentUserInfo().subscribe(data=>{
-        this.currentUser = JSON.parse(JSON.stringify(data))[0].username
-      })
+      if(this.session == true){
+        this.api.getCurrentUserInfo().subscribe(data=>{
+          this.currentUser = JSON.parse(JSON.stringify(data))[0].username
+        })
+      }
     })
   }
 
