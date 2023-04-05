@@ -28,7 +28,7 @@ export class AppComponent {
   Logout(){
     this.api.logout().subscribe(data=>{
       this.router.navigate(['/login'])
+      this.session = false
     })
-    window.location.reload()
   }
 }
