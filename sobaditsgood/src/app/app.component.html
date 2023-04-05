@@ -42,12 +42,15 @@
     <!-- Collapsible wrapper -->
     <!-- Right elements -->
     <div class="d-flex align-items-center">
-      <form class="d-flex input-group w-auto">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+      <form class="example-form">
+        <form class="d-flex input-group w-auto">
+        <span matPrefix> </span>
+        <input type="tel" class="form-control rounded" placeholder="Search" name= "search" [(ngModel)]= "search">
         <span class="input-group-text border-0" id="search-addon">
-          <i class="fas fa-search"></i>
+          <button type="submit" (click)="Search()"><i class="fas fa-search"></i></button>
         </span>
-      </form>
+        </form>
+        </form>
     </div>
     <div *ngIf="session; then showUser; else blockUserData"></div>
     <ng-template #showUser>

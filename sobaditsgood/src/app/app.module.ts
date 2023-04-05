@@ -21,6 +21,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
 import { CastCrewComponent } from './cast-crew/cast-crew.component';
 import { MovieInfoOptionComponent } from './movie-info-option/movie-info-option.component';
+import { SearchComponent } from './search/search.component';
 
 
 import {MatSelectModule} from '@angular/material/select';
@@ -50,6 +51,7 @@ import { MatInputModule } from '@angular/material/input';
     SettingsComponent,
     CastCrewComponent,
     MovieInfoOptionComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

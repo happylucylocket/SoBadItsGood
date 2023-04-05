@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent {
-
+  search : String ="";
   title = 'So Bad Its Good';
   session:boolean = false
   currentUser:string |undefined;
@@ -30,5 +30,11 @@ export class AppComponent {
       this.router.navigate(['/login'])
       this.session = false
     })
+  }
+
+  Search()
+  {
+    console.log(this.search);
+    this.router.navigate([`/search/${this.search}`]);
   }
 }

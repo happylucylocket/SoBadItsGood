@@ -28,14 +28,8 @@ export class UserProfileComponent{
       //Getting Favourites
       this.api.getFav(params['username']).subscribe(data=>{
         var movies = JSON.parse(JSON.stringify(data))
-        if (movies.length > 3){
-          for(var i = 0; i < 3; i++){
-            this.favorites_id.push(movies[i].movieid)
-          }
-        }else{
-          for(var i = 0; i < movies.length; i++){
-            this.favorites_id.push(movies[i].movieid)
-          }
+        for(var i = 0; i < movies.length; i++){
+          this.favorites_id.push(movies[i].movieid)
         }
         for(var i = 0; i < this.favorites_id.length; i++){
           this.api.searchMovie(this.favorites_id[i]).subscribe(data => {

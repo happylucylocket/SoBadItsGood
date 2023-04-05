@@ -117,6 +117,13 @@ export class APIServiceService {
     return this.http.get(this.localBaseUrl+`/removedwatchlist/${movieid}`, {responseType:'text'})
   }
 
+  searchForAMovie(id: string) {
+    return this.http.get('https://api.themoviedb.org/3/search/movie?api_key=ecd28fb4488e17f072d95ad0278f2545'+'&language=en-US&page=1&include_adult=false&query=' +id.toString(), {responseType: 'json'});
+  }
+  getMovies(search: string) {
+    return this.http.get(this.baseUrl+`/getMovies/${search}`, {responseType:'json'})
+  }
+
   // Returns movie details corresponding to the id
   searchMovie(id: number) {
     return this.http.get('https://api.themoviedb.org/3/movie/'+id.toString()+'?api_key=ecd28fb4488e17f072d95ad0278f2545', {responseType: 'text'});
