@@ -117,6 +117,18 @@ export class APIServiceService {
     return this.http.get(this.localBaseUrl+`/removedwatchlist/${movieid}`, {responseType:'text'})
   }
 
+  isFollowing(userid:number, followingUsername:string){
+    return this.http.get(this.localBaseUrl+`/isFollowing/${userid}/${followingUsername}`, {responseType:'json'})
+  }
+
+  followUser(userid:number, followingUsername:string){
+    return this.http.get(this.localBaseUrl+`/followUser/${userid}/${followingUsername}`, {responseType:'text'})
+  }
+
+  unfollowUser(userid:number, unfollowUsername:string){
+    return this.http.get(this.localBaseUrl+`/unfollowUser/${userid}/${unfollowUsername}`, {responseType:'text'})
+  }
+
   searchForAMovie(id: string) {
     return this.http.get('https://api.themoviedb.org/3/search/movie?api_key=ecd28fb4488e17f072d95ad0278f2545'+'&language=en-US&page=1&include_adult=false&query=' +id.toString(), {responseType: 'json'});
   }

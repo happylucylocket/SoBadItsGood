@@ -8,9 +8,21 @@
                 class="rounded-circle img-fluid" style="width: 150px;">
               <h2 class="my-3">{{username}}</h2>
               <p class="text-muted mb-1">Full Time Movie Watcher</p>
-              <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-primary">Follow</button>
-              </div>
+              <div *ngIf="currentUserViewing; then removeFollowBtn; else showFollowBtn"></div>
+              <ng-template #showFollowBtn>
+                <div *ngIf="isFollowing; then showUnfollowBtn; else showFollow"></div>
+                <ng-template #showUnfollowBtn>
+                  <div class="d-flex justify-content-center mb-2">
+                    <button type="button" class="btn" (click)="unfollowUser()">Unfollow</button>
+                  </div>
+                </ng-template>
+                <ng-template #showFollow>
+                  <div class="d-flex justify-content-center mb-2">
+                    <button type="button" class="btn btn-primary" (click)="followUser()">Follow</button>
+                  </div>
+                </ng-template>
+              </ng-template>
+              <ng-template #removeFollowBtn></ng-template>
             </div>
           </div>
           <div class="card mb-4 mb-lg-0">

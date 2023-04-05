@@ -142,7 +142,7 @@ app.post('/sobaditsgood/api/addReview/', async(req, res)=>{
 
 app.get('/sobaditsgood/api/getCurrentUserInfo', async(req, res)=>{
   const username = req.session.user.username
-  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic, u.password FROM users u where u.username=$1;`
+  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic, u.userid, u.password FROM users u where u.username=$1;`
   result = await pool.query(sql, [username])
   res.send(result.rows)
 })
@@ -316,6 +316,40 @@ app.get('/sobaditsgood/api/logout', (req, res) => {
   });
 });
 
+app.get('/sobaditsgood/api/isFollowing/:userid/:followingUsername', isLoggedIn, async(req, res)=>{
+  const followingUsername = req.params.followingUsername
+  const userID = req.params.userid
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [followingUsername])
+  sql = 'SELECT f.followingID FROM following f WHERE userID = $1 and f.followingID = $2'
+  result = await pool.query(sql, [userID, Qresult.rows[0].userid])
+  if(result.rowCount == 0){
+    res.send({isFollowing:false})
+    return 
+  }else{
+    res.send({isFollowing:true})
+  }
+})
+
+app.get('/sobaditsgood/api/followUser/:userid/:followingUsername', isLoggedIn, async(req, res)=>{
+  const followingUsername = req.params.followingUsername
+  const userID = req.params.userid
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [followingUsername])
+  sql = 'INSERT INTO following(userID, followingID) VALUES($1, $2)'
+  result = await pool.query(sql, [userID, Qresult.rows[0].userid])
+  res.send('User Followed')
+})
+
+app.get('/sobaditsgood/api/unfollowUser/:userid/:followingUsername', isLoggedIn, async(req, res)=>{
+  const followingUsername = req.params.followingUsername
+  const userID = req.params.userid
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [followingUsername])
+  sql = 'DELETE FROM following WHERE userID = $1 and followingID = $2'
+  result = await pool.query(sql, [userID, Qresult.rows[0].userid])
+  res.send('User Unfollowed')
+})
 
 /////////////////////////////////////////////////// WEBSITE PATHS////////////////////////////////////////////
 // Angular project
