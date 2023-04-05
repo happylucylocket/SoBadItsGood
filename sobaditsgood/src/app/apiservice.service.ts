@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { response } from 'express';
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +78,14 @@ export class APIServiceService {
 
   getFav(username:string){
     return this.http.get(this.localBaseUrl+`/getfavMovies/${username}`, {responseType:'json'})
+  }
+
+  getWatchedMovies(username:string){
+    return this.http.get(this.localBaseUrl+`/getWatchedMovies/${username}`, {responseType:'json'})
+  }
+
+  getWatchlistedMovies(username:string){
+    return this.http.get(this.localBaseUrl+`/getWatchlistedMovies/${username}`, {responseType:'json'})
   }
 
   //if user watched the movie
