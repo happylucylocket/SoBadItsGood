@@ -34,6 +34,10 @@ export class AddReviewComponent implements OnInit {
       }) 
     }
   ngOnInit() {
+    this.api.inInSession().subscribe(data=>{
+      this.session = JSON.parse(JSON.stringify(data)).isInSession
+      console.log(this.session);
+    })
   }
   onEnterStar(starId:number) {
     this.hoverState = starId;
@@ -54,34 +58,31 @@ export class AddReviewComponent implements OnInit {
     console.log("Movie Id " + this.movieId);
     this.myForm.value.rating = this.rating;
     //username, movieid, title, description, rating, postedOn
-    this.api.inInSession().subscribe((data) =>{
-        this.session = JSON.parse(JSON.stringify(data));
-        this.api.getCurrentUserInfo().subscribe((data) =>{
-          this.username= JSON.parse(JSON.stringify(data))[0].username;
-          console.log(this.username);
-          this.myForm.value.username = this.username;
-          console.log(this.myForm.value);
-          this.api.addReview(this.myForm.value).subscribe((res)=>{
-            console.log(res)
-            return
-          })
+    this.dialogRef.close(this.myForm.value);
+    if(this.session == true)
+    {
+      this.api.inInSession().subscribe((data) =>{
+        console.log(data)
+          this.session = JSON.parse(JSON.stringify(data));
+          this.api.getCurrentUserInfo().subscribe((data) =>{
+            this.username= JSON.parse(JSON.stringify(data))[0].username;
+            console.log(this.username);
+            this.myForm.value.username = this.username;
+            console.log(this.myForm.value);
+            this.api.addReview(this.myForm.value).subscribe((res)=>{
+              console.log(res)
+              return
+            })
+        }
+        );
       }
       );
-    }
-    );
-    this.dialogRef.close(this.myForm.value);
-    /*if(this.session == true)
-    {
-      this.api.addReview(this.myForm.value).subscribe((res)=>{
-        console.log(res)
-        return
-      })
       this.dialogRef.close(this.myForm.value);
     } else 
     {
       this.dialogRef.close(this.myForm.value);
       this.router.navigate(['/login'])
-    }*/
+    }
   }
 
   close() {
