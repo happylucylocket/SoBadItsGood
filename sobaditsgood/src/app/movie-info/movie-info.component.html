@@ -22,7 +22,7 @@
 
 <div class="d-flex align-content-start flex-wrap gap-3 container-fluid">
     <div *ngFor = "let c of cast" class="card" style="max-width: 8rem;">
-        <img src={{path+c.profile_path}} class="card-img-top" alt="Cast headshot">
+        <img src={{path+c.profile_path}} class="card-img-top" alt="Cast headshot" onerror="this.src='/assets/error_photo.png'">
         <div class="card-body">
             <h4 class="card-title">{{c.name}}</h4>
             <h5 id="card-text">{{c.character}}</h5>
