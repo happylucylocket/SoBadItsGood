@@ -75,8 +75,8 @@ export class APIServiceService {
     return this.http.get(this.localBaseUrl+`/removefavourite/${movieid}`, {responseType:'text'})
   }
 
-  getFav(){
-    return this.http.get(this.localBaseUrl+'/getfavMovies', {responseType:'json'})
+  getFav(username:string){
+    return this.http.get(this.localBaseUrl+`/getfavMovies/${username}`, {responseType:'json'})
   }
 
   //if user watched the movie

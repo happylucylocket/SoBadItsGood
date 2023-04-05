@@ -48,20 +48,25 @@
               <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
 
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" class="card-img-top" alt="Los Angeles Skyscrapers"/>
-                      <div class="card-body">
-                        <h3 class="card-title">Card title</h3>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                      </div>
-                      <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
+                  <div *ngFor="let fav of favorites; index as i">
+
+                      <div class="col">
+                        <div class="card h-100">
+                          <a href="/movieinfo/{{fav.id}}">
+                            <img src={{fav.poster_path}} class="card-img-top" alt="Los Angeles Skyscrapers"/>
+                          </a>
+                          <div class="card-body">
+                            <a href="/movieinfo/{{fav.id}}">
+                              <h3 class="card-title">{{fav.title}}</h3>
+                            </a>
+                            <!-- <p class="card-text">{{fav.overview}}</p> -->
+                          </div>
+                          
+                        </div>
                       </div>
                     </div>
+                    
                   </div>
-                </div>
-
               </div>
 
               <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>

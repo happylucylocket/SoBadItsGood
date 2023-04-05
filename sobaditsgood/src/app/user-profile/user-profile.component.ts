@@ -10,7 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class UserProfileComponent{
   session:boolean | undefined;
   username:string | undefined;
-  favorites:number[] = [];
+  favorites_id:number[] = [];
+  favorites:any[] = []
 
   constructor(private api:APIServiceService, private route: ActivatedRoute){
 
@@ -20,15 +21,33 @@ export class UserProfileComponent{
         console.log(userInfo.username)
         this.username = userInfo.username
       })
+
+      this.api.getFav(params['username']).subscribe(data=>{
+        var movies = JSON.parse(JSON.stringify(data))
+        if (movies.length > 3){
+          for(var i = 0; i < 3; i++){
+            this.favorites_id.push(movies[i].movieid)
+          }
+        }else{
+          for(var i = 0; i < movies.length; i++){
+            this.favorites_id.push(movies[i].movieid)
+          }
+        }
+        for(var i = 0; i < this.favorites_id.length; i++){
+          this.api.searchMovie(this.favorites_id[i]).subscribe(data => {
+            var movies = JSON.parse(data)
+            var poster = this.api.getPoster(JSON.parse(data).poster_path);
+            movies.poster_path = poster
+            this.favorites.push(movies)
+          })
+        }
+        console.log(this.favorites)
+      })
     })
 
-    this.api.getFav().subscribe(data=>{
-      console.log(data)
-    })
+    //Getting Favourites
+    
 
-    // this.api.searchMovie(this.movie).subscribe(data => {
-    //   this.movieTitle= JSON.parse(data).title;
-    // })
 
     // this.api.searchMovie(this.movie).subscribe(data => {
     //   this.moviePoster = this.api.getPoster(JSON.parse(data).poster_path);
