@@ -41,15 +41,18 @@
     </div>
     <!-- Collapsible wrapper -->
     <!-- Right elements -->
+    <div class="d-flex align-items-center">
+      <form class="d-flex input-group w-auto">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+        <span class="input-group-text border-0" id="search-addon">
+          <i class="fas fa-search"></i>
+        </span>
+      </form>
+    </div>
     <div *ngIf="session; then showUser; else blockUserData"></div>
     <ng-template #showUser>
       <div class="d-flex align-items-center">
-        <form class="d-flex input-group w-auto">
-          <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
-          <span class="input-group-text border-0" id="search-addon">
-            <i class="fas fa-search"></i>
-          </span>
-        </form>
+        
         <!-- Notifications -->
         <div class="dropdown">
           <a class="text-reset me-4 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
