@@ -12,8 +12,8 @@ export class UserProfileComponent{
   isFollowing:boolean | undefined;
   currentUserViewing:boolean | undefined
   username:string | undefined;
-  numFollowing:number | undefined;
-  numFollowers:number | undefined;
+  numFollowing!: number;
+  numFollowers!: number;
   favorites_id:number[] = [];
   watched_id:number[] = []
   watchlist_id:number[] = []
@@ -145,6 +145,7 @@ export class UserProfileComponent{
           this.api.followUser(currentUser.userid, params['username']).subscribe(data=>{
             console.log(data)
             this.isFollowing = true
+            this.numFollowers++;
           })
         })
       })
@@ -161,6 +162,7 @@ export class UserProfileComponent{
           this.api.unfollowUser(currentUser.userid, params['username']).subscribe(data=>{
             console.log(data)
             this.isFollowing = false
+            this.numFollowers--;
           })
         })
       })
