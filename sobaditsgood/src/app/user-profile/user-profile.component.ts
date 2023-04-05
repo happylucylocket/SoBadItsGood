@@ -12,6 +12,8 @@ export class UserProfileComponent{
   isFollowing:boolean | undefined;
   currentUserViewing:boolean | undefined
   username:string | undefined;
+  numFollowing:number | undefined;
+  numFollowers:number | undefined;
   favorites_id:number[] = [];
   watched_id:number[] = []
   watchlist_id:number[] = []
@@ -38,6 +40,12 @@ export class UserProfileComponent{
 
       //Following system
       this.FollowingSystem(params['username'])
+
+      //get number of following
+      this.getNumFollowing(params['username'])
+
+      //get number of followers
+      this.getNumFollowers(params['username'])
     })
 
     api.inInSession().subscribe(data=>{
@@ -157,6 +165,18 @@ export class UserProfileComponent{
         })
       })
     }
+  }
+
+  getNumFollowing(username:string){
+    this.api.getNumFollowing(username).subscribe(data=>{
+      this.numFollowing = JSON.parse(JSON.stringify(data)).NumFollowing
+    })
+  }
+
+  getNumFollowers(username:string){
+    this.api.getNumFollowers(username).subscribe(data=>{
+      this.numFollowers = JSON.parse(JSON.stringify(data)).NumFollowing
+    })
   }
 
 }
