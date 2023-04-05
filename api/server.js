@@ -153,15 +153,19 @@ app.get('/sobaditsgood/api/getReviews/:movieid', async(req, res)=>{
   res.send({"hasReview": true, result})
 })
 
-app.post('/sobaditsgood/api/addReview/', async(req, res)=>{
+app.post('/sobaditsgood/api/addReview/', isLoggedIn, async(req, res)=>{
   const username = req.body.username
+  sql1 = `SELECT u.userid FROM users u where u.username=$1;`
+  result = await pool.query(sql1, [username])
+  const userid = result.rows[0].userid;
+  console.log(username);
+  console.log("this userid" + userid);
   const movieid = req.body.movieId
   const title = req.body.title
   const description = req.body.description
   const rating = req.body.rating
-  const postedOn = new Date();
-  sql = `INSERT INTO reviews (username, movieid, title, description, rating, postedOn) VALUES ($1, $2, $3, $4, $5, $6);`
-  await pool.query(sql,[username, movieid, title, description, rating, postedOn])
+  sql = `INSERT INTO reviews (userid, movieid, title, description, rating) VALUES ($1, $2, $3, $4, $5);`
+  await pool.query(sql,[userid, movieid, title, description, rating])
   res.send("Review created")
 })
 
@@ -180,9 +184,9 @@ app.get('/sobaditsgood/api/getUserInfo/:username', async(req, res)=>{
 })
 
 app.get('/sobaditsgood/api/getMovies/:search', async(req, res)=>{
-  const search = req.session.search
-  //select * from movies where moviename like 'twilight'
-  sql = `SELECT * FROM movies where moviename LIKE $1;`
+  const search = req.params.search
+  console.log("this search " + search);
+  sql = `SELECT movieID FROM movies WHERE title LIKE $1;`
   result = await pool.query(sql, [search])
   res.send(result.rows)
 })

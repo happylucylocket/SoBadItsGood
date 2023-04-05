@@ -20,15 +20,13 @@ export class AddReviewComponent implements OnInit {
   hoverState = 0;
   movieId!: number;
   session: boolean = false;
-  username: string = '123';
+  username: string = '';
   constructor(private router: Router,private api: APIServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<DisplayReviewComponent>,
     @Inject(MAT_DIALOG_DATA) data: any) {
       this.movieId = data.movieId;
-      console.log(this.movieId);
-      console.log(this.username);
       this.myForm = this.formBuilder.group({
-        username: this.username,
+        username: '',
         title: [''],
         description: [''],
         rating: 0,
@@ -36,7 +34,6 @@ export class AddReviewComponent implements OnInit {
       }) 
     }
   ngOnInit() {
-    //this.form = this.fb;
   }
   onEnterStar(starId:number) {
     this.hoverState = starId;
@@ -56,24 +53,22 @@ export class AddReviewComponent implements OnInit {
     console.log("Title " + this.myForm.value.title);
     console.log("Movie Id " + this.movieId);
     this.myForm.value.rating = this.rating;
-    console.log(this.myForm.value);
-    this.api.addReview(this.myForm.value).subscribe((res)=>{
-      console.log(res)
-      return
-    })
     //username, movieid, title, description, rating, postedOn
-    /*this.api.inInSession().subscribe((data) =>{
+    this.api.inInSession().subscribe((data) =>{
         this.session = JSON.parse(JSON.stringify(data));
-        this.api.getUserInfo().subscribe((data) =>{
-          this.username= JSON.parse(JSON.stringify(data));
+        this.api.getCurrentUserInfo().subscribe((data) =>{
+          this.username= JSON.parse(JSON.stringify(data))[0].username;
+          console.log(this.username);
+          this.myForm.value.username = this.username;
+          console.log(this.myForm.value);
+          this.api.addReview(this.myForm.value).subscribe((res)=>{
+            console.log(res)
+            return
+          })
       }
       );
     }
-    );*/
-    /*this.api.addReview(this.myForm.value).subscribe((res)=>{
-      console.log(res)
-      return
-    })*/
+    );
     this.dialogRef.close(this.myForm.value);
     /*if(this.session == true)
     {

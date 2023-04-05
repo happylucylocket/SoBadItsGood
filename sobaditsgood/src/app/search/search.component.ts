@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SearchComponent {
   search!: string;
-  movieResults!: Array<any>;
+  movieResults: number[] = [];
   constructor(private api: APIServiceService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
       this.search = params['search'].toString();
@@ -17,12 +17,21 @@ export class SearchComponent {
     this.api.searchForAMovie(this.search).subscribe(data=> 
       {
         let test = JSON.parse(JSON.stringify(data));
-        this.movieResults = test.results;
         console.log(test.results);
     })
+
+    this.movieResults = this.api.getMovies(this.search);
+    console.log(this.movieResults);
+    /*
+    var movies = JSON.parse(data)
+      for (var i = 0; i < movies.length; i++) {
+        console.log(movies[i].movieid)
+        this.popularIds.push(movies[i].movieid);
+      }
+    })
+    */
     //popularMovies: number[] = [];
     //this.movieResults
-    
   }
   /*
   this.api.searchForAMovie(this.search).subscribe(data=> 
