@@ -21,7 +21,6 @@ export class CastCrewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.movieId = this.api.getCurrentMovieId()
     this.api.getCredits(this.movieId).subscribe(data => {
       this.cast = JSON.parse(data).cast;
     })
