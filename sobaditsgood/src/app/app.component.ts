@@ -12,10 +12,14 @@ export class AppComponent {
 
   title = 'So Bad Its Good';
   session:boolean = false
+  currentUser:string |undefined;
 
   constructor(private api:APIServiceService, private router:Router){
     api.inInSession().subscribe(data=>{
       this.session = JSON.parse(JSON.stringify(data)).isInSession
+      this.api.getCurrentUserInfo().subscribe(data=>{
+        this.currentUser = JSON.parse(JSON.stringify(data))[0].username
+      })
     })
   }
 
