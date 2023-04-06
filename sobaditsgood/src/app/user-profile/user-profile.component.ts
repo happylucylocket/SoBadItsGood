@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
 import { Router, ActivatedRoute, Route } from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import { ShowFollowsDialogComponent } from '../show-follows-dialog/show-follows-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,7 +23,7 @@ export class UserProfileComponent{
   watched:any[] = []
   watchlist:any[] = []
 
-  constructor(private api:APIServiceService, private route: ActivatedRoute, private navigateRoute:Router){
+  constructor(private api:APIServiceService, private route: ActivatedRoute, private navigateRoute:Router, public dialog: MatDialog){
     this.route.params.subscribe(params=>{
       api.getUserInfo(params['username']).subscribe(data=>{
         var userInfo = JSON.parse(JSON.stringify(data))
@@ -181,4 +183,41 @@ export class UserProfileComponent{
     })
   }
 
+  seeFollowing() {
+    this.route.params.subscribe(params=>{
+      this.api.getFollowingInfo(params['username']).subscribe(data=>{
+        if(JSON.parse(JSON.stringify(data)).length == 0){
+          alert("User is not following anyone")
+        }else{
+          const dialogRef = this.dialog.open(ShowFollowsDialogComponent, {
+            width:'400px',
+            data:{
+              title:"Following",
+              followers:JSON.parse(JSON.stringify(data))
+            }
+          });
+        }
+      })
+    })
+
+  }
+
+  seeFollowers(){
+    this.route.params.subscribe(params=>{
+      this.api.getFollowerInfo(params['username']).subscribe(data=>{
+        console.log(data)
+        if(JSON.parse(JSON.stringify(data)).length == 0){
+          alert("user has not followers")
+        }else{
+          const dialogRef = this.dialog.open(ShowFollowsDialogComponent, {
+            width:'400px',
+            data:{
+              title:"Followers",
+              followers:JSON.parse(JSON.stringify(data))
+            }
+          });
+        }
+      })
+    })
+  }
 }

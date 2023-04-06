@@ -9,11 +9,11 @@
               <h2 class="my-3">{{username}}</h2>
               <p class="text-muted mb-1">Full Time Movie Watcher</p>
               <div class="row mt-5">
-                <div class="col border-right text-center">
+                <div (click)="seeFollowing()" class="col border-right text-center pointer">
                     <h2 class="font-light">{{numFollowing}}</h2>
                     <h4 class="text-uppercase">Following</h4>
                 </div>
-                <div class="col border-right text-center">
+                <div (click)="seeFollowers()" class="col border-right text-center pointer">
                     <h2 class="font-light">{{numFollowers}}</h2>
                     <h4 class="text-uppercase">Followers</h4>
                 </div>

@@ -31,6 +31,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ShowFollowsDialogComponent } from './show-follows-dialog/show-follows-dialog.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { MatInputModule } from '@angular/material/input';
     SettingsComponent,
     CastCrewComponent,
     MovieInfoOptionComponent,
-    SearchComponent
+    SearchComponent,
+    ShowFollowsDialogComponent
   ],
   imports: [
     BrowserModule,
