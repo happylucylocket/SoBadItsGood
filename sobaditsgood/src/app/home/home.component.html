@@ -1,20 +1,19 @@
+<h1>Popular</h1>
+<div class="d-flex align-content-start flex-wrap gap-3">
+  <app-movie *ngFor="let m of popularMovies" (click)="goToMovie(m)" [movie] ="m">
+  </app-movie>
+</div>
 
-  <h1>Top Picks</h1>
-  <div class="d-flex align-content-start flex-wrap gap-3">
-    <app-movie *ngFor="let m of topPicks" (click)="goToMovie(m)" [movie] ="m">
-    </app-movie>
-  </div>
-
-  <h1>Popular</h1>
-  <div class="d-flex align-content-start flex-wrap gap-3">
-    <app-movie *ngFor="let m of popularMovies" (click)="goToMovie(m)" [movie] ="m">
-    </app-movie>
-  </div>
-
+<div *ngIf="session">
   <h1>My Watch Later</h1>
   <div class="d-flex align-content-start flex-wrap gap-3">
     <app-movie *ngFor="let m of watchLater" (click)="goToMovie(m)" [movie] ="m">
     </app-movie>
   </div>
-
+</div>
   
+<h1>Top Picks</h1>
+<div class="d-flex align-content-start flex-wrap gap-3">
+  <app-movie *ngFor="let m of topPicks" (click)="goToMovie(m)" [movie] ="m">
+  </app-movie>
+</div>

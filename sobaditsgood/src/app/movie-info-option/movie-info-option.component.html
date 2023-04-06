@@ -1,7 +1,7 @@
 <!-- Favourite Movies -->
 <div *ngIf="favourited; then favouritedBlock; else favouriteBlock"></div>
 <ng-template #favouritedBlock>
-    <button mat-icon-button color="primary" title="Favorite" (click)="unfavourite()">
+    <button mat-icon-button color="primary" title="Unfavorite" (click)="unfavourite()">
         <mat-icon class="checked">favorite</mat-icon>
     </button>
 </ng-template>
@@ -14,7 +14,7 @@
 <!-- Watched Movies -->
 <div *ngIf="watched;then watchedBlock; else notwatchedBlock"></div>
 <ng-template #watchedBlock>
-    <button mat-icon-button color="primary" title="Watched" (click)="removeWatched()">
+    <button mat-icon-button color="primary" title="Remove from Watched" (click)="removeWatched()">
         <mat-icon class="checked">check_circle</mat-icon>
     </button>
 </ng-template>
@@ -27,12 +27,12 @@
 <!-- Watchlist Movies -->
 <div *ngIf="watchlisted;then watchlistedMovie; else notWatchlisted"></div>
 <ng-template #watchlistedMovie>
-    <button mat-icon-button color="primary" title="Bookmark" (click)="removeFromWatchlist()">
+    <button mat-icon-button color="primary" title="Remove from Watch Later" (click)="removeFromWatchlist()">
         <mat-icon class="checked">bookmark</mat-icon>
     </button>
 </ng-template>
 <ng-template #notWatchlisted>
-    <button mat-icon-button color="primary" title="Bookmark" (click)="addToWatchlist()">
+    <button mat-icon-button color="primary" title="Add to Watch Later" (click)="addToWatchlist()">
         <mat-icon>bookmark_border</mat-icon>
     </button>
 </ng-template>

@@ -1,9 +1,32 @@
 .fav_mov_title{
     text-align: center;
-    padding: 10px;
+    padding: 1px;
+}
+
+.fav_mov_tab{
+    text-align: center;
+    padding: 5px;
 }
 
 .feat_title{
     text-align: center;
     padding: 10px;
+}
+
+#favorites {
+    background-color: rgb(19, 19, 22);
+}
+
+#favoritesTitle {
+    color: white;
+}
+
+.scrolling-wrapper-flexbox {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.pointer{
+    cursor: pointer;
 }

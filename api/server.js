@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const pg = require('pg');
+const fileupload = require('express-fileupload')
 require('dotenv').config();
 
 // Environmental values
@@ -25,8 +26,11 @@ const corsOptions = {
 // App settings
 app.use(cors(corsOptions)); // CORS setup
 app.use(express.static(ANGULAR_PROJECT_DIR)) // access to static files in the built angular project
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json({limit: '50mb', extended: true}));
+app.use(fileupload())
+app.use(bodyParser.json({ extended: false, limit: '100mb' }))
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: false, parameterLimit: 1000000000 }))
+
 app.use(
   session({
       name: 'session',
@@ -72,9 +76,26 @@ app.post('/sobaditsgood/api/registerUser/', async(req, res)=>{
   const lname = req.body.lname
   const username = req.body.username
   const password = req.body.password
-  sql = `INSERT INTO users (fname, lname, username, password) VALUES ($1, $2, $3, $4);`
-  await pool.query(sql,[fname, lname, username, password])
+  const email = req.body.email
+  sql = `INSERT INTO users (fname, lname, username, password, email) VALUES ($1, $2, $3, $4, $5);`
+  await pool.query(sql,[fname, lname, username, password,email])
   res.send("User ccreated")
+})
+app.post('/sobaditsgood/api/updateInfo/', async(req, res)=>{
+  const fname = req.body.fname
+  const lname = req.body.lname
+  const username = req.body.username
+  const password = req.body.password
+  const email = req.body.email
+  const id = req.body.userid
+  const pic = req.body.pic
+  // console.log(fname,lname,username,password,email,password,id)
+  sql = `UPDATE "users"
+         SET "fname"= $1, "lname"= $2, "username"= $3, "password"= $4, "email"= $5,"profilepic"=$7
+         WHERE "userid"= $6 ;`
+         await pool.connect();
+  await pool.query(sql,[fname, lname, username, password,email, id,pic])
+  res.send("User Edited")
 })
  
 //check if user exists
@@ -92,7 +113,6 @@ app.get('/sobaditsgood/api/userExists/:username', async(req, res)=>{
 app.post('/sobaditsgood/api/login/', (req, res)=>{
   console.log("logging in")
   req.session.user = {username:req.body.username}
-  console.log(req.sessionID)
   res.send('*')
 })
 
@@ -108,7 +128,16 @@ app.get('/test', (req, res) => {
   res.send(results.rows)
   })
 });
-
+ app.get('/sobaditsgood/api/getAll',  (req, res) => {
+  // MAKE QUERIES 
+  pool.query(`SELECT * FROM users;`, async (error, results) => {
+  if (error) {
+    console.error(error) 
+    return
+  }  
+  await res.send(results.rows)
+  })
+});
 app.get('/sobaditsgood/api/isInSession', (req, res)=>{
   if(req.session.user){
     res.send({isInSession:true})
@@ -129,21 +158,68 @@ app.get('/sobaditsgood/api/getReviews/:movieid', async(req, res)=>{
   res.send({"hasReview": true, result})
 })
 
-app.post('/sobaditsgood/api/addReview/', async(req, res)=>{
+app.post('/sobaditsgood/api/addReview/', isLoggedIn, async(req, res)=>{
   const username = req.body.username
+  sql1 = `SELECT u.userid FROM users u where u.username=$1;`
+  result = await pool.query(sql1, [username])
+  const userid = result.rows[0].userid;
+  console.log(username);
+  console.log("this userid" + userid);
   const movieid = req.body.movieId
   const title = req.body.title
   const description = req.body.description
   const rating = req.body.rating
-  const postedOn = new Date();
-  sql = `INSERT INTO reviews (username, movieid, title, description, rating, postedOn) VALUES ($1, $2, $3, $4, $5, $6);`
-  await pool.query(sql,[username, movieid, title, description, rating, postedOn])
+  sql = `INSERT INTO reviews (userid, movieid, title, description, rating) VALUES ($1, $2, $3, $4, $5);`
+  await pool.query(sql,[userid, movieid, title, description, rating])
   res.send("Review created")
 })
-app.get('/sobaditsgood/api/getUserInfo', async(req, res)=>{
+
+app.get('/sobaditsgood/api/getCurrentUserInfo', async(req, res)=>{
   const username = req.session.user.username
-  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic FROM users u where u.username=$1;`
+  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic, u.password, u.userid, u.profilepic FROM users u where u.username=$1;`
   result = await pool.query(sql, [username])
+  res.send(result.rows)
+})
+
+app.get('/sobaditsgood/api/getUserInfo/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.fname, u.lname, u.username FROM users u WHERE u.username=$1'
+  result = await pool.query(sql, [username])
+  res.send(result.rows[0])
+})
+
+app.get('/sobaditsgood/api/getMovies/:search', async(req, res)=>{
+  const search = req.params.search
+  console.log("this search " + search);
+  sql = `SELECT movieID FROM movies WHERE title LIKE $1;`
+  result = await pool.query(sql, [search])
+  res.send(result.rows)
+})
+
+app.get('/sobaditsgood/api/getfavMovies/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT f.movieid FROM favoritemovies f WHERE f.userid=$1'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send(result.rows)
+})
+
+app.get('/sobaditsgood/api/getWatchedMovies/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT f.movieid FROM watchedmovies f WHERE f.userid=$1'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send(result.rows)
+})
+
+app.get('/sobaditsgood/api/getWatchlistedMovies/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT f.movieid FROM watchlist f WHERE f.userid=$1'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
   res.send(result.rows)
 })
 
@@ -250,6 +326,15 @@ app.get('/sobaditsgood/api/addtowatchlist/:movieID', isLoggedIn, async(req, res)
   res.send("added to watchlist")
 })
 
+app.get('/sobaditsgood/api/getWatchlist', isLoggedIn, async(req, res)=>{
+  const username = req.session.user.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT movieid FROM watchlist WHERE userid=$1;'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send(result.rows)
+})
+
 app.get('/sobaditsgood/api/getPopular', async(req, res) => {
   result = await pool.query(`SELECT movieID FROM movies ORDER BY popularity DESC limit 12`); 
   res.send(result.rows)
@@ -265,6 +350,76 @@ app.get('/sobaditsgood/api/logout', (req, res) => {
   });
 });
 
+app.get('/sobaditsgood/api/isFollowing/:userid/:followingUsername', isLoggedIn, async(req, res)=>{
+  const followingUsername = req.params.followingUsername
+  const userID = req.params.userid
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [followingUsername])
+  sql = 'SELECT f.followingID FROM following f WHERE userID = $1 and f.followingID = $2'
+  result = await pool.query(sql, [userID, Qresult.rows[0].userid])
+  if(result.rowCount == 0){
+    res.send({isFollowing:false})
+    return 
+  }else{
+    res.send({isFollowing:true})
+  }
+})
+
+app.get('/sobaditsgood/api/followUser/:userid/:followingUsername', isLoggedIn, async(req, res)=>{
+  const followingUsername = req.params.followingUsername
+  const userID = req.params.userid
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [followingUsername])
+  sql = 'INSERT INTO following(userID, followingID) VALUES($1, $2)'
+  result = await pool.query(sql, [userID, Qresult.rows[0].userid])
+  res.send('User Followed')
+})
+
+app.get('/sobaditsgood/api/unfollowUser/:userid/:followingUsername', isLoggedIn, async(req, res)=>{
+  const followingUsername = req.params.followingUsername
+  const userID = req.params.userid
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [followingUsername])
+  sql = 'DELETE FROM following WHERE userID = $1 and followingID = $2'
+  result = await pool.query(sql, [userID, Qresult.rows[0].userid])
+  res.send('User Unfollowed')
+})
+
+app.get('/sobaditsgood/api/getNumFollowing/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT id FROM following WHERE userID = $1;'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send({NumFollowing:result.rowCount})
+})
+
+app.get('/sobaditsgood/api/getNumFollowers/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT id FROM following WHERE followingID = $1;'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send({NumFollowing:result.rowCount})
+})
+
+app.get('/sobaditsgood/api/getFollowingInfo/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT u.username, f.followingID FROM following f JOIN users u ON f.followingID = u.userID WHERE f.userID = $1;'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send(result.rows)
+})
+
+app.get('/sobaditsgood/api/getFollowerInfo/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT u.username, f.userID, f.followingID FROM following f JOIN users u ON f.userID = u.userID WHERE f.followingID = $1;'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send(result.rows)
+})
 
 /////////////////////////////////////////////////// WEBSITE PATHS////////////////////////////////////////////
 // Angular project
@@ -276,7 +431,7 @@ app.get('/login', (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 
-app.get('/userprofile', isLoggedIn, (req, res)=>{
+app.get('/userprofile/:username', isLoggedIn, (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 

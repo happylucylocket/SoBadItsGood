@@ -7,16 +7,18 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { HomeComponent } from './home/home.component';
 import { MovieInfoComponent } from './movie-info/movie-info.component';
 import { CastCrewComponent } from './cast-crew/cast-crew.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
-  {path:'userprofile', component:UserProfileComponent},
+  {path:'userprofile/:username', component:UserProfileComponent},
   {path:'login', component:LoginComponent},
   {path:'createaccount', component:CreateAccountComponent},
   {path:'settings', component:SettingsComponent},
   {path:'logout', component:LoginComponent},
   {path: 'movieinfo/:movieid', component:MovieInfoComponent},
-  {path: 'castcrew/:movieid', component:CastCrewComponent}
+  {path: 'castcrew/:movieid', component:CastCrewComponent},
+  {path: 'search/:search', component:SearchComponent}
 ];
 
 @NgModule({
