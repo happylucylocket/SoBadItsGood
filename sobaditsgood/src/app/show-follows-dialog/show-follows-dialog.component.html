@@ -29,13 +29,12 @@
                           <div class="media">
                             <div class="media-center">
                               <a class="avatar avatar-away" href="javascript:void(0)">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="profile pic" onerror="this.src='/assets/error_photo.png'">
+                                <img [src]="data.followers[i].profilepic" alt="profile pic" onerror="this.src='/assets/error_photo.png'">
                                 <i></i>
                               </a>
                             </div>
                             <div class="media-body">
                               <div class="pull-right">
-                                <button style="float:right;" type="button" class="btn btn-success btn-default btn-sm waves-effect waves-light"><i class="icon md-check" aria-hidden="true"></i>Following</button>
                               </div>
                               <div><a class="name" href="/userprofile/{{data.followers[i].username}}">{{data.followers[i].username}}</a></div>
                             </div>
