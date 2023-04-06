@@ -37,6 +37,25 @@
   </div>
 </div>
   <div class="row">
+    <div *ngFor = "let r of reviews">
+        <h1 style = "margin: 0;">{{r.title}}</h1> 
+        <div>
+        By: <a href="" class="mb-3">{{r.userid}}</a> 
+        <ul class="list-unstyled d-flex text-warning mb-0">
+          {{r.rating}}
+            <li><i class="fas fa-star fa-sm"></i></li>
+            <li><i class="fas fa-star fa-sm"></i></li>
+            <li><i class="fas fa-star fa-sm"></i></li>
+            <li><i class="fas fa-star fa-sm"></i></li>
+            <li><i class="far fa-star fa-sm"></i></li>
+        </ul>
+    
+      </div>
+        <p class="text-muted">
+        <i class="fas fa-quote-left pe-2"></i>
+        {{r.description}}
+        </p>
+    </div>
   </div>
 </div>
 </section>
