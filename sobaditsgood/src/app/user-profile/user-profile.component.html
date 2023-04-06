@@ -123,6 +123,9 @@
           </div>
           
           <!-- Carousel wrapper -->
+          <div class="col-1">
+            <h1 class="text-white">Reviews</h1>
+          </div>
           <div id="gfg">
             <mdb-carousel>
                 <mdb-carousel-item *ngFor="let review of reviews">
@@ -135,10 +138,12 @@
                         <div class="mask rgba-black-light waves-light" mdbWavesEffect>
                         </div>
                     </div>
+                 
                     <div class="carousel-caption">
-                        <h3 class="h3-responsive">
+                  
+                        <h1 class="h1-responsive">
                             {{review.title}}
-                        </h3>
+                        </h1>
                         <p>{{review.description}}</p>
           
                     </div>
