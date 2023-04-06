@@ -427,6 +427,15 @@ app.get('/sobaditsgood/api/getFollowerInfo/:username', async(req, res)=>{
   res.send(result.rows)
 })
 
+app.get('/sobaditsgood/api/getUserReviews/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT * from reviews r WHERE r.userid=$1'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send(result.rows)
+})
+
 /////////////////////////////////////////////////// WEBSITE PATHS////////////////////////////////////////////
 // Angular project
 app.get("/" ,(req, res) => {
