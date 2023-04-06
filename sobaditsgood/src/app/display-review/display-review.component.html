@@ -40,7 +40,7 @@
     <div *ngFor = "let r of reviews; let i = index">
         <h1 style = "margin: 0;">{{r.title}}</h1> 
         <div>
-          By: {{usernames[i]}}
+          <p>By: <a class="name" href="/userprofile/{{usernames[i]}}">{{usernames[i]}}</a></p>
         <ul class="list-unstyled d-flex text-warning mb-0">
           {{r.rating}}
             <li><i class="fas fa-star fa-sm"></i></li>
