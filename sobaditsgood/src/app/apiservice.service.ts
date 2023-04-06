@@ -158,6 +158,10 @@ export class APIServiceService {
     return this.http.get(this.localBaseUrl+`/getFollowerInfo/${username}`, {responseType:'json'})
   }
 
+  getUserReviews(username:string){
+    return this.http.get(this.localBaseUrl+`/getUserReviews/${username}`, {responseType:'json'})
+  }
+
   searchForAMovie(id: string) {
     return this.http.get('https://api.themoviedb.org/3/search/movie?api_key=ecd28fb4488e17f072d95ad0278f2545'+'&language=en-US&page=1&include_adult=false&query=' +id.toString(), {responseType: 'json'});
   }
@@ -166,7 +170,6 @@ export class APIServiceService {
     this.http.get(this.localBaseUrl+`/getMovies/${search}`, {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
-        console.log(movies[i].movieid)
         this.searchIds.push(movies[i].movieid);
       }
     })
@@ -195,7 +198,6 @@ export class APIServiceService {
     this.http.get(this.localBaseUrl+'/getPopular', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
-        console.log(movies[i].movieid)
         this.popularIds.push(movies[i].movieid);
       }
     })
@@ -207,7 +209,6 @@ export class APIServiceService {
     this.http.get(this.localBaseUrl+'/getWatchlist', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
-        console.log(movies[i].movieid)
         this.watchLaterIds.push(movies[i].movieid);
       }
     })
@@ -219,7 +220,6 @@ export class APIServiceService {
     this.http.get(this.localBaseUrl+'/getFavourites', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
-        console.log(movies[i].movieid)
         this.favoriteIds.push(movies[i].movieid);
       }
     })
@@ -238,8 +238,12 @@ export class APIServiceService {
   addReview(review:any){
     return this.http.post(this.localBaseUrl+`/addReview/`, review, { responseType: 'text' })
   }
-      //check if the reviews is in the database or not
-      getReview(userId:number, movieId:number){
-        return this.http.get(this.localBaseUrl+`/getReview/${movieId}/${userId}`, {responseType: 'json'})
-      }
+
+  getRating(movieId: number) {
+    return this.http.get(this.localBaseUrl+`/getRating/${movieId}`, {responseType: 'json'})
+  }
+  //check if the reviews is in the database or not
+  getReview(userId:number, movieId:number){
+    return this.http.get(this.localBaseUrl+`/getReview/${movieId}/${userId}`, {responseType: 'json'})
+  }
 }
