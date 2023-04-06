@@ -21,21 +21,6 @@
   </div>
 <br>
    
-<div class="row">
-  <div class ="col-lg-7">
-    <h1 class="text-muted mb-4">Reviews | <span *ngIf="rating">{{rating}} <i class="fas fa-star fa-sm" style="color: gold;"></i></span></h1> 
-  </div>
-  <div class ="col-lg-5">
-    <mat-form-field appearance="fill" style="right: 0;">
-      <mat-label style="font-size: 13px;">Sort by...</mat-label>
-      <mat-select>
-        <mat-option style="font-size: 13px;" *ngFor="let sort of sorting" [value]="sort.value">
-          {{sort.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field> 
-  </div>
-</div>
   <div class="row">
     <div *ngFor = "let r of reviews; let i = index">
         <h1 style = "margin: 0;">{{r.title}}</h1> 
