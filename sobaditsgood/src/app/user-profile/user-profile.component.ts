@@ -20,6 +20,7 @@ export class UserProfileComponent{
   favorites:any[] = []
   watched:any[] = []
   watchlist:any[] = []
+  pic?:any="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
 
   constructor(private api:APIServiceService, private route: ActivatedRoute, private navigateRoute:Router){
     this.route.params.subscribe(params=>{
@@ -27,6 +28,8 @@ export class UserProfileComponent{
         var userInfo = JSON.parse(JSON.stringify(data))
         console.log(userInfo.username)
         this.username = userInfo.username
+        this.pic=userInfo.profilepic
+        
       })
 
       //Getting Favourites
