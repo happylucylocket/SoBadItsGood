@@ -42,14 +42,11 @@
         <div>
           <p>By: <a class="name" href="/userprofile/{{usernames[i]}}">{{usernames[i]}}</a></p>
         <ul class="list-unstyled d-flex text-warning mb-0">
-          {{r.rating}}
-            <li><i class="fas fa-star fa-sm"></i></li>
-            <li><i class="fas fa-star fa-sm"></i></li>
-            <li><i class="fas fa-star fa-sm"></i></li>
-            <li><i class="fas fa-star fa-sm"></i></li>
-            <li><i class="far fa-star fa-sm"></i></li>
+          <div *ngFor = "let star of r.starReview">
+            <li><i class="fas fa-star fa-sm" *ngIf = "star == true"></i>
+            <i class="far fa-star fa-sm"*ngIf = "star == false"></i></li>
+          </div>
         </ul>
-    
       </div>
         <p class="text-muted">
         <i class="fas fa-quote-left pe-2"></i>

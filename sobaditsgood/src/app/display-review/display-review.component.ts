@@ -35,6 +35,8 @@ export class DisplayReviewComponent {
   userid: number = 0;
   hasReview: boolean = false;
   usernamer: string = "";
+  starReview: boolean[] = [false,false,false,false,false];
+
   constructor(private router: Router, private formBuilder: FormBuilder, private dialogRef: MatDialog, private api: APIServiceService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.movieId = parseInt(params['movieid']);
@@ -51,7 +53,13 @@ export class DisplayReviewComponent {
     console.log(this.movieId);
    this.api.getReviews(this.movieId).subscribe((res:any) =>{
     for(var i=0;i<res.length;i++){
-      this.reviews.push(new review(this.username,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes))
+      if(res[i].title != "" || res[i].description !="")
+      this.rating = res[i].rating
+      for(let i = 0; i < this.rating; i++)
+      {
+          this.starReview[i] = true;
+      }
+        this.reviews.push(new review(this.username,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes, this.starReview))
     }
     });
     this.api.inInSession().subscribe(data=>{
@@ -101,7 +109,6 @@ export class DisplayReviewComponent {
   }
   rateMovie()
   {
-    console.log("hello");
     if(this.session == true)
     {
       this.api.inInSession().subscribe((data) =>{
