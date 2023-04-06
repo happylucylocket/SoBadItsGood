@@ -1,3 +1,4 @@
+import { AppComponent } from './../app.component';
 import { PasswordDialogComponent } from './../password-dialog/password-dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component } from '@angular/core';
@@ -43,7 +44,7 @@ export class SettingsComponent {
   }
   )
  
-  constructor(private dialog:MatDialog, private api:APIServiceService, private route : Router){
+  constructor(private dialog:MatDialog, private api:APIServiceService, private route : Router,private component:AppComponent){
     api.getCurrentUserInfo().subscribe( data=>{
       var a = JSON.parse(JSON.stringify(data))[0]
           this.username = a.username
@@ -155,6 +156,7 @@ export class SettingsComponent {
     this.api.updateUserInfo(new user(this.id,this.form.value.userFirstName?.toString(),this.form.value.userLastName?.toString(),this.form.value.username?.toString(),this.form.value.userEmail?.toString(),this.form.value.password?.toString(),this.pic)).subscribe()
     window.alert("Logging out! Please Login Again!!")
     this.route.navigate(['/login']);
+    this.component.session=false
   }
 
 }

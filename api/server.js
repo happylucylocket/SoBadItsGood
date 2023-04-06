@@ -148,14 +148,15 @@ app.get('/sobaditsgood/api/isInSession', (req, res)=>{
 })
 
 app.get('/sobaditsgood/api/getReviews/:movieid', async(req, res)=>{
-  const movieid = req.body.movieid
-  sql = `SELECT movieid FROM REVIEWS m WHERE m.movieid = $1`
+  const movieid = req.params.movieid
+  console.log(movieid);
+  sql = `SELECT * FROM reviews WHERE movieid = $1`
   var result = await pool.query(sql, [movieid])
   if (result.rowCount == 0){
-    res.send({"hasReview": false})
+    console.log(result.rowCount);
     return
   }
-  res.send({"hasReview": true, result})
+  res.send(result.rows)
 })
 
 app.post('/sobaditsgood/api/addReview/', isLoggedIn, async(req, res)=>{
