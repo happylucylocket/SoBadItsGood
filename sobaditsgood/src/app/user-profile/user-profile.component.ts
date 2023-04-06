@@ -38,6 +38,7 @@ export class UserProfileComponent{
         this.api.getUserReviews(params['username']).subscribe((data:any)=>{
           console.log(data)
           for(var i=0;i<data.length;i++){
+            if(data[i].title!="")
             this.reviews.push(new review(data[i].userid,data[i].movieid,data[i].title,data[i].description,data[i].rating,data[i].likes,data[i].created_at))
           }
         })

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { APIServiceService } from './apiservice.service'; 
 import { Router } from '@angular/router';
@@ -13,7 +14,7 @@ export class AppComponent {
   title = 'So Bad Its Good';
   session:boolean = false
   currentUser:string |undefined;
-  pic?:any="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+  pic?:Observable<any>
   
   constructor(private api:APIServiceService, private router:Router){
     api.inInSession().subscribe(data=>{
