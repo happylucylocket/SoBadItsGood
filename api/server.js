@@ -449,6 +449,24 @@ app.get('/sobaditsgood/api/getFollowerInfo/:username', async(req, res)=>{
   res.send(result.rows)
 })
 
+app.get('/sobaditsgood/api/getUserReviews/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
+  Qresult = await pool.query(sql, [username])
+  sql = 'SELECT * from reviews r WHERE r.userid=$1'
+  result = await pool.query(sql, [Qresult.rows[0].userid])
+  res.send(result.rows)
+})
+
+app.get('/sobaditsgood/api/getRating/:movieID', async(req, res) => {
+  const movieid = req.params.movieID
+  sql = `SELECT m.rating FROM movies m WHERE m.movieid=$1;`
+  result = await pool.query(sql, [movieid]); 
+  res.send(result.rows)
+})
+
+
+
 /////////////////////////////////////////////////// WEBSITE PATHS////////////////////////////////////////////
 // Angular project
 app.get("/" ,(req, res) => {
@@ -480,5 +498,5 @@ app.get('/showusers',isLoggedIn, (req, res)=>{
 
 // Connect to server
 app.listen(PORT, HOST, () => {
-  console.log(`Server started on host ${HOST} and  port ${PORT}`);
+  console.log(`Server started on host ${HOST} and port ${PORT}`);
 });
