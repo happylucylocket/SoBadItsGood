@@ -34,7 +34,6 @@ export class AppComponent {
 
   Search()
   {
-    console.log(this.search);
     this.router.navigate([`/search/${this.search}`]);
   }
 }

@@ -10,12 +10,14 @@
                 <div class="card-body p-md-5 text-black">
                   <h3 class="mb-5 text-uppercase">User Settings</h3>
                   <div class="form-outline mb-4">
+                    <div class="row">
                     <div class="text-center">
-                        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" alt="ProfilePicture"><br>
-                        <button class="btn btn-primary rounded mt-4">Change Profile Picture</button>
+                        <img [src]="pic" class=" col-sm-3 rounded-circle img-thumbnail width: 100% \9"  alt="ProfilePicture"><br>
+                        <label for="image" class="mt-4">Choose your profile pic:</label><br>
+                        <input type="file" id="pic" name="pic" class="btn btn-primary " formControlName="pic" accept="image/png, image/jpeg" (change)="changePic($event)"/>
                       </div>
                   </div>
-  
+                </div>
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
