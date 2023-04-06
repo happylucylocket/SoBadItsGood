@@ -25,6 +25,7 @@ export class DisplayReviewComponent {
     {value: 'featured', viewValue: 'Featured'},
     {value: 'reviewrating', viewValue: 'Review Rating'},
   ];
+  username = "";
   movieId!: number;
   reviews: review[] = [];
   
@@ -37,17 +38,21 @@ export class DisplayReviewComponent {
     console.log(this.movieId);
    this.api.getReviews(this.movieId).subscribe((res:any) =>{
     for(var i=0;i<res.length;i++){
-      this.reviews.push(new review(res[i].userid,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes))
+      this.reviews.push(new review(this.username,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes))
     }
-    console.log(this.reviews[0].title);
+    });
+    //Display reviews user?
+    this.api.getReviews(this.movieId).subscribe((res:any) =>{
+      for(var i=0;i<res.length;i++){
+        this.api.getUsername(res[i].userid).subscribe((res) =>{
+          console.log(res);
+          this.username = res;
+          console.log("user" + this.username);
+          this.reviews[i].username = this.username;
+        });   
+      }
     });
   }
-/*this.http.get(this.localBaseUrl+`/getAll`).subscribe((data:any)=>{
-       for(var i=0;i<data.length;i++){
-         this.users?.push(new user(data[i].userid,data[i].fname,data[i].lname,data[i].username,data[i].email,data[i].password))
-       }
-     });
-return  this.users*/
   onEnterStar(starId:number) {
     this.hoverState = starId;
   }

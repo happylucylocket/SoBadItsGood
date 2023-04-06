@@ -158,7 +158,12 @@ app.get('/sobaditsgood/api/getReviews/:movieid', async(req, res)=>{
   }
   res.send(result.rows)
 })
-
+app.get('/sobaditsgood/api/getUsername/:userid', async(req, res)=>{
+  const userid = req.params.userid
+  sql = `SELECT username FROM users WHERE userid = $1`
+  var result = await pool.query(sql, [userid])
+  res.send(result.rows[0].username)
+})
 app.post('/sobaditsgood/api/addReview/', isLoggedIn, async(req, res)=>{
   const username = req.body.username
   sql1 = `SELECT u.userid FROM users u where u.username=$1;`
