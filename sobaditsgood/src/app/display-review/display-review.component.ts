@@ -28,6 +28,7 @@ export class DisplayReviewComponent {
   username = "";
   movieId!: number;
   reviews: review[] = [];
+  usernames: string[] = [];
   
   constructor(private dialogRef: MatDialog, private api: APIServiceService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
@@ -41,16 +42,17 @@ export class DisplayReviewComponent {
       this.reviews.push(new review(this.username,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes))
     }
     });
-    //Display reviews user?
+    // Display reviews user!
     this.api.getReviews(this.movieId).subscribe((res:any) =>{
       for(var i=0;i<res.length;i++){
-        this.api.getUsername(res[i].userid).subscribe((res) =>{
-          console.log(res);
-          this.username = res;
-          console.log("user" + this.username);
-          this.reviews[i].username = this.username;
-        });   
+        this.getUsernameFromID(res[i].userid);
       }
+    });
+  }
+
+  getUsernameFromID(id: number) {
+    this.api.getUsername(id).subscribe((res) =>{
+      this.usernames.push(res);
     });
   }
   onEnterStar(starId:number) {
