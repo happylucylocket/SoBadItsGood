@@ -4,6 +4,7 @@ import { AddReviewComponent } from '../add-review/add-review.component';
 import { APIServiceService } from '../apiservice.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router, NavigationExtras } from '@angular/router';
+import { review } from './review';
 
 interface Sorting {
   value: string;
@@ -25,26 +26,28 @@ export class DisplayReviewComponent {
     {value: 'reviewrating', viewValue: 'Review Rating'},
   ];
   movieId!: number;
+  reviews: review[] = [];
   
   constructor(private dialogRef: MatDialog, private api: APIServiceService, private route: ActivatedRoute) {
-
     this.route.params.subscribe(params => {
       this.movieId = parseInt(params['movieid']);
     });
   }
   ngOnInit(): void {
-    //this.movieId = this.api.getCurrentMovieId()
     console.log(this.movieId);
-   this.api.getReviews(this.movieId).subscribe((res) =>{
-    if(JSON.parse(JSON.stringify(res)).hasReview == true){
-      console.log("Reviews exist")
-    } else 
-    {
-      console.log("Reviews do not exist")
+   this.api.getReviews(this.movieId).subscribe((res:any) =>{
+    for(var i=0;i<res.length;i++){
+      this.reviews.push(new review(res[i].userid,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes))
     }
+    console.log(this.reviews[0].title);
     });
   }
-
+/*this.http.get(this.localBaseUrl+`/getAll`).subscribe((data:any)=>{
+       for(var i=0;i<data.length;i++){
+         this.users?.push(new user(data[i].userid,data[i].fname,data[i].lname,data[i].username,data[i].email,data[i].password))
+       }
+     });
+return  this.users*/
   onEnterStar(starId:number) {
     this.hoverState = starId;
   }
