@@ -27,7 +27,7 @@ export class APIServiceService {
   getAll(){
      this.http.get(this.localBaseUrl+`/getAll`).subscribe((data:any)=>{
        for(var i=0;i<data.length;i++){
-         this.users?.push(new user(data[i].userid,data[i].fname,data[i].lname,data[i].username,data[i].email,data[i].password))
+         this.users?.push(new user(data[i].userid,data[i].fname,data[i].lname,data[i].username,data[i].email,data[i].password,data[i].profilepic))
        }
      });
      return  this.users
