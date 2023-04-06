@@ -440,7 +440,7 @@ app.get('/sobaditsgood/api/getFollowingInfo/:username', async(req, res)=>{
   const username = req.params.username
   sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
   Qresult = await pool.query(sql, [username])
-  sql = 'SELECT u.username, f.followingID FROM following f JOIN users u ON f.followingID = u.userID WHERE f.userID = $1;'
+  sql = 'SELECT u.username, f.followingID, u.profilepic FROM following f JOIN users u ON f.followingID = u.userID WHERE f.userID = $1;'
   result = await pool.query(sql, [Qresult.rows[0].userid])
   res.send(result.rows)
 })
@@ -449,7 +449,7 @@ app.get('/sobaditsgood/api/getFollowerInfo/:username', async(req, res)=>{
   const username = req.params.username
   sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
   Qresult = await pool.query(sql, [username])
-  sql = 'SELECT u.username, f.userID, f.followingID FROM following f JOIN users u ON f.userID = u.userID WHERE f.followingID = $1;'
+  sql = 'SELECT u.username, f.userID, f.followingID, u.profilepic FROM following f JOIN users u ON f.userID = u.userID WHERE f.followingID = $1;'
   result = await pool.query(sql, [Qresult.rows[0].userid])
   res.send(result.rows)
 })
