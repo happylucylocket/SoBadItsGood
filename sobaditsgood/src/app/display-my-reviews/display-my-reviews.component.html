@@ -1,0 +1,43 @@
+<section style="color: #000; background-color: #f3f2f2;">
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-10 col-xl-8 text-center">
+          <h3 class="fw-bold mb-4">My Reviews</h3>
+        </div>
+      </div>
+      <div class="row text-center">
+        
+        <div *ngFor="let m of reviewInfo; index of i" class="col-md-4 mb-0">
+
+            <div style="padding: 20px;">
+              <div class="card">
+                <div class="card-body py-4 mt-2">
+                  <div class="d-flex justify-content-center mb-4">
+    
+                  </div>
+                  <h5 class="font-weight-bold">{{m.title}}</h5>
+                  <h6 class="font-weight-bold my-3">Rating {{m.rating}}</h6>
+                  <ul class="list-unstyled d-flex justify-content-center">
+                    <div *ngFor="let star of [].constructor(m.rating);">
+                        <li>
+                            
+                          <i class="fas fa-star fa-sm text-info"></i>
+                        </li>
+
+                    </div>
+                    
+                  </ul>
+                  <p class="mb-2">
+                    <i class="fas fa-quote-left pe-2"></i>{{m.description}}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+        </div>
+
+
+      
+      </div>
+    </div>
+  </section>

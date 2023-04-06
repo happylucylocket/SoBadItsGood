@@ -9,10 +9,12 @@ import { MovieInfoComponent } from './movie-info/movie-info.component';
 import { CastCrewComponent } from './cast-crew/cast-crew.component';
 import { SearchComponent } from './search/search.component';
 import { UserComponent } from './user/user.component';
+import { DisplayMyReviewsComponent } from './display-my-reviews/display-my-reviews.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
   {path:'userprofile/:username', component:UserProfileComponent},
+  {path:'userprofile/myReviews/:username', component:DisplayMyReviewsComponent},
   {path:'login', component:LoginComponent},
   {path:'createaccount', component:CreateAccountComponent},
   {path:'settings', component:SettingsComponent},

@@ -14,6 +14,7 @@ export class AppComponent {
   session:boolean = false
   currentUser:string |undefined;
   pic?:any="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+  
   constructor(private api:APIServiceService, private router:Router){
     api.inInSession().subscribe(data=>{
       this.session = JSON.parse(JSON.stringify(data)).isInSession

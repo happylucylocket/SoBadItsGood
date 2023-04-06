@@ -473,7 +473,12 @@ app.get('/movieinfo/:movieid', (req, res)=>{
 app.get('/castcrew/:movieid', (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
+
 app.get('/showusers',isLoggedIn, (req, res)=>{
+  res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
+})
+
+app.get('/userprofile/myReviews/:username', isLoggedIn, (req, res)=>{
   res.sendFile(ANGULAR_PROJECT_DIR+"index.html")
 })
 
