@@ -20,6 +20,7 @@ interface Sorting {
 export class DisplayReviewComponent {
   stars = [1, 2, 3, 4, 5];
   rating = 0;
+  averageRating = 0;
   hoverState = 0;
   sorting: Sorting[] = [
     {value: 'date', viewValue: 'By Date'},
@@ -75,7 +76,7 @@ export class DisplayReviewComponent {
 
     this.api.getRating(this.movieId).subscribe((data:any) => {
       console.log(data[0].rating);
-      this.rating = data[0].rating;
+      this.averageRating = data[0].rating;
     })
   }
 
