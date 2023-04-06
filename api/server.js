@@ -368,6 +368,11 @@ app.get('/sobaditsgood/api/getPopular', async(req, res) => {
   res.send(result.rows)
 })
 
+app.get('/sobaditsgood/api/getTop', async(req, res) => {
+  result = await pool.query(`SELECT movieID FROM movies ORDER BY rating DESC limit 12`); 
+  res.send(result.rows)
+})
+
 app.get('/sobaditsgood/api/logout', (req, res) => {
   req.session.destroy((err) => { 
     if (err) {
