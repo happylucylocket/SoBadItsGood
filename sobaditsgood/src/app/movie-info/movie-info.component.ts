@@ -54,7 +54,6 @@ export class MovieInfoComponent implements OnInit {
 
       for (var i = 0; i < this.crew.length; i++) {
         if (this.crew[i].job == "Director") {
-          console.log(this.crew[i].name);
           this.directors.push(this.crew[i].name);
         }
       }

@@ -20,6 +20,8 @@ interface Sorting {
 export class DisplayReviewComponent {
   stars = [1, 2, 3, 4, 5];
   rating = 0;
+  rating1 =0;
+  averageRating = 0;
   hoverState = 0;
   sorting: Sorting[] = [
     {value: 'date', viewValue: 'By Date'},
@@ -35,6 +37,8 @@ export class DisplayReviewComponent {
   userid: number = 0;
   hasReview: boolean = false;
   usernamer: string = "";
+  starReview: boolean[] = [false,false,false,false,false];
+
   constructor(private router: Router, private formBuilder: FormBuilder, private dialogRef: MatDialog, private api: APIServiceService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.movieId = parseInt(params['movieid']);
@@ -51,7 +55,14 @@ export class DisplayReviewComponent {
     console.log(this.movieId);
    this.api.getReviews(this.movieId).subscribe((res:any) =>{
     for(var i=0;i<res.length;i++){
-      this.reviews.push(new review(this.username,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes))
+      if(res[i].title != "" || res[i].description !=""){
+      this.rating1 = res[i].rating
+      for(let i = 0; i < this.rating1; i++)
+      {
+          this.starReview[i] = true;
+      }
+        this.reviews.push(new review(this.username,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes, this.starReview))
+      }
     }
     });
     this.api.inInSession().subscribe(data=>{
@@ -64,6 +75,11 @@ export class DisplayReviewComponent {
         this.getUsernameFromID(res[i].userid);
       }
     });
+
+    this.api.getRating(this.movieId).subscribe((data:any) => {
+      console.log(data[0].rating);
+      this.averageRating = data[0].rating;
+    })
   }
 
   getUsernameFromID(id: number) {
@@ -96,7 +112,6 @@ export class DisplayReviewComponent {
   }
   rateMovie()
   {
-    console.log("hello");
     if(this.session == true)
     {
       this.api.inInSession().subscribe((data) =>{
@@ -115,6 +130,7 @@ export class DisplayReviewComponent {
               {
                 this.api.addReview(this.myForm.value).subscribe((res)=>{
                   console.log(res)
+                  location.reload();
                   return
                 })
               } else
