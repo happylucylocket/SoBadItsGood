@@ -37,7 +37,12 @@ export class LoginComponent {
           })
 
           this.router.navigate([`/userprofile/${this.myForm.value.username}`])
-          this.appComponent.session = true
+          this.api.getCurrentUserInfo().subscribe(data=>{
+
+            this.appComponent.session = true
+            this.appComponent.currentUser = this.myForm.value.username
+            this.appComponent.pic = JSON.parse(JSON.stringify(data)).profilepic
+          })
         });
       } else {
         // Form is invalid, show error messages]
