@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const pg = require('pg');
+const fileupload = require('express-fileupload')
 require('dotenv').config();
 
 // Environmental values
@@ -25,8 +26,11 @@ const corsOptions = {
 // App settings
 app.use(cors(corsOptions)); // CORS setup
 app.use(express.static(ANGULAR_PROJECT_DIR)) // access to static files in the built angular project
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json({limit: '50mb', extended: true}));
+app.use(fileupload())
+app.use(bodyParser.json({ extended: false, limit: '100mb' }))
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: false, parameterLimit: 1000000000 }))
+
 app.use(
   session({
       name: 'session',
@@ -84,12 +88,13 @@ app.post('/sobaditsgood/api/updateInfo/', async(req, res)=>{
   const password = req.body.password
   const email = req.body.email
   const id = req.body.userid
+  const pic = req.body.pic
   // console.log(fname,lname,username,password,email,password,id)
   sql = `UPDATE "users"
-         SET "fname"= $1, "lname"= $2, "username"= $3, "password"= $4, "email"= $5
+         SET "fname"= $1, "lname"= $2, "username"= $3, "password"= $4, "email"= $5,"profilepic"=$7
          WHERE "userid"= $6 ;`
          await pool.connect();
-  await pool.query(sql,[fname, lname, username, password,email, id])
+  await pool.query(sql,[fname, lname, username, password,email, id,pic])
   res.send("User Edited")
 })
  
@@ -167,7 +172,7 @@ app.post('/sobaditsgood/api/addReview/', async(req, res)=>{
 
 app.get('/sobaditsgood/api/getCurrentUserInfo', async(req, res)=>{
   const username = req.session.user.username
-  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic, u.password, u.userid FROM users u where u.username=$1;`
+  sql = `SELECT u.fname, u.lname, u.username, u.email, u.profilepic, u.password, u.userid, u.profilepic FROM users u where u.username=$1;`
   result = await pool.query(sql, [username])
   res.send(result.rows)
 })
