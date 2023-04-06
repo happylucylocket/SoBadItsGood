@@ -20,6 +20,7 @@ interface Sorting {
 export class DisplayReviewComponent {
   stars = [1, 2, 3, 4, 5];
   rating = 0;
+  rating1 =0;
   averageRating = 0;
   hoverState = 0;
   sorting: Sorting[] = [
@@ -55,12 +56,13 @@ export class DisplayReviewComponent {
    this.api.getReviews(this.movieId).subscribe((res:any) =>{
     for(var i=0;i<res.length;i++){
       if(res[i].title != "" || res[i].description !=""){
-      this.rating = res[i].rating
-      for(let i = 0; i < this.rating; i++)
+      this.rating1 = res[i].rating
+      for(let i = 0; i < this.rating1; i++)
       {
           this.starReview[i] = true;
       }
-        this.reviews.push(new review(this.username,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes, this.starReview))}
+        this.reviews.push(new review(this.username,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes, this.starReview))
+      }
     }
     });
     this.api.inInSession().subscribe(data=>{
