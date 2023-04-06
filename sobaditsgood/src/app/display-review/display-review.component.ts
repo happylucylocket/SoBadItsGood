@@ -32,7 +32,9 @@ export class DisplayReviewComponent {
   usernames: string[] = [];
   session: boolean = false;
   myForm!: FormGroup;
-
+  userid: number = 0;
+  hasReview: boolean = false;
+  usernamer: string = "";
   constructor(private router: Router, private formBuilder: FormBuilder, private dialogRef: MatDialog, private api: APIServiceService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.movieId = parseInt(params['movieid']);
@@ -101,13 +103,25 @@ export class DisplayReviewComponent {
         console.log(data)
           this.session = JSON.parse(JSON.stringify(data));
           this.api.getCurrentUserInfo().subscribe((data) =>{
-            this.username= JSON.parse(JSON.stringify(data))[0].username;
-            this.myForm.value.username = this.username;
+            this.usernamer= JSON.parse(JSON.stringify(data))[0].username;
+            this.myForm.value.username = this.usernamer;
             this.myForm.value.rating = this.rating;
-            this.api.addReview(this.myForm.value).subscribe((res)=>{
-              console.log(res)
-              return
-            })
+            console.log(JSON.parse(JSON.stringify(data))[0].userid);
+            this.userid = JSON.parse(JSON.stringify(data))[0].userid;
+            this.api.getReview(this.movieId, this.userid).subscribe((data) =>{
+              console.log(JSON.parse(JSON.stringify(data)).hasReview);
+              this.hasReview = JSON.parse(JSON.stringify(data)).hasReview;
+              if(this.hasReview == false)
+              {
+                this.api.addReview(this.myForm.value).subscribe((res)=>{
+                  console.log(res)
+                  return
+                })
+              } else
+              {
+                alert('You have already written a review!');
+              }
+          })
         }
         );
       }

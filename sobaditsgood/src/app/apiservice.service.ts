@@ -238,4 +238,8 @@ export class APIServiceService {
   addReview(review:any){
     return this.http.post(this.localBaseUrl+`/addReview/`, review, { responseType: 'text' })
   }
+      //check if the reviews is in the database or not
+      getReview(userId:number, movieId:number){
+        return this.http.get(this.localBaseUrl+`/getReview/${movieId}/${userId}`, {responseType: 'json'})
+      }
 }

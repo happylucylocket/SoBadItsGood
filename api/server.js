@@ -186,7 +186,19 @@ app.get('/sobaditsgood/api/getCurrentUserInfo', async(req, res)=>{
   result = await pool.query(sql, [username])
   res.send(result.rows)
 })
+app.get('/sobaditsgood/api/getReview/:movieid/:userid', isLoggedIn, async(req, res)=>{
+  const userid = req.params.movieid
+  const movieid = req.params.userid
+  sql = `SELECT * FROM reviews WHERE userid = $1 AND movieid = $2;`
+  result = await pool.query(sql,[userid, movieid])
+  console.log("id" + userid + movieid);
+  if (result.rowCount == 0){
+    res.send({"hasReview": false})
+    return
+  }
+  res.send({"hasReview": true})
 
+})
 app.get('/sobaditsgood/api/getUserInfo/:username', async(req, res)=>{
   const username = req.params.username
   sql = 'SELECT u.fname, u.lname, u.username, u.profilepic FROM users u WHERE u.username=$1'
