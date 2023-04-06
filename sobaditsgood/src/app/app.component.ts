@@ -13,13 +13,14 @@ export class AppComponent {
   title = 'So Bad Its Good';
   session:boolean = false
   currentUser:string |undefined;
-
+  pic?:any="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
   constructor(private api:APIServiceService, private router:Router){
     api.inInSession().subscribe(data=>{
       this.session = JSON.parse(JSON.stringify(data)).isInSession
       if(this.session == true){
         this.api.getCurrentUserInfo().subscribe(data=>{
           this.currentUser = JSON.parse(JSON.stringify(data))[0].username
+          this.pic=JSON.parse(JSON.stringify(data))[0].profilepic
         })
       }
     })

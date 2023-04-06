@@ -183,7 +183,7 @@ app.get('/sobaditsgood/api/getCurrentUserInfo', async(req, res)=>{
 
 app.get('/sobaditsgood/api/getUserInfo/:username', async(req, res)=>{
   const username = req.params.username
-  sql = 'SELECT u.fname, u.lname, u.username FROM users u WHERE u.username=$1'
+  sql = 'SELECT u.fname, u.lname, u.username, u.profilepic FROM users u WHERE u.username=$1'
   result = await pool.query(sql, [username])
   res.send(result.rows[0])
 })

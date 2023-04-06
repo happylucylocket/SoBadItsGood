@@ -24,7 +24,7 @@ export class SettingsComponent {
   password?:string="";
   username?:string = ""
   id?:number=1
-  pic?:any="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+  pic?:any="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
   base64code?:any
   readonlyFirstName:boolean = true
   readOnlyLastName:boolean=true
