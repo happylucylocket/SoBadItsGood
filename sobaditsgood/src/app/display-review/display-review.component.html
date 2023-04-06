@@ -28,9 +28,11 @@
 </div>
   <div class="row">
     <div *ngFor = "let r of reviews; let i = index">
+      <br>
         <h1 style = "margin: 0;">{{r.title}}</h1> 
         <div>
           <p>By: <a class="name" href="/userprofile/{{usernames[i]}}">{{usernames[i]}}</a></p>
+          <p>{{r.date}}</p> 
         <ul class="list-unstyled d-flex text-warning mb-0">
           <div *ngFor = "let star of r.starReview">
             <li><i class="fas fa-star fa-sm" *ngIf = "star == true"></i>

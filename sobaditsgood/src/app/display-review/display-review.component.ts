@@ -60,7 +60,7 @@ export class DisplayReviewComponent {
       {
           this.starReview[i] = true;
       }
-        this.reviews.push(new review(this.username,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].date, res[i].likes, this.starReview))
+        this.reviews.push(new review(this.username,res[i].title,res[i].description,res[i].movieid,res[i].rating,res[i].created_at, res[i].likes, this.starReview))
     }
     });
     this.api.inInSession().subscribe(data=>{
