@@ -29,6 +29,7 @@ export class DisplayReviewComponent {
   username = "";
   movieId!: number;
   reviews: review[] = [];
+  usernames: string[] = [];
   session: boolean = false;
   myForm!: FormGroup;
 
@@ -55,16 +56,17 @@ export class DisplayReviewComponent {
       this.session = JSON.parse(JSON.stringify(data)).isInSession
       console.log(this.session);
     })
-    //Display reviews user?
+    // Display reviews user!
     this.api.getReviews(this.movieId).subscribe((res:any) =>{
       for(var i=0;i<res.length;i++){
-        this.api.getUsername(res[i].userid).subscribe((res) =>{
-          console.log(res);
-          this.username = res;
-          console.log("user" + this.username);
-          this.reviews[i].username = this.username;
-        });   
+        this.getUsernameFromID(res[i].userid);
       }
+    });
+  }
+
+  getUsernameFromID(id: number) {
+    this.api.getUsername(id).subscribe((res) =>{
+      this.usernames.push(res);
     });
   }
   onEnterStar(starId:number) {
