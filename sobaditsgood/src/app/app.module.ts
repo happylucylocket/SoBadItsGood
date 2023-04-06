@@ -32,6 +32,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ShowFollowsDialogComponent } from './show-follows-dialog/show-follows-dialog.component';
+import { UserComponent } from './user/user.component';
+import { DisplayUsersComponent } from './display-users/display-users.component';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import { ShowFollowsDialogComponent } from './show-follows-dialog/show-follows-d
     CastCrewComponent,
     MovieInfoOptionComponent,
     SearchComponent,
-    ShowFollowsDialogComponent
+    ShowFollowsDialogComponent,
+    UserComponent,
+    DisplayUsersComponent
   ],
   imports: [
     BrowserModule,

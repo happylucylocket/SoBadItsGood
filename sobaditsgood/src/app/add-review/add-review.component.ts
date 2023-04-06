@@ -21,6 +21,9 @@ export class AddReviewComponent implements OnInit {
   movieId!: number;
   session: boolean = false;
   username: string = '';
+  userid: number = 0;
+  hasReview: boolean = false;
+
   constructor(private router: Router,private api: APIServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<DisplayReviewComponent>,
     @Inject(MAT_DIALOG_DATA) data: any) {
@@ -52,15 +55,12 @@ export class AddReviewComponent implements OnInit {
   }
 
   save() {
-    console.log("Rating " + this.rating);
-    console.log("Description " + this.myForm.value.description);
-    console.log("Title " + this.myForm.value.title);
-    console.log("Movie Id " + this.movieId);
     this.myForm.value.rating = this.rating;
     //username, movieid, title, description, rating, postedOn
     this.dialogRef.close(this.myForm.value);
     if(this.session == true)
     {
+
       this.api.inInSession().subscribe((data) =>{
         console.log(data)
           this.session = JSON.parse(JSON.stringify(data));
@@ -69,10 +69,23 @@ export class AddReviewComponent implements OnInit {
             console.log(this.username);
             this.myForm.value.username = this.username;
             console.log(this.myForm.value);
-            this.api.addReview(this.myForm.value).subscribe((res)=>{
-              console.log(res)
-              return
-            })
+
+            console.log(JSON.parse(JSON.stringify(data))[0].userid);
+            this.userid = JSON.parse(JSON.stringify(data))[0].userid;
+            this.api.getReview(this.movieId, this.userid).subscribe((data) =>{
+              console.log(JSON.parse(JSON.stringify(data)).hasReview);
+              this.hasReview = JSON.parse(JSON.stringify(data)).hasReview;
+              if(this.hasReview == false)
+              {
+                this.api.addReview(this.myForm.value).subscribe((res)=>{
+                  console.log(res)
+                  return
+                })
+              } else
+              {
+                alert('You have already written a review!');
+              }
+          })
         }
         );
       }

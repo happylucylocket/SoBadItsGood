@@ -21,14 +21,14 @@
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <label class="form-label" >  First name <a (click)="fnameEdit()"class="bi" [class.bi-pencil-square]="readonlyFirstName"></a></label>
+                        <label class="form-label" >  First name <a role="button" (click)="fnameEdit()"class="bi" [class.bi-pencil-square]="readonlyFirstName"></a></label>
                         <input type="text" formControlName="userFirstName"  [(ngModel)]="userFirstName"  class="form-control form-control-lg shadow" [readonly]="readonlyFirstName" />
                       </div>
                     </div>
                     
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <label class="form-label"> Last name <a (click)="lnameEdit()"class="bi" [class.bi-pencil-square]="readOnlyLastName"></a></label>
+                        <label class="form-label"> Last name <a role="button" (click)="lnameEdit()"class="bi" [class.bi-pencil-square]="readOnlyLastName"></a></label>
                         <input formControlName="userLastName" [(ngModel)]="userLastName" type="text"  class="form-control form-control-lg shadow" [readonly]="readOnlyLastName"/>
                       </div>
                     </div>
@@ -43,7 +43,7 @@
   
   
                   <div class="form-outline mb-4">
-                    <label class="form-label"> Username <a (click)="usernameEdit()"class="bi" [class.bi-pencil-square]="readOnlyUsername"></a></label>
+                    <label class="form-label"> Username <a  role="button" (click)="usernameEdit()"class="bi" [class.bi-pencil-square]="readOnlyUsername"></a></label>
                     <input type="text" formControlName="username" [(ngModel)]="username" class="form-control form-control-lg shadow" [readonly]="readOnlyUsername" (keyup)="verifyUsername()" />
                   </div>
                   <div class="text-danger m-2"  *ngIf="form.get('username')?.errors?.['required']">
@@ -54,7 +54,7 @@
                </div>
   
                   <div class="form-outline mb-4">
-                    <label class="form-label"> Email <a (click)="emailEdit()"class="bi" [class.bi-pencil-square]="readOnlyEmail"></a> </label>
+                    <label class="form-label"> Email <a role="button" (click)="emailEdit()"class="bi" [class.bi-pencil-square]="readOnlyEmail"></a> </label>
                       <input type="email" id="email" formControlName="userEmail" [(ngModel)]="userEmail"  class="form-control form-control-lg shadow" [readonly]="readOnlyEmail" (keyup)="verifyEmail()"/>
                   </div>
                   <div class="text-danger m-2"  *ngIf="form.get('userEmail')?.errors?.['required']">
@@ -64,7 +64,7 @@
                   Email is Used.
                </div>
                   <div class="form-outline mb-4">
-                    <label class="form-label">Password <a (click)="changePswd()"class="bi" [class.bi-pencil-square]="readOnlyPswd"></a>  </label>
+                    <label class="form-label">Password <a role="button" (click)="changePswd()"class="bi" [class.bi-pencil-square]="readOnlyPswd"></a>  </label>
                       <input (click)="changePswd()" formControlName="password" type="password" id="password" [(ngModel)]="password"  class="form-control form-control-lg shadow" [readonly]="readOnlyPswd"/>
                   </div>
   

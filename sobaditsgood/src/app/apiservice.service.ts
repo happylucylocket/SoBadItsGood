@@ -27,7 +27,7 @@ export class APIServiceService {
   getAll(){
      this.http.get(this.localBaseUrl+`/getAll`).subscribe((data:any)=>{
        for(var i=0;i<data.length;i++){
-         this.users?.push(new user(data[i].userid,data[i].fname,data[i].lname,data[i].username,data[i].email,data[i].password))
+         this.users?.push(new user(data[i].userid,data[i].fname,data[i].lname,data[i].username,data[i].email,data[i].password,data[i].profilepic))
        }
      });
      return  this.users
@@ -158,6 +158,10 @@ export class APIServiceService {
     return this.http.get(this.localBaseUrl+`/getFollowerInfo/${username}`, {responseType:'json'})
   }
 
+  getUserReviews(username:string){
+    return this.http.get(this.localBaseUrl+`/getUserReviews/${username}`, {responseType:'json'})
+  }
+
   searchForAMovie(id: string) {
     return this.http.get('https://api.themoviedb.org/3/search/movie?api_key=ecd28fb4488e17f072d95ad0278f2545'+'&language=en-US&page=1&include_adult=false&query=' +id.toString(), {responseType: 'json'});
   }
@@ -237,5 +241,9 @@ export class APIServiceService {
 
   getRating(movieId: number) {
     return this.http.get(this.localBaseUrl+`/getRating/${movieId}`, {responseType: 'json'})
+  }
+  //check if the reviews is in the database or not
+  getReview(userId:number, movieId:number){
+    return this.http.get(this.localBaseUrl+`/getReview/${movieId}/${userId}`, {responseType: 'json'})
   }
 }
