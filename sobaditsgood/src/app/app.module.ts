@@ -34,7 +34,11 @@ import { MatInputModule } from '@angular/material/input';
 import { ShowFollowsDialogComponent } from './show-follows-dialog/show-follows-dialog.component';
 import { UserComponent } from './user/user.component';
 import { DisplayUsersComponent } from './display-users/display-users.component';
+<<<<<<< HEAD
 import { DisplayMyReviewsComponent } from './display-my-reviews/display-my-reviews.component';
+=======
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+>>>>>>> 939b66fca00804e7eb2cd9e933d6ad17a65e1752
 
 
 @NgModule({
@@ -76,7 +80,8 @@ import { DisplayMyReviewsComponent } from './display-my-reviews/display-my-revie
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+   MDBBootstrapModule
   ],
   providers: [],
   bootstrap: [AppComponent]

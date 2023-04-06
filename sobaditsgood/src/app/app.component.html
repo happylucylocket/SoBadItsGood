@@ -78,7 +78,7 @@
         <!-- Avatar -->
         <div class="dropdown">
           <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-            <img [src]="pic" class="rounded-circle" height="45" alt="Profile picture"/>
+            <img [src]="pic" class="rounded-circle" height="45" alt="Profile picture" onerror="this.src='/assets/error_photo.png'"/>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
             <li>

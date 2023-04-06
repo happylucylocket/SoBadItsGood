@@ -170,7 +170,6 @@ export class APIServiceService {
     this.http.get(this.localBaseUrl+`/getMovies/${search}`, {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
-        console.log(movies[i].movieid)
         this.searchIds.push(movies[i].movieid);
       }
     })
@@ -199,7 +198,6 @@ export class APIServiceService {
     this.http.get(this.localBaseUrl+'/getPopular', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
-        console.log(movies[i].movieid)
         this.popularIds.push(movies[i].movieid);
       }
     })
@@ -211,7 +209,6 @@ export class APIServiceService {
     this.http.get(this.localBaseUrl+'/getWatchlist', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
-        console.log(movies[i].movieid)
         this.watchLaterIds.push(movies[i].movieid);
       }
     })
@@ -223,7 +220,6 @@ export class APIServiceService {
     this.http.get(this.localBaseUrl+'/getFavourites', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
-        console.log(movies[i].movieid)
         this.favoriteIds.push(movies[i].movieid);
       }
     })
@@ -242,8 +238,12 @@ export class APIServiceService {
   addReview(review:any){
     return this.http.post(this.localBaseUrl+`/addReview/`, review, { responseType: 'text' })
   }
-      //check if the reviews is in the database or not
-      getReview(userId:number, movieId:number){
-        return this.http.get(this.localBaseUrl+`/getReview/${movieId}/${userId}`, {responseType: 'json'})
-      }
+
+  getRating(movieId: number) {
+    return this.http.get(this.localBaseUrl+`/getRating/${movieId}`, {responseType: 'json'})
+  }
+  //check if the reviews is in the database or not
+  getReview(userId:number, movieId:number){
+    return this.http.get(this.localBaseUrl+`/getReview/${movieId}/${userId}`, {responseType: 'json'})
+  }
 }

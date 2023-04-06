@@ -60,7 +60,6 @@ export class AddReviewComponent implements OnInit {
     this.dialogRef.close(this.myForm.value);
     if(this.session == true)
     {
-
       this.api.inInSession().subscribe((data) =>{
         console.log(data)
           this.session = JSON.parse(JSON.stringify(data));
@@ -79,6 +78,7 @@ export class AddReviewComponent implements OnInit {
               {
                 this.api.addReview(this.myForm.value).subscribe((res)=>{
                   console.log(res)
+                  location.reload();
                   return
                 })
               } else
@@ -97,9 +97,7 @@ export class AddReviewComponent implements OnInit {
       this.router.navigate(['/login'])
     }
   }
-
   close() {
     this.dialogRef.close();
   }
-
 }
