@@ -62,6 +62,11 @@ export class DisplayReviewComponent {
         this.getUsernameFromID(res[i].userid);
       }
     });
+
+    this.api.getRating(this.movieId).subscribe((data:any) => {
+      console.log(data[0].rating);
+      this.rating = data[0].rating;
+    })
   }
 
   getUsernameFromID(id: number) {

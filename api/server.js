@@ -346,6 +346,13 @@ app.get('/sobaditsgood/api/getPopular', async(req, res) => {
   res.send(result.rows)
 })
 
+app.get('/sobaditsgood/api/getRating/:movieID', async(req, res) => {
+  const movieid = req.params.movieID
+  sql = `SELECT m.rating FROM movies m WHERE m.movieid=$1;`
+  result = await pool.query(sql, [movieid]); 
+  res.send(result.rows)
+})
+
 app.get('/sobaditsgood/api/logout', (req, res) => {
   req.session.destroy((err) => { 
     if (err) {
@@ -455,5 +462,5 @@ app.get('/castcrew/:movieid', (req, res)=>{
 
 // Connect to server
 app.listen(PORT, HOST, () => {
-  console.log(`Server started on host ${HOST} and  port ${PORT}`);
+  console.log(`Server started on host ${HOST} and port ${PORT}`);
 });
