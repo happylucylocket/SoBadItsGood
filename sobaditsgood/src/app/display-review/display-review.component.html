@@ -37,12 +37,10 @@
   </div>
 </div>
   <div class="row">
-    <div *ngFor = "let r of reviews">
+    <div *ngFor = "let r of reviews; let i = index">
         <h1 style = "margin: 0;">{{r.title}}</h1> 
         <div>
-          <div *ngFor = "let u of usernames">
-            By: {{u}}
-          </div>
+          By: {{usernames[i]}}
         <ul class="list-unstyled d-flex text-warning mb-0">
           <div *ngFor = "let star of r.starReview">
             <li><i class="fas fa-star fa-sm" *ngIf = "star == true"></i>
