@@ -2,7 +2,6 @@ import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { APIServiceService } from './apiservice.service'; 
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
