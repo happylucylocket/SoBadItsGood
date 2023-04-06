@@ -7,7 +7,7 @@ import { user } from './user';
   providedIn: 'root'
 })
 export class APIServiceService {
-  BaseUrl:string = "http://34.72.53.185/sobaditsgood/api" // public api URL
+  baseUrl:string = "http://34.72.53.185/sobaditsgood/api" // public api URL
   localBaseUrl:string = "http://localhost:3000/sobaditsgood/api" // for local testing purposes 
   users?:user[]=[]
 
@@ -16,7 +16,8 @@ export class APIServiceService {
   file_size:string = "original"
   
   // Test list of movie IDs
-  topPicksIds = [314, 71880, 536869, 20196, 17473, 347626, 55563, 378236, 40016, 24528, 8966, 22345]
+  // topPicksIds = [314, 71880, 536869, 20196, 17473, 347626, 55563, 378236, 40016, 24528, 8966, 22345]
+  topPicksIds:number[] = [];
   popularIds:number[] = [];
   watchLaterIds:number[] = [];
   favoriteIds:number[] = [];
@@ -25,7 +26,7 @@ export class APIServiceService {
   constructor(private http: HttpClient) { }
 
   getAll(){
-     this.http.get(this.BaseUrl+`/getAll`).subscribe((data:any)=>{
+     this.http.get(this.baseUrl+`/getAll`).subscribe((data:any)=>{
        for(var i=0;i<data.length;i++){
          this.users?.push(new user(data[i].userid,data[i].fname,data[i].lname,data[i].username,data[i].email,data[i].password,data[i].profilepic))
        }
@@ -34,132 +35,132 @@ export class APIServiceService {
   }
   // for testing purposes
   getData(){
-    return this.http.get(this.BaseUrl, {responseType: 'text'});
+    return this.http.get(this.baseUrl, {responseType: 'text'});
   }
 
   getCurrentUserInfo(){
-    return this.http.get(this.BaseUrl+`/getCurrentUserInfo`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/getCurrentUserInfo`, {responseType:'json'})
   }
 
   getUserInfo(username:string){
-    return this.http.get(this.BaseUrl+`/getUserInfo/${username}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/getUserInfo/${username}`, {responseType:'json'})
   }
   updateUserInfo(user:user){
-    return this.http.post(this.BaseUrl+`/updateInfo/`, user, { responseType: 'text' })
+    return this.http.post(this.baseUrl+`/updateInfo/`, user, { responseType: 'text' })
   }
   //check if the user login is correct
   isUserValid(username:string, password:string){
-    return this.http.get(this.BaseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/isUserValid/${username}/${password}`, {responseType:'text'})
   }
 
   //add user to the database
   registerUser(user:any){
-    return this.http.post(this.BaseUrl+`/registerUser/`, user, { responseType: 'text' })
+    return this.http.post(this.baseUrl+`/registerUser/`, user, { responseType: 'text' })
   }
 
   //check if the username is in the database or not
   userExists(username:string){
-    return this.http.get(this.BaseUrl+`/userExists/${username}`, {responseType: 'json'})
+    return this.http.get(this.baseUrl+`/userExists/${username}`, {responseType: 'json'})
   }
 
   inInSession(){
-    return this.http.get(this.BaseUrl+'/isInSession', {responseType:'json', withCredentials: true})
+    return this.http.get(this.baseUrl+'/isInSession', {responseType:'json', withCredentials: true})
   }
 
   login(data:any){
-    return this.http.post(this.BaseUrl+'/login', data , {responseType: 'text', withCredentials: true})
+    return this.http.post(this.baseUrl+'/login', data , {responseType: 'text', withCredentials: true})
   }
 
   logout(){
-    return this.http.get(this.BaseUrl+'/logout', {responseType: 'text', withCredentials: true})
+    return this.http.get(this.baseUrl+'/logout', {responseType: 'text', withCredentials: true})
   }
 
   //add to favourite
   addFavMovie(movieId:string){
-    return this.http.get(this.BaseUrl+`/addfavourite/${movieId}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/addfavourite/${movieId}`, {responseType:'text'})
   }
 
   //Check if movie has been favourited
   isFave(movieid:string){
-    return this.http.get(this.BaseUrl+`/isFav/${movieid}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/isFav/${movieid}`, {responseType:'json'})
   }
 
   //remove from favourite
   unFavMovie(movieid:string){
-    return this.http.get(this.BaseUrl+`/removefavourite/${movieid}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/removefavourite/${movieid}`, {responseType:'text'})
   }
 
   getFav(username:string){
-    return this.http.get(this.BaseUrl+`/getfavMovies/${username}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/getfavMovies/${username}`, {responseType:'json'})
   }
 
   getWatchedMovies(username:string){
-    return this.http.get(this.BaseUrl+`/getWatchedMovies/${username}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/getWatchedMovies/${username}`, {responseType:'json'})
   }
 
   getWatchlistedMovies(username:string){
-    return this.http.get(this.BaseUrl+`/getWatchlistedMovies/${username}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/getWatchlistedMovies/${username}`, {responseType:'json'})
   }
 
   //if user watched the movie
   iswatched(movieid:string){
-    return this.http.get(this.BaseUrl+`/watched/${movieid}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/watched/${movieid}`, {responseType:'json'})
   }
 
   //add to watched movies
   addwatched(movieid:string){
-    return this.http.get(this.BaseUrl+`/addwatched/${movieid}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/addwatched/${movieid}`, {responseType:'text'})
   }
 
   //remove from watched movies
   removeWatched(movieid:string){
-    return this.http.get(this.BaseUrl+`/removewatched/${movieid}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/removewatched/${movieid}`, {responseType:'text'})
   }
 
   //if user watch listed the movie
   isWatchlisted(movieid:string){
-    return this.http.get(this.BaseUrl+`/watchlisted/${movieid}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/watchlisted/${movieid}`, {responseType:'json'})
   }
 
   //add movie to watchlist
   addToWatchlist(movieid:string){
-    return this.http.get(this.BaseUrl+`/addtowatchlist/${movieid}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/addtowatchlist/${movieid}`, {responseType:'text'})
   }
 
   removeFromWatchlist(movieid:string){
-    return this.http.get(this.BaseUrl+`/removedwatchlist/${movieid}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/removedwatchlist/${movieid}`, {responseType:'text'})
   }
 
   isFollowing(userid:number, followingUsername:string){
-    return this.http.get(this.BaseUrl+`/isFollowing/${userid}/${followingUsername}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/isFollowing/${userid}/${followingUsername}`, {responseType:'json'})
   }
 
   followUser(userid:number, followingUsername:string){
-    return this.http.get(this.BaseUrl+`/followUser/${userid}/${followingUsername}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/followUser/${userid}/${followingUsername}`, {responseType:'text'})
   }
 
   unfollowUser(userid:number, unfollowUsername:string){
-    return this.http.get(this.BaseUrl+`/unfollowUser/${userid}/${unfollowUsername}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/unfollowUser/${userid}/${unfollowUsername}`, {responseType:'text'})
   }
 
   getNumFollowing(username:string){
-    return this.http.get(this.BaseUrl+`/getNumFollowing/${username}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/getNumFollowing/${username}`, {responseType:'json'})
   }
 
   getNumFollowers(username:string){
-    return this.http.get(this.BaseUrl+`/getNumFollowers/${username}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/getNumFollowers/${username}`, {responseType:'json'})
   }
 
   getFollowingInfo(username:string){
-    return this.http.get(this.BaseUrl+`/getFollowingInfo/${username}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/getFollowingInfo/${username}`, {responseType:'json'})
   }
 
   getFollowerInfo(username:string){
-    return this.http.get(this.BaseUrl+`/getFollowerInfo/${username}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/getFollowerInfo/${username}`, {responseType:'json'})
   }
 
   getUserReviews(username:string){
-    return this.http.get(this.BaseUrl+`/getUserReviews/${username}`, {responseType:'json'})
+    return this.http.get(this.baseUrl+`/getUserReviews/${username}`, {responseType:'json'})
   }
 
   searchForAMovie(id: string) {
@@ -167,7 +168,7 @@ export class APIServiceService {
   }
   getMovies(search: string) {
     this.searchIds = [];
-    this.http.get(this.BaseUrl+`/getMovies/${search}`, {responseType: 'text'}).subscribe(data => {
+    this.http.get(this.baseUrl+`/getMovies/${search}`, {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
         this.searchIds.push(movies[i].movieid);
@@ -187,15 +188,22 @@ export class APIServiceService {
   }
 
   getTopPicks() {
+    this.topPicksIds = [];
+    this.http.get(this.baseUrl+'/getTop', {responseType: 'text'}).subscribe(data => {
+      var movies = JSON.parse(data)
+      for (var i = 0; i < movies.length; i++) {
+        this.topPicksIds.push(movies[i].movieid);
+      }
+    })
     return this.topPicksIds;
   }
   getUsername(userid:number)
   {
-    return this.http.get(this.BaseUrl+`/getUsername/${userid}`, {responseType:'text'})
+    return this.http.get(this.baseUrl+`/getUsername/${userid}`, {responseType:'text'})
   }
   getPopular() {
     this.popularIds = [];
-    this.http.get(this.BaseUrl+'/getPopular', {responseType: 'text'}).subscribe(data => {
+    this.http.get(this.baseUrl+'/getPopular', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
         this.popularIds.push(movies[i].movieid);
@@ -206,7 +214,7 @@ export class APIServiceService {
 
   getWatchLater() {
     this.watchLaterIds = [];
-    this.http.get(this.BaseUrl+'/getWatchlist', {responseType: 'text'}).subscribe(data => {
+    this.http.get(this.baseUrl+'/getWatchlist', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
         this.watchLaterIds.push(movies[i].movieid);
@@ -217,7 +225,7 @@ export class APIServiceService {
 
   getFavorites() {
     this.favoriteIds = [];
-    this.http.get(this.BaseUrl+'/getFavourites', {responseType: 'text'}).subscribe(data => {
+    this.http.get(this.baseUrl+'/getFavourites', {responseType: 'text'}).subscribe(data => {
       var movies = JSON.parse(data)
       for (var i = 0; i < movies.length; i++) {
         this.favoriteIds.push(movies[i].movieid);
@@ -232,18 +240,18 @@ export class APIServiceService {
 
   //check if the reviews is in the database or not
   getReviews(movieId:number){
-    return this.http.get(this.BaseUrl+`/getReviews/${movieId}`, {responseType: 'json'})
+    return this.http.get(this.baseUrl+`/getReviews/${movieId}`, {responseType: 'json'})
   }
   //check if the username is in the database or not
   addReview(review:any){
-    return this.http.post(this.BaseUrl+`/addReview/`, review, { responseType: 'text' })
+    return this.http.post(this.baseUrl+`/addReview/`, review, { responseType: 'text' })
   }
 
   getRating(movieId: number) {
-    return this.http.get(this.BaseUrl+`/getRating/${movieId}`, {responseType: 'json'})
+    return this.http.get(this.baseUrl+`/getRating/${movieId}`, {responseType: 'json'})
   }
   //check if the reviews is in the database or not
   getReview(userId:number, movieId:number){
-    return this.http.get(this.BaseUrl+`/getReview/${movieId}/${userId}`, {responseType: 'json'})
+    return this.http.get(this.baseUrl+`/getReview/${movieId}/${userId}`, {responseType: 'json'})
   }
 }
