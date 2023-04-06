@@ -27,7 +27,7 @@ export class APIServiceService {
   getAll(){
      this.http.get(this.localBaseUrl+`/getAll`).subscribe((data:any)=>{
        for(var i=0;i<data.length;i++){
-         this.users?.push(new user(data[i].userid,data[i].fname,data[i].lname,data[i].username,data[i].email,data[i].password))
+         this.users?.push(new user(data[i].userid,data[i].fname,data[i].lname,data[i].username,data[i].email,data[i].password,data[i].profilepic))
        }
      });
      return  this.users
@@ -242,4 +242,8 @@ export class APIServiceService {
   addReview(review:any){
     return this.http.post(this.localBaseUrl+`/addReview/`, review, { responseType: 'text' })
   }
+      //check if the reviews is in the database or not
+      getReview(userId:number, movieId:number){
+        return this.http.get(this.localBaseUrl+`/getReview/${movieId}/${userId}`, {responseType: 'json'})
+      }
 }
