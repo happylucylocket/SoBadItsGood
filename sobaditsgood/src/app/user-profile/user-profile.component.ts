@@ -1,3 +1,4 @@
+import { review } from '../review';
 import { Component } from '@angular/core';
 import { APIServiceService } from '../apiservice.service';
 import { Router, ActivatedRoute, Route } from '@angular/router';
@@ -23,6 +24,7 @@ export class UserProfileComponent{
   watched:any[] = []
   watchlist:any[] = []
   pic?:any="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+  reviews:review[]=[]
 
   constructor(private api:APIServiceService, private route: ActivatedRoute, private navigateRoute:Router, public dialog: MatDialog){
     this.route.params.subscribe(params=>{
@@ -30,9 +32,19 @@ export class UserProfileComponent{
         var userInfo = JSON.parse(JSON.stringify(data))
         console.log(userInfo.username)
         this.username = userInfo.username
-        this.pic=userInfo.profilepic
-        
+        this.pic=userInfo.profilepic    
       })
+      if(this.username!==null){
+        this.api.getUserReviews(params['username']).subscribe((data:any)=>{
+          console.log(data)
+          for(var i=0;i<data.length;i++){
+            this.reviews.push(new review(data[i].userid,data[i].movieid,data[i].title,data[i].description,data[i].rating,data[i].likes,data[i].created_at))
+          }
+        })
+      }
+      console.log(this.reviews)
+    
+    
 
       //Getting Favourites
       this.getFavourites(params['username'])
@@ -52,6 +64,7 @@ export class UserProfileComponent{
       //get number of followers
       this.getNumFollowers(params['username'])
     })
+
 
     api.inInSession().subscribe(data=>{
       this.session = JSON.parse(JSON.stringify(data)).isInSession

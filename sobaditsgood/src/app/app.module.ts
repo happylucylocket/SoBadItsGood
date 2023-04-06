@@ -34,6 +34,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ShowFollowsDialogComponent } from './show-follows-dialog/show-follows-dialog.component';
 import { UserComponent } from './user/user.component';
 import { DisplayUsersComponent } from './display-users/display-users.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { DisplayUsersComponent } from './display-users/display-users.component';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+   MDBBootstrapModule
   ],
   providers: [],
   bootstrap: [AppComponent]
