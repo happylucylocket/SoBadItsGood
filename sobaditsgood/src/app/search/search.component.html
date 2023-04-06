@@ -3,3 +3,6 @@
     <app-movie *ngFor="let m of movieResults" (click)="goToMovie(m)" [movie] ="m">
     </app-movie>
 </div>
+<div class="d-flex align-content-start flex-wrap gap-3" *ngIf = "movieResults.length == 0">
+    <h1>Sorry no movies were found</h1>
+</div>
