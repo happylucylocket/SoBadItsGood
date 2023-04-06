@@ -186,7 +186,10 @@ export class APIServiceService {
   getTopPicks() {
     return this.topPicksIds;
   }
-
+  getUsername(userid:number)
+  {
+    return this.http.get(this.localBaseUrl+`/getUsername/${userid}`, {responseType:'text'})
+  }
   getPopular() {
     this.popularIds = [];
     this.http.get(this.localBaseUrl+'/getPopular', {responseType: 'text'}).subscribe(data => {

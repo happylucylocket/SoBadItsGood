@@ -13,6 +13,7 @@ import { UserComponent } from './user/user.component';
 const routes: Routes = [
   {path: '', component:HomeComponent},
   {path:'userprofile/:username', component:UserProfileComponent},
+  {path:'userprofile/public/:username', component:UserProfileComponent},
   {path:'login', component:LoginComponent},
   {path:'createaccount', component:CreateAccountComponent},
   {path:'settings', component:SettingsComponent},
