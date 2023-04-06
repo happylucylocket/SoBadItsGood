@@ -128,6 +128,7 @@ export class DisplayReviewComponent {
               {
                 this.api.addReview(this.myForm.value).subscribe((res)=>{
                   console.log(res)
+                  location.reload();
                   return
                 })
               } else
