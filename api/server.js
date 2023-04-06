@@ -116,6 +116,16 @@ app.post('/sobaditsgood/api/login/', (req, res)=>{
   res.send('*')
 })
 
+app.get('/sobaditsgood/api/userExists/:username', async(req, res)=>{
+  const username = req.params.username
+  sql = `UPDATE COUNT(*) FROM users u WHERE u.username = $1;`
+  result = await pool.query(sql, [username])
+  if (parseInt(result.rows[0].count) >= 1){
+    res.send({userExists:true})
+    return
+  }
+  res.send({userExists:false})
+})
 
 app.get('/test', (req, res) => {
   // MAKE QUERIES 
@@ -207,9 +217,9 @@ app.get('/sobaditsgood/api/getUserInfo/:username', async(req, res)=>{
 })
 
 app.get('/sobaditsgood/api/getMovies/:search', async(req, res)=>{
-  const search = req.params.search
+  const search = '%'+req.params.search+ '%'
   console.log("this search " + search);
-  sql = `SELECT movieID FROM movies WHERE title LIKE $1;`
+  sql = `SELECT movieID FROM movies WHERE title ILIKE $1;`
   result = await pool.query(sql, [search])
   res.send(result.rows)
 })
@@ -358,13 +368,6 @@ app.get('/sobaditsgood/api/getPopular', async(req, res) => {
   res.send(result.rows)
 })
 
-app.get('/sobaditsgood/api/getRating/:movieID', async(req, res) => {
-  const movieid = req.params.movieID
-  sql = `SELECT m.rating FROM movies m WHERE m.movieid=$1;`
-  result = await pool.query(sql, [movieid]); 
-  res.send(result.rows)
-})
-
 app.get('/sobaditsgood/api/logout', (req, res) => {
   req.session.destroy((err) => { 
     if (err) {
@@ -446,15 +449,6 @@ app.get('/sobaditsgood/api/getFollowerInfo/:username', async(req, res)=>{
   res.send(result.rows)
 })
 
-app.get('/sobaditsgood/api/getUserReviews/:username', async(req, res)=>{
-  const username = req.params.username
-  sql = 'SELECT u.userid FROM users u WHERE u.username=$1'
-  Qresult = await pool.query(sql, [username])
-  sql = 'SELECT * from reviews r WHERE r.userid=$1'
-  result = await pool.query(sql, [Qresult.rows[0].userid])
-  res.send(result.rows)
-})
-
 /////////////////////////////////////////////////// WEBSITE PATHS////////////////////////////////////////////
 // Angular project
 app.get("/" ,(req, res) => {
@@ -486,5 +480,5 @@ app.get('/showusers',isLoggedIn, (req, res)=>{
 
 // Connect to server
 app.listen(PORT, HOST, () => {
-  console.log(`Server started on host ${HOST} and port ${PORT}`);
+  console.log(`Server started on host ${HOST} and  port ${PORT}`);
 });
